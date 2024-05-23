@@ -6,6 +6,7 @@
 
 # Capstone Project- Group 5
 
-# Members: 1. Aimy Shaju
+# Members: 
+#          1. Aimy Shaju
 #          2. Joshy Johny 
 #          3. Nibin Moideenkutty
