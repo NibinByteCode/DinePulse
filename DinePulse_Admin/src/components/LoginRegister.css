@@ -1,0 +1,205 @@
+* {
+    font-family: "Roboto Slab", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* === Home login screen css styles starts === */
+.header_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 130px;
+    height: 10px;
+}
+
+.header_content img {
+    translate: 250px;
+    width: 250px;
+}
+
+.header_content h1 {
+    font-family: "Shojumaru", system-ui;
+    font-weight: 400;
+    font-size: 65px;
+    translate: 240px;
+    color: #bb521f;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.description_content h2 {
+    font-weight: 400;
+    font-size: 20px;
+    translate: 350px;
+    color: #bb521f;
+    width: 800px;
+    text-align:center;
+}
+
+.section_login {
+    position: relative;
+    width: 420px;
+    height: 350px;
+    color: #000;
+    translate: 500px;
+}
+
+.section_login .formbox {
+    width: 100%;
+    padding: 50px;   
+}
+
+form h1 {
+    font-size: 38px;
+    text-align: center;
+    color: #bb521f;
+}
+
+form .inputitems {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    margin: 17px 0;
+    display: flex;
+    align-items: center;
+}
+  
+.inputitems input {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    background: transparent;
+    border: 2px solid #bb521f;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #bb521f;
+    padding: 10px 45px 10px 20px;
+    box-sizing: border-box;
+}
+  
+.inputitems input::placeholder {
+    color: grey;
+}
+  
+.inputitems .icons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #bb521f;
+}
+  
+.inputitems .error {
+    position: absolute;
+    left: calc(100% + 10px);
+    width: 310px;
+    color: red;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+form .remember_forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    margin: 0px 0 15px;
+}
+
+.remember_forgot label {
+    color: #bb521f;
+}
+
+.remember_forgot label input {
+    accent-color: #bb521f;
+    margin-right: 5px;
+}
+
+.remember_forgot a {
+    color: #bb521f;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.remember_forgot a:hover {
+    text-decoration: underline;
+}
+
+form button {
+    width: 50%;
+    height: 33px;
+    translate: 80px;
+    border: 2px solid #ff914d;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #fff;
+    background-image: linear-gradient(144deg,#ff3131, #ff914d);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+
+form .register_link, form .login_link {
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register_link p, .login_link p {
+    color: #bb521f;
+}
+
+.register_link p a, .login_link p a {
+    color: #bb521f;
+    text-decoration: none;
+}
+
+.register_link p a:hover, .login_link p a:hover {
+    text-decoration: underline;
+}
+/* === Home login screen css styles ends === */
+/* === Registration screen css styles starts === */
+.side_header {
+    display: flex;
+    align-items: center;
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+}
+
+.side_header img {
+    width: 120px; 
+    height: auto; 
+    margin-right: 0px; 
+}
+
+.side_header h1 {
+    font-family: "Shojumaru", system-ui;
+    font-weight: 400;
+    font-size: 32px; 
+    color: #bb521f;
+    margin: 0; 
+}
+
+.register_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 300px;
+}
+
+.register_container img {
+    width: 900px; 
+    height: auto; 
+}
+
+.inputitems select {
+    width: 100%;
+    background: transparent;
+    border: 2px solid #bb521f;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #bb521f;
+    padding: 2px 45px 2px 20px;
+}
+/* === Registration screen css styles ends === */
