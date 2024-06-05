@@ -3,6 +3,8 @@ using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.AspNetCore.Identity.Data;
+using DinePulse_API.Models;
 
 
 namespace DinePulse_API.Controllers
@@ -21,16 +23,16 @@ namespace DinePulse_API.Controllers
         }
 
         [HttpPost]
-        [ActionName("Login")]
-        public IActionResult Login(string userName, string userPassword)
+        [ActionName("LoginUser")]
+        public IActionResult Login([FromBody] LoginUserModel loginRequest)
         {
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>
-                {
-                    new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = userName },
-                    new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = userPassword }
-                };
+        {
+            new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = loginRequest.userName },
+            new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = loginRequest.userPassword }
+        };
 
                 DataTable table = dataLayer.Getbulkfromdb("ValidateUser", parameters);
 
@@ -52,16 +54,16 @@ namespace DinePulse_API.Controllers
 
         [HttpPost]
         [ActionName("AddUser")]
-        public IActionResult AddUser(string userName, string userPassword, string userType )
+        public IActionResult AddUser([FromBody] AddUserModel AddUserRequest)
         {
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
                    
-                    new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = userName },
-                    new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = userPassword },
-                    new SqlParameter("@user_type", SqlDbType.VarChar, 50) { Value = userType },
+                    new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = AddUserRequest.userName },
+                    new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = AddUserRequest.userPassword },
+                    new SqlParameter("@user_type", SqlDbType.VarChar, 50) { Value = AddUserRequest.userType },
                     new SqlParameter("@user_status", SqlDbType.VarChar, 50) { Value = "Active" },
                     new SqlParameter("@user_registered_date", SqlDbType.Date) { Value = System.DateTime.Now }
                 };

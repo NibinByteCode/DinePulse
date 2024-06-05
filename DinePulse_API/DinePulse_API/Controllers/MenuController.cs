@@ -136,41 +136,6 @@ namespace DinePulse_API.Controllers
         }
 
 
-        [HttpGet]
-        [ActionName("GetCategory")]
-        public IActionResult GetCategory()
-        {
-            try
-            {
-                DataTable table = new DataTable();
-                table = dataLayer.Getfromdb("getcategory");
-                if (table.Rows.Count > 0)
-                {
-                    string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
-                    if (JSONresult != null)
-                    {
-
-                        return Ok("{\"data\":" + JSONresult + "}");
-                    }
-                    else
-                    {
-                        return BadRequest("No data");
-                    }
-                }
-                else
-                {
-                    return BadRequest("No data");
-                }
-
-
-            }
-
-            catch (Exception ex)
-            {
-                new LogHelper().LogError("Error getting data..." + ex.Message);
-                return BadRequest("No Data Fetched...Please Try Later");
-            }
-        }
+       
     }
 }
