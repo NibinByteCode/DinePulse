@@ -3,7 +3,7 @@ import "./LoginRegister.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import restaurant_logo from "./Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
@@ -31,35 +31,36 @@ export const AdminHome = () => {
     return formIsValid;
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       // Form is valid, proceed with submission (e.g., API call)
       let data = JSON.stringify({
-        "userName": username,
-        "userPassword": password
+        userName: username,
+        userPassword: password,
       });
-      const API_URL = process.env.REACT_APP_API_URL+'Login/LoginUser'
+      const API_URL = process.env.REACT_APP_API_URL + "Login/LoginUser";
       let config = {
-        method: 'post',
+        method: "post",
         maxBodyLength: Infinity,
         url: API_URL,
-        headers: { 
-          'Content-Type': 'application/json'
+        headers: {
+          "Content-Type": "application/json",
         },
-        data : data,
+        data: data,
       };
-      
-      axios.request(config)
+
+      axios
+        .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-          alert('LoggedIn successfully!!!');
+
           navigate("/dashboard");
         })
         .catch((error) => {
-          alert('Invalid Login Credentials!!!');
+          alert("Invalid Login Credentials!!!");
           console.log(error);
-        });  
+        });
     }
   };
 
