@@ -1307,19 +1307,108 @@ body {
   border-radius: 10px;
 }
 
+/* each product with image, name, price, description in overlay and add to cart button*/
+
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
 .product {
   margin-right: 20px; 
   margin-bottom: 20px; 
-  border: 1px solid black;
-  border-radius: 10px;
+  /*border: 1px solid black;
+  border-radius: 10px;*/
   padding: 10px; 
   width: 200px; 
   box-sizing: border-box; 
 }
 
-.main-container .product p {
-  color: black;
+.item {
+  flex-basis: calc(25% - 20px);
+  margin: 0 10px;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: "Roboto Slab", serif;
 }
+
+.item h3, .item h4 {
+  color: #bb521f;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.cartButton {
+  font-family: "Roboto Slab", serif;
+  font-size: 14px;
+  margin-top: 0px;
+  background-color: #bb521f;
+  padding: 4px 10px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  height: 26px;
+}   
+
+.cartButton:hover {
+  color: #333;
+  border: 1px #ea6d27 solid;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.img-container {
+  position: relative;
+}
+
+.img-container img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #000;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 40px;
+}
+
+/* overlay description  */
+.img-container .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0px;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  background-color: #ffd700;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  border: 1px solid #000;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 40px;
+}
+
+.img-container .overlay p {
+  color: #bb521f;
+  text-shadow: 2px 2px 5px #eee;
+  font-weight: bolder;
+  padding: 0 10px;
+  font-size: 18px;
+  word-spacing: 2px;
+}
+
+.img-container:hover .overlay {
+  opacity: 1;
+  cursor: pointer;
+}
+/* product showing ends */
 
 /* Cart */
 .cart {
