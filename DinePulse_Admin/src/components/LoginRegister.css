@@ -1101,15 +1101,15 @@ body {
 .add-product-description p,
 .add-category p,
 .add-price p {
-  min-width: 200px; /* Adjust as needed for consistent label width */
+  min-width: 200px; 
 }
 
 .add-product-name input,
 .add-product-description textarea,
 .add-category select,
 .add-price input {
-  width: 100%; /* Full width to ensure alignment */
-  max-width: 600px; /* Consistent max-width for alignment */
+  width: 100%; 
+  max-width: 600px; 
   padding: 5px;
   border: 2px solid #bb521f;
   border-radius: 8px;
@@ -1120,9 +1120,9 @@ body {
 
 .section-buttons {
   display: flex;
-  flex-direction: row; /* Ensure buttons are in the same row */
+  flex-direction: row; 
   gap: 10px;
-  justify-content: center; /* Align buttons to the left */
+  justify-content: center; 
 }
 
 .add-btn,
@@ -1151,8 +1151,7 @@ body {
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
 }
 /* === Popup page contents CSS Ends === */
-
-/* === For Settings PPage === */
+/* === For Settings Page === */
 .section_settings .formbox {
   display: flex;
   justify-content: start;
@@ -1258,3 +1257,91 @@ body {
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
+
+/* Take orders contents css starts === */
+
+.takeorders {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto Slab", serif;
+}
+
+/* Categories */
+.categoryvalues {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.categories {
+  display: flex;
+  gap: 20px;
+}
+
+.categories button {
+  margin-right: 10px;
+  border: 2px solid #bb521f;
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+}
+
+.categories button.active {
+  font-weight: bold;
+}
+
+/* Content */
+.content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; 
+}
+
+.products {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap; 
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.product {
+  margin-right: 20px; 
+  margin-bottom: 20px; 
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px; 
+  width: 200px; 
+  box-sizing: border-box; 
+}
+
+.main-container .product p {
+  color: black;
+}
+
+/* Cart */
+.cart {
+  width: 200px; 
+  padding: 20px;
+  background-color: #f4f4f4;
+  border: 2px solid green;
+  border-radius: 10px;
+  color: #000;
+}
+
+.cart h2 {
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.cart ul {
+  padding: 0;
+  list-style: none;
+}
+
+.cart ul li {
+  margin-bottom: 5px;
+}
+/* Take orders contents css ends === */

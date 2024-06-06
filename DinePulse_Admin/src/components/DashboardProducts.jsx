@@ -13,8 +13,8 @@ Modal.setAppElement('#root');
 export const DashboardProducts = () => {
   const [activeTab, setActiveTab] = useState("CATEGORIES");
   const [getCategoryList, setCategoryList] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [isModalOpenCategory, setIsModalOpenCategory] = useState(false);
+  const [isModalOpenMenu, setIsModalOpenMenu] = useState(false);
   const [image, setImage] = useState(false);
   const [getMenuList, setMenuList] = useState([]);
 
@@ -22,14 +22,14 @@ export const DashboardProducts = () => {
     setActiveTab(tabName);
   };
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-    console.log('Menu Modal Toggled:', !isModalOpen);
+  const toggleModalCategory = () => {
+    setIsModalOpenCategory(!isModalOpenCategory);
+    console.log('Category Modal Toggled:', !isModalOpenCategory);
   };
 
-  const toggleModal1 = () => {
-    setIsModalOpen1(!isModalOpen1);
-    console.log('Category Modal Toggled:', !isModalOpen1);
+  const toggleModalMenu = () => {
+    setIsModalOpenMenu(!isModalOpenMenu);
+    console.log('Menu Modal Toggled:', !isModalOpenMenu);
   };
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export const DashboardProducts = () => {
         id="categories"
         className={`tabcontent ${activeTab === "CATEGORIES" ? "active" : ""}`}
       >
-        <button className="addnew_btn" onClick={toggleModal1}>
+        <button className="addnew_btn" onClick={toggleModalCategory}>
           <b>
             <span className="addnew_text">ADD NEW CATEGORY</span>
           </b>
@@ -138,7 +138,7 @@ export const DashboardProducts = () => {
         id="menuitems"
         className={`tabcontent ${activeTab === "MENU" ? "active" : ""}`}
       >
-        <button className="addnew_btn" onClick={toggleModal}>
+        <button className="addnew_btn" onClick={toggleModalMenu}>
           <b>
             <span className="addnew_text">ADD NEW MENU</span>
           </b>
@@ -181,11 +181,11 @@ export const DashboardProducts = () => {
           <br />
         </div>
       </div>
-      <Modal isOpen={isModalOpen1} onRequestClose={toggleModal1} contentLabel="Add New Category"
+      <Modal isOpen={isModalOpenCategory} onRequestClose={toggleModalCategory} contentLabel="Add New Category"
         className="modal" overlayClassName="modal-overlay">
             <div className="modal-header">
                 <h2 className='modal-title'>Add New Category</h2>
-                <button className="modal-close-button" onClick={toggleModal1}>
+                <button className="modal-close-button" onClick={toggleModalCategory}>
                     <IoClose />
                 </button>
             </div>
@@ -208,17 +208,17 @@ export const DashboardProducts = () => {
                     </div>
                     <div className='section-buttons'>
                         <button type='submit' className='add-btn'>ADD</button>
-                        <button type='button' className='cancel-btn' onClick={toggleModal1}>CANCEL</button>
+                        <button type='button' className='cancel-btn' onClick={toggleModalCategory}>CANCEL</button>
                     </div>
                 </form>
             </div>
       </Modal>
 
-      <Modal isOpen={isModalOpen} onRequestClose={toggleModal} contentLabel="Add New MenuItem"
+      <Modal isOpen={isModalOpenMenu} onRequestClose={toggleModalMenu} contentLabel="Add New MenuItem"
         className="modal" overlayClassName="modal-overlay">
             <div className="modal-header">
                 <h2 className='modal-title'>Add New MenuItem</h2>
-                <button className="modal-close-button" onClick={toggleModal}>
+                <button className="modal-close-button" onClick={toggleModalMenu}>
                     <IoClose />
                 </button>
             </div>
@@ -256,7 +256,7 @@ export const DashboardProducts = () => {
                     </div>
                     <div className='section-buttons'>
                         <button type='submit' className='add-btn'>ADD</button>
-                        <button type='button' className='cancel-btn' onClick={toggleModal}>CANCEL</button>
+                        <button type='button' className='cancel-btn' onClick={toggleModalMenu}>CANCEL</button>
                     </div>
                 </form>
             </div>
