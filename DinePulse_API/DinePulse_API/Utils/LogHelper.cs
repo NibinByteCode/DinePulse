@@ -33,7 +33,7 @@
                 //var webRoot = _env.WebRootPath;
 
                 var path = Path.Combine(
-                            Directory.GetCurrentDirectory(), "wwwroot",
+                            Directory.GetCurrentDirectory(), "Logs",
                             sLogFormat);
 
                 //string path = Hosting.HostingEnvironment.MapPath(sLogFormat);

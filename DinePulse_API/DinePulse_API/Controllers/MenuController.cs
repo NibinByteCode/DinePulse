@@ -58,6 +58,44 @@ namespace DinePulse_API.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetMenuItemsAll")]
+        public IActionResult GetMenuItemsAll()
+        {
+            try
+            {
+                DataTable table = new DataTable();
+                table = dataLayer.Getfromdb("Menu_GetMenuItemsAll");
+                if (table.Rows.Count > 0)
+                {
+                    string JSONresult;
+                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    if (JSONresult != null)
+                    {
+
+                        return Ok("{\"data\":" + JSONresult + "}");
+                    }
+                    else
+                    {
+                        return BadRequest("No data");
+                    }
+                }
+                else
+                {
+                    return BadRequest("No data");
+                }
+
+
+            }
+
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error getting data..." + ex.Message);
+                return BadRequest("No Data Fetched...Please Try Later");
+            }
+        }
+
+
+        [HttpGet]
         [ActionName("GetMenuById")]
         public IActionResult GetMenuById(string itemId)
         {
