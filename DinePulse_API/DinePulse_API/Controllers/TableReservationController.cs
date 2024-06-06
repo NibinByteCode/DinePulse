@@ -8,5 +8,6 @@ namespace DinePulse_API.Controllers
     public class TableReservationController : ControllerBase
     {
 
+
     }
 }

@@ -59,41 +59,45 @@ namespace DinePulse_API.Controllers
 
         [HttpPost]
         [ActionName("InsertCategory")]
-        public IActionResult InsertMenuItem([FromBody] CategoryModel categoryModel)
+        public async Task<IActionResult> InsertMenuItem([FromForm] CategoryModel categoryModel, [FromForm] IFormFile categoryImage)
         {
             try
             {
-               // byte[] imageBytes = Convert.FromBase64String(categoryModel.ItemImageBase64);
+                byte[] imageBytes = null;
+                if (categoryImage != null && categoryImage.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await categoryImage.CopyToAsync(ms);
+                        imageBytes = ms.ToArray();
+                    }
+                }
 
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
-                   
                     new SqlParameter("@category_name", SqlDbType.VarChar, 100) { Value = categoryModel.CategoryName },
-                    new SqlParameter("@category_description", SqlDbType.Int) { Value = categoryModel.CategoryDescription },
-                    new SqlParameter("@category_image", SqlDbType.VarChar, 255) { Value = null },
-                   
+                    new SqlParameter("@category_description", SqlDbType.VarChar, 255) { Value = categoryModel.CategoryDescription },
+                    new SqlParameter("@category_image", SqlDbType.VarBinary) { Value = (object)imageBytes ?? DBNull.Value }
                 };
 
-                // Execute the stored procedure to insert the menu item
                 int rowsAffected = dataLayer.ExecuteSp_transaction("MenuCategory_InsertCategory", parameters);
 
                 if (rowsAffected > 0)
                 {
-                    return Ok("Menu item inserted successfully.");
+                    return Ok("Category inserted successfully.");
                 }
                 else
                 {
-                    return BadRequest("Failed to insert menu item.");
+                    return BadRequest("Failed to insert category.");
                 }
             }
             catch (Exception ex)
             {
                 // Log the error
-                new LogHelper().LogError("Error inserting Category item: " + ex.Message);
+                new LogHelper().LogError("Error inserting category: " + ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
-
 
 
 
