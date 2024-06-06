@@ -345,7 +345,7 @@ body {
 }
 
 .sidebar-list-item {
-    padding: 5px 20px 18px 30px;
+    padding: 15px 15px 15px 30px;
     font-size: 16px;
 }
 
@@ -354,7 +354,7 @@ body {
     cursor: pointer;
 }
 
-.sidebar-list-item>a {
+.sidebar-list>a {
     text-decoration: none;
     color: #fff;
 }
@@ -991,3 +991,149 @@ body {
     background-size: cover;
     min-height: 100vh;
 }
+
+/* === Popup page contents CSS Starts === */
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Modal content */
+  .modal {
+    background: white;
+    padding: 20px;
+    border: 5px solid brown;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Modal header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-title {
+    flex-grow: 1;
+    text-align: center;
+    color: #bb521f;
+    margin: 0;
+  }
+
+  /* Modal close button */
+  .modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #bb521f;
+  }
+
+  .add {
+    width: 90%;
+    margin-left: max(1vw, 25px);
+    margin-top: 50px;
+    color: #000;
+    font-size: 16px;
+}
+
+.add form {
+    display: flex;
+    flex-direction: column;
+    /*gap: 20px;*/
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-img-upload, .add-product-name, .add-product-description, .add-category, .add-price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-img-upload {
+    display: flex;
+    align-items: center;
+    gap: 120px;
+}
+
+.add-img-upload p {
+    color: #bb521f;
+}
+
+.add-img-upload img {
+    width: 80px;
+    height: 70px;
+    border: 3px solid #bb521f;
+    border-radius: 4px;
+}
+
+.add-product-name, .add-product-description, .add-category, .add-price {
+    width: 100%;
+    color: #bb521f;
+}
+
+.add-product-name p, .add-product-description p, .add-category p, .add-price p {
+    min-width: 200px; /* Adjust as needed for consistent label width */
+}
+
+.add-product-name input, .add-product-description textarea, .add-category select, .add-price input {
+    width: 100%; /* Full width to ensure alignment */
+    max-width: 600px; /* Consistent max-width for alignment */
+    padding: 5px;
+    border: 2px solid #bb521f;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #bb521f;
+    font-family: "Roboto Slab", serif;
+}
+
+.section-buttons {
+    display: flex;
+    flex-direction: row; /* Ensure buttons are in the same row */
+    gap: 10px;
+    justify-content:center; /* Align buttons to the left */
+}
+
+.add-btn, .cancel-btn {
+    width: 100px;
+    height: 33px;
+    padding: 6px;
+    cursor: pointer;
+    font-family: "Roboto Slab", serif;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.add-btn {
+    border: 2px solid #ff914d;
+    border-radius: 10px;
+    background-image: linear-gradient(144deg, #ff3131, #ff914d);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+
+.cancel-btn {
+    border: 2px solid #3af26b;
+    border-radius: 10px;
+    background-image: linear-gradient(144deg, #0f4f16, #3af26b);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+/* === Popup page contents CSS Ends === */
