@@ -1,8 +1,10 @@
 ﻿using DinePulse_API.Database;
+using DinePulse_API.Models;
 using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DinePulse_API.Controllers
 {
@@ -19,39 +21,95 @@ namespace DinePulse_API.Controllers
             dataLayer = new DataLayer(_iconfiguration);
         }
         [HttpGet]
-        [ActionName("GetAllTables")]
-        public IActionResult GetAllTables()
+        [ActionName("GetTables")]
+        public IActionResult GetTables()
         {
             try
             {
-                DataTable table = new DataTable();
-                table = dataLayer.Getfromdb("getalltables");
+                DataTable table = dataLayer.Getfromdb("Table_GetTables");
                 if (table.Rows.Count > 0)
                 {
-                    string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
-                    if (JSONresult != null)
-                    {
-
-                        return Ok("{\"data\":" + JSONresult + "}");
-                    }
-                    else
-                    {
-                        return BadRequest("No data");
-                    }
+                    string JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    return Ok(new { data = JSONresult });
                 }
                 else
                 {
-                    return BadRequest("No data");
+                    return NotFound("No tables found");
                 }
-
-
             }
-
             catch (Exception ex)
             {
-                new LogHelper().LogError("Error getting data..." + ex.Message);
-                return BadRequest("No Data Fetched...Please Try Later");
+                new LogHelper().LogError("Error getting tables..." + ex.Message);
+                return BadRequest("Error fetching tables. Please try again later.");
+            }
+        }
+
+        [HttpPost]
+        [ActionName("AddTable")]
+        public IActionResult AddTable([FromBody] TableModel table)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+        {
+            new SqlParameter() { ParameterName = "@table_number", SqlDbType = SqlDbType.Int, Value = table.TableNumber },
+            new SqlParameter() { ParameterName = "@table_capacity", SqlDbType = SqlDbType.Int, Value = table.TableCapacity },
+            new SqlParameter() { ParameterName = "@table_status", SqlDbType = SqlDbType.VarChar, Value = table.TableStatus }
+        };
+
+                dataLayer.ExecuteSp_transaction("Table_AddTable", sp);
+                return Ok("Table added successfully");
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error adding table..." + ex.Message);
+                return BadRequest("Error adding table. Please try again later.");
+            }
+        }
+
+        [HttpPut]
+        [ActionName("UpdateTable")]
+        public IActionResult UpdateTable([FromBody] TableModel table)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+        {
+            new SqlParameter() { ParameterName = "@table_id", SqlDbType = SqlDbType.Int, Value = table.TableId },
+            new SqlParameter() { ParameterName = "@table_number", SqlDbType = SqlDbType.Int, Value = table.TableNumber },
+            new SqlParameter() { ParameterName = "@table_capacity", SqlDbType = SqlDbType.Int, Value = table.TableCapacity },
+            new SqlParameter() { ParameterName = "@table_status", SqlDbType = SqlDbType.VarChar, Value = table.TableStatus }
+        };
+
+                dataLayer.ExecuteSp_transaction("Table_UpdateTable", sp);
+                return Ok("Table updated successfully");
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error updating table..." + ex.Message);
+                return BadRequest("Error updating table. Please try again later.");
+            }
+        }
+
+
+        [HttpDelete("{tableId}")]
+        [ActionName("DeleteTable")]
+        public IActionResult DeleteTable(int tableId)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+        {
+            new SqlParameter() { ParameterName = "@table_id", SqlDbType = SqlDbType.Int, Value = tableId }
+        };
+
+                dataLayer.ExecuteSp_transaction("Table_DeleteTable", sp);
+                return Ok("Table deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error deleting table..." + ex.Message);
+                return BadRequest("Error deleting table. Please try again later.");
             }
         }
 
