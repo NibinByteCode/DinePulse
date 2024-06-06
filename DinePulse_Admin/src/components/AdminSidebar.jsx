@@ -25,62 +25,62 @@ export const AdminSidebar = () => {
         <h1 className="restaurant-name">DINEPULSE</h1>
       </div>
       <ul className="sidebar-list">
-        <li className="sidebar-list-item">
-          <Link to="/dashboard">
+        <Link to="/dashboard">
+          <li className="sidebar-list-item">
             <MdSpaceDashboard className="dashboardicons" /> &nbsp;&nbsp;Overview
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/products">
+          </li>
+        </Link>
+        <Link to="/products">
+          <li className="sidebar-list-item">
             <IoRestaurant className="dashboardicons" /> &nbsp;&nbsp;Products
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/tables">
+          </li>
+        </Link>
+        <Link to="/tables">
+          <li className="sidebar-list-item">
             <MdTableRestaurant className="dashboardicons" /> &nbsp;&nbsp;Tables
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/reservations">
+          </li>
+        </Link>
+        <Link to="/reservations">
+          <li className="sidebar-list-item">
             <RiReservedFill className="dashboardicons" />{" "}
             &nbsp;&nbsp;Reservation
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/employees">
+          </li>
+        </Link>
+        <Link to="/employees">
+          <li className="sidebar-list-item">
             <BsPeopleFill className="dashboardicons" /> &nbsp;&nbsp;Employees
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/takeorders">
+          </li>
+        </Link>
+        <Link to="/takeorders">
+          <li className="sidebar-list-item">
             <IoFastFood className="dashboardicons" /> &nbsp;&nbsp;Take Orders
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/orders">
+          </li>
+        </Link>
+        <Link to="/orders">
+          <li className="sidebar-list-item">
             <FaShoppingCart className="dashboardicons" /> &nbsp;&nbsp;Orders
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/kitchen">
+          </li>
+        </Link>
+        <Link to="/kitchen">
+          <li className="sidebar-list-item">
             <GrRestaurant className="dashboardicons" /> &nbsp;&nbsp;Kitchen
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/receipts">
+          </li>
+        </Link>
+        <Link to="/receipts">
+          <li className="sidebar-list-item">
             <IoReceipt className="dashboardicons" /> &nbsp;&nbsp;Receipts
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/reports">
+          </li>
+        </Link>
+        <Link to="/reports">
+          <li className="sidebar-list-item">
             <FaChartBar className="dashboardicons" /> &nbsp;&nbsp;Reports
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="/settings">
+          </li>
+        </Link>
+        <Link to="/settings">
+          <li className="sidebar-list-item">
             <IoSettings className="dashboardicons" /> &nbsp;&nbsp;Settings
-          </Link>
-        </li>
+          </li>
+        </Link>
       </ul>
     </aside>
   );

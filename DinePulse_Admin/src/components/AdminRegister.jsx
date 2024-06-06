@@ -5,12 +5,13 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import restaurant_logo from "./Assets/restaurant_logo.png";
 import register_image from "./Assets/register_image.png";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export const AdminRegister = () => {
   const [regusername, setRegUsername] = useState("");
   const [regpassword, setRegPassword] = useState("");
   const [confirmpass, setConfirmPass] = useState("");
-  const [regphone, setRegphone] = useState("");
+  //const [regphone, setRegphone] = useState("");
   const [regstafftype, setStaffType] = useState("");
   const [regerrors, setRegErrors] = useState({
     regusername: "",
@@ -22,10 +23,10 @@ export const AdminRegister = () => {
     let formIsValid = true;
     let errors = {};
 
-    const regusernameRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regusername.match(regusernameRegex)) {
+     // Username validation
+     if (!regusername) {
       formIsValid = false;
-      errors.regusername = "Please enter a valid email address!!";
+      errors.regusername = "Username cannot be empty!!!";
     }
 
     const regpasswordRegex = /^[A-Za-z\d]{8,}$/;
@@ -39,11 +40,11 @@ export const AdminRegister = () => {
       errors.confirmpass = "Passwords do not match!!";
     }
 
-    const regphoneRegex = /^\d{10}$/;
+    /*const regphoneRegex = /^\d{10}$/;
     if (!regphone.match(regphoneRegex)) {
       formIsValid = false;
       errors.regphone = "Please enter a valid 10-digit contact number!!";
-    }
+    }*/
 
     if (regstafftype === "") {
       formIsValid = false;
@@ -57,8 +58,35 @@ export const AdminRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted successfully");
-      navigate("/");
+      // Form is valid, proceed with submission (e.g., API call)
+      let data = JSON.stringify({
+        "userName": regusername,
+        "userPassword": regpassword,
+        "userType":regstafftype
+      });
+      
+      const API_URL = process.env.REACT_APP_API_URL+'Login/AddUser'
+
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: API_URL,
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          alert('Registered successfully!!!');
+          navigate("/");
+        })
+        .catch((error) => {
+          alert('Invalid Login Credentials!!!');
+          console.log(error);
+        });
     }
   };
 
@@ -113,7 +141,7 @@ export const AdminRegister = () => {
               {regerrors.confirmpass && (
                 <span className="error">{regerrors.confirmpass}</span>
               )}
-              <div className="inputitems">
+              {/*<div className="inputitems">
                 <input
                   type="text"
                   placeholder="Contact Number"
@@ -125,7 +153,7 @@ export const AdminRegister = () => {
               </div>
               {regerrors.regphone && (
                 <span className="error">{regerrors.regphone}</span>
-              )}
+              )}*/}
               <div className="inputitems">
                 <select
                   id="staff_type"

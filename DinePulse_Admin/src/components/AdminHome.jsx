@@ -3,6 +3,7 @@ import "./LoginRegister.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import restaurant_logo from "./Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
@@ -14,10 +15,10 @@ export const AdminHome = () => {
     let formIsValid = true;
     let errors = {};
 
-    const usernameRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!username.match(usernameRegex)) {
+    // Username validation
+    if (!username) {
       formIsValid = false;
-      errors.username = "Please enter a valid email address!!";
+      errors.username = "Username cannot be empty!!!";
     }
 
     const passwordRegex = /^[A-Za-z\d]{8,}$/;
@@ -30,11 +31,35 @@ export const AdminHome = () => {
     return formIsValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted successfully");
-      navigate("/dashboard");
+      // Form is valid, proceed with submission (e.g., API call)
+      let data = JSON.stringify({
+        "userName": username,
+        "userPassword": password
+      });
+      const API_URL = process.env.REACT_APP_API_URL+'Login/LoginUser'
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: API_URL,
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data,
+      };
+      
+      axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          alert('LoggedIn successfully!!!');
+          navigate("/dashboard");
+        })
+        .catch((error) => {
+          alert('Invalid Login Credentials!!!');
+          console.log(error);
+        });  
     }
   };
 
