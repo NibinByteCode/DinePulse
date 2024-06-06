@@ -1,5 +1,4 @@
 import './components/LoginRegister.css';
-import './components/AdminStyles.css';
 import { AdminHome } from "./components/AdminHome";
 import { AdminRegister } from "./components/AdminRegister";
 import { AdminHeader } from "./components/AdminHeader";
@@ -15,37 +14,43 @@ import { DashboardKitchen } from "./components/DashboardKitchen";
 import { DashboardReceipts } from "./components/DashboardReceipts";
 import { DashboardReports } from "./components/DashboardReports";
 import { DashboardSettings } from "./components/DashboardSettings";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const showHeaderSidebar = location.pathname !== '/' && location.pathname !== '/adminregister';
+
+  return (
+    <div className='flex-container plain-background'>
+      {showHeaderSidebar && <AdminHeader />}
+      {showHeaderSidebar && <AdminSidebar />}
+      <div className='main-content'>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/" element={<AdminHome />} />
         <Route path="/adminregister" element={<AdminRegister />} />
+        <Route path="/dashboard" element={<Layout><AdminDashboard /></Layout>} />
+        <Route path="/products" element={<Layout><DashboardProducts /></Layout>} />
+        <Route path="/tables" element={<Layout><DashboardTables /></Layout>} />
+        <Route path="/reservations" element={<Layout><DashboardReservations /></Layout>} />
+        <Route path="/employees" element={<Layout><DashboardEmployees /></Layout>} />
+        <Route path="/takeorders" element={<Layout><DashboardTakeOrders /></Layout>} />
+        <Route path="/orders" element={<Layout><DashboardOrders /></Layout>} />
+        <Route path="/kitchen" element={<Layout><DashboardKitchen /></Layout>} />
+        <Route path="/receipts" element={<Layout><DashboardReceipts /></Layout>} />
+        <Route path="/reports" element={<Layout><DashboardReports /></Layout>} />
+        <Route path="/settings" element={<Layout><DashboardSettings /></Layout>} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
-{/*
-<div className='grid-container'>
-  <AdminHeader/>
-  <AdminSidebar/>
-  <AdminDashboard/>
-  <DashboardProducts/>
-  <DashboardTables/>
-  <DashboardReservations/>
-  <DashboardEmployees/>
-  <DashboardTakeOrders/>
-  <DashboardOrders/>*
-  <DashboardKitchen/>
-  <DashboardReceipts/>
-  <DashboardReports/>
-  <DashboardSettings/>
-</div>
-*/}
