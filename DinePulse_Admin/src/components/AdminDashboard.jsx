@@ -23,8 +23,8 @@ export const AdminDashboard = () => {
 
     axios.request(config)
         .then((response) => {
-            console.log('Response Data:', response.data); // Log the entire response data for debugging
-            const data = response.data.data[0]; // Access the first element of the data array               
+            console.log('Response Data:', response.data); 
+            const data = response.data.data[0];               
             // Update state with converted values
             setOrderRecieved(parseInt(data.OrderReceived, 10));
             setOrderPending(parseInt(data.OrderPending, 10));
@@ -32,7 +32,7 @@ export const AdminDashboard = () => {
             setNetRevenue(parseFloat(data.NetRevenue));
         })
         .catch((error) => {
-            console.error('Caught error while fetching data:', error); // Log the error for debugging
+            console.error('Caught error while fetching data:', error); 
         });
 
         // Fetch recent orders
@@ -52,12 +52,12 @@ export const AdminDashboard = () => {
 
     axios.request(config)
         .then((response) => {
-            console.log('Recent Orders Data:', response.data); // Log the recent orders data for debugging
+            console.log('Recent Orders Data:', response.data); 
             const data = response.data.data;
             setRecentOrders(data);
         })
         .catch((error) => {
-            console.error('Caught error while fetching recent orders:', error); // Log the error for debugging
+            console.error('Caught error while fetching recent orders:', error); 
         });
   };
 

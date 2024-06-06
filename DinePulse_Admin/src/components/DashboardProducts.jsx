@@ -16,9 +16,10 @@ export const DashboardProducts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [image, setImage] = useState(false);
+  const [getMenuList, setMenuList] = useState([]);
 
-  const openCity = (cityName) => {
-    setActiveTab(cityName);
+  const openTab = (tabName) => {
+    setActiveTab(tabName);
   };
 
   const toggleModal = () => {
@@ -32,21 +33,42 @@ export const DashboardProducts = () => {
   };
 
   useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL+'MenuCategory/getCategory'
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://10.192.34.65:5000/api/MenuCategory/getCategory',
+        url: API_URL,
         headers: {}
     };
 
     axios.request(config)
         .then((response) => {
-            console.log('Response Data:', response.data); // Log the entire response data for debugging
-            const data = response.data.data; // Access the first element of the data array               
+            console.log('Response Data:', response.data); 
+            const data = response.data.data;     
             setCategoryList(data);
         })
         .catch((error) => {
-            console.error('Caught error while fetching data:', error); // Log the error for debugging
+            console.error('Caught error while fetching data:', error);
+        });
+  }, []);
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL+'Menu/GetMenuAll'
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: API_URL,
+        headers: {}
+    };
+
+    axios.request(config)
+        .then((response) => {
+            console.log('Response Data:', response.data); 
+            const data = response.data.data;      
+            setMenuList(data);
+        })
+        .catch((error) => {
+            console.error('Caught error while fetching data:', error); 
         });
   }, []);
 
@@ -60,13 +82,13 @@ export const DashboardProducts = () => {
       <div className="tab">
         <button
           className={`tablinks ${activeTab === "CATEGORIES" ? "active" : ""}`}
-          onClick={() => openCity("CATEGORIES")}
+          onClick={() => openTab("CATEGORIES")}
         >
           CATEGORIES
         </button>
         <button
           className={`tablinks ${activeTab === "MENU" ? "active" : ""}`}
-          onClick={() => openCity("MENU")}
+          onClick={() => openTab("MENU")}
         >
           MENU
         </button>
@@ -130,59 +152,29 @@ export const DashboardProducts = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Order ID</th>
-                  <th>Item</th>
+                  <th>Product ID</th>
+                  <th>Product</th>
                   <th>Category</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th>Date added</th>
-                  <th>Image</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>ffffff</td>
-                  <td>gggggg</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RiDeleteBin5Fill className="delete_icon" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>ffffff</td>
-                  <td>gggggg</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RiDeleteBin5Fill className="delete_icon" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>ffffff</td>
-                  <td>gggggg</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RiDeleteBin5Fill className="delete_icon" />
-                  </td>
-                </tr>
+                {getMenuList.map((menulist) => (
+                    <tr key={menulist.item_id}>
+                        <td>{menulist.item_id}</td>
+                        <td>{menulist.item_name}</td>
+                        <td>{menulist.item_category}</td>
+                        <td>{menulist.item_description}</td>
+                        <td>${menulist.item_price}</td>
+                        <td>
+                            <FaEdit className='edit_icon'/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <RiDeleteBin5Fill className='delete_icon'/>
+                        </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
