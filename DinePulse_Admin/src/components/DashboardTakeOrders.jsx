@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import mojito_blackberry from './Assets/mojito_blackberry.jpg';
+import chicken_rice from './Assets/chicken_rice.jpg';
 
 export const DashboardTakeOrders = () => {
 
@@ -9,25 +11,25 @@ export const DashboardTakeOrders = () => {
  // Hardcoded sample data for categories and products
  const categories = ['Starters', 'Hot Beverages', 'Main Course', 'Cold Beverages', 'Desserts'];
  const products = [
-   { id: 1, name: 'Product 1', price: '10.99', category: 'Starters' },
-   { id: 2, name: 'Product 2', price: '8.99', category: 'Starters' },
-   { id: 3, name: 'Product 3', price: '10.99', category: 'Starters' },
-   { id: 4, name: 'Product 4', price: '8.99', category: 'Tea/Cofee' },
-   { id: 5, name: 'Product 5', price: '8.99', category: 'Tea/Cofee' },
-   { id: 6, name: 'Product 6', price: '9.99', category: 'Tea/Cofee' },
-   { id: 7, name: 'Product 7', price: '6.99', category: 'Tea/Cofee' },
-   { id: 8, name: 'Product 8', price: '8.99', category: 'Main Course' },
-   { id: 9, name: 'Product 9', price: '8.99', category: 'Main Course' },
-   { id: 10, name: 'Product 10', price: '8.99', category: 'Main Course' },
-   { id: 11, name: 'Product 11', price: '8.99', category: 'Cold Drinks' },
-   { id: 12, name: 'Product 12', price: '8.99', category: 'Cold Drinks' },
-   { id: 13, name: 'Product 13', price: '8.99', category: 'Cold Drinks' },
-   { id: 14, name: 'Product 14', price: '8.99', category: 'Cold Drinks' },
-   { id: 15, name: 'Product 15', price: '8.99', category: 'Cold Drinks' },
-   { id: 16, name: 'Product 16', price: '8.99', category: 'Cold Drinks' },
-   { id: 17, name: 'Product 17', price: '8.99', category: 'Cold Drinks' },
-   { id: 18, name: 'Product 18', price: '8.99', category: 'Cold Drinks' },
-   { id: 19, name: 'Product 19', price: '8.99', category: 'Cold Drinks' },
+   { id: 1, image: mojito_blackberry, name: 'Product 1', price: '10.99', category: 'Starters' },
+   { id: 2, image: mojito_blackberry, name: 'Product 2', price: '8.99', category: 'Starters' },
+   { id: 3, image: mojito_blackberry, name: 'Product 3', price: '10.99', category: 'Starters' },
+   { id: 4, image: mojito_blackberry, name: 'Product 4', price: '8.99', category: 'Tea/Cofee' },
+   { id: 5, image: mojito_blackberry, name: 'Product 5', price: '8.99', category: 'Tea/Cofee' },
+   { id: 6, image: mojito_blackberry, name: 'Product 6', price: '9.99', category: 'Tea/Cofee' },
+   { id: 7, image: mojito_blackberry, name: 'Product 7', price: '6.99', category: 'Tea/Cofee' },
+   { id: 8, image: chicken_rice, name: 'Product 8', price: '8.99', category: 'Main Course' },
+   { id: 9, image: chicken_rice, name: 'Product 9', price: '8.99', category: 'Main Course' },
+   { id: 10, image: chicken_rice, name: 'Product 10', price: '8.99', category: 'Main Course' },
+   { id: 11, image: mojito_blackberry, name: 'Product 11', price: '8.99', category: 'Cold Beverages' },
+   { id: 12, image: mojito_blackberry, name: 'Product 12', price: '8.99', category: 'Cold Beverages' },
+   { id: 13, image: mojito_blackberry, name: 'Product 13', price: '8.99', category: 'Cold Beverages' },
+   { id: 14, image: mojito_blackberry, name: 'Product 14', price: '8.99', category: 'Cold Beverages' },
+   { id: 15, image: mojito_blackberry, name: 'Product 15', price: '8.99', category: 'Cold Beverages' },
+   { id: 16, image: mojito_blackberry, name: 'Product 16', price: '8.99', category: 'Cold Beverages' },
+   { id: 17, image: mojito_blackberry, name: 'Product 17', price: '8.99', category: 'Cold Beverages' },
+   { id: 18, image: mojito_blackberry, name: 'Product 18', price: '8.99', category: 'Cold Beverages' },
+   { id: 19, image: mojito_blackberry, name: 'Product 19', price: '8.99', category: 'Cold Beverages' },
  ];
 
  // Function to add item to cart
@@ -82,9 +84,20 @@ export const DashboardTakeOrders = () => {
        <div className="products">
          {selectedCategory && products.filter(product => product.category === selectedCategory).map(product => (
            <div key={product.id} className="product">
-             <p>{product.name}</p>
-             <p>{product.price}</p>
-             <button onClick={() => addToCart(product)}>Add to Cart</button>
+              <div className="product-row">
+                  <div className="item">
+                      <div className="img-container">
+                          <img src={product.image}/>
+                          <div className="overlay">
+                              <p>aaaaaaaaaaaaaa aaaaaaaaaaa</p>
+                          </div>
+                      </div>
+                      <h3>{product.name}</h3> 
+                      <h4>${product.price}</h4>  
+                      <br/>                  
+                      <button onClick={() => addToCart(product)} className="cartButton">Add to Cart</button>
+                  </div>
+              </div>
            </div>
          ))}
        </div>

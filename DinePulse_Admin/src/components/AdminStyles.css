@@ -769,55 +769,54 @@ body {
 /* === Settings page contents CSS Ends === */
 /* Take orders contents css starts === */
 
-/* App container */
 .takeorders {
     display: flex;
     flex-direction: column;
     font-family: "Roboto Slab", serif;
-  }
-  
-  /* Categories */
-  .categoryvalues {
+}
+
+/* Categories */
+.categoryvalues {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-  }
-  
-  .categories {
+}
+
+.categories {
     display: flex;
     gap: 20px;
-  }
-  
-  .categories button {
+}
+
+.categories button {
     margin-right: 10px;
     border: 2px solid #bb521f;
     border-radius: 10px;
     color: black;
     cursor: pointer;
-  }
-  
-  .categories button.active {
+}
+
+.categories button.active {
     font-weight: bold;
-  }
-  
-  /* Content */
-  .content {
+}
+
+/* Content */
+.content {
     display: flex;
     gap: 20px;
     flex-wrap: wrap; 
-  }
-  
-  .products {
+}
+
+.products {
     flex: 1;
     padding: 20px;
     display: flex;
     flex-wrap: wrap; 
     border: 1px solid black;
     border-radius: 10px;
-  }
-  
-  .product {
+}
+
+.product {
     margin-right: 20px; 
     margin-bottom: 20px; 
     border: 1px solid black;
@@ -825,34 +824,34 @@ body {
     padding: 10px; 
     width: 200px; 
     box-sizing: border-box; 
-  }
+}
 
-  .main-container .product p {
+.main-container .product p {
     color: black;
-  }
-  
-  /* Cart */
-  .cart {
+}
+
+/* Cart */
+.cart {
     width: 200px; 
     padding: 20px;
     background-color: #f4f4f4;
     border: 2px solid green;
     border-radius: 10px;
     color: #000;
-  }
-  
-  .cart h2 {
+}
+
+.cart h2 {
     margin-bottom: 10px;
     color: #000;
-  }
-  
-  .cart ul {
+}
+
+.cart ul {
     padding: 0;
     list-style: none;
-  }
-  
-  .cart ul li {
+}
+
+.cart ul li {
     margin-bottom: 5px;
-  }
+}
 
 /* Take orders contents css ends === */
