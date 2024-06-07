@@ -510,6 +510,13 @@ body {
   display: block;
 }
 
+.categoryImage {
+  width: 100px;
+  height: 100px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
 #categories .addnew_btn,
 #menuitems .addnew_btn,
 #tables .addnew_btn,
@@ -1061,9 +1068,9 @@ body {
   gap: 10px;
 }
 
-.add-img-upload,
-.add-product-name,
-.add-product-description,
+.add-category-img-upload, .add-img-upload,
+.add-category-name, .add-product-name,
+.add-category-description, .add-product-description,
 .add-category,
 .add-price {
   display: flex;
@@ -1072,40 +1079,40 @@ body {
   gap: 20px;
 }
 
-.add-img-upload {
+.add-category-img-upload, .add-img-upload {
   display: flex;
   align-items: center;
   gap: 120px;
 }
 
-.add-img-upload p {
+.add-category-img-upload p, .add-img-upload p {
   color: #bb521f;
 }
 
-.add-img-upload img {
+.add-category-img-upload img, .add-img-upload img {
   width: 80px;
   height: 70px;
   border: 3px solid #bb521f;
   border-radius: 4px;
 }
 
-.add-product-name,
-.add-product-description,
+.add-category-name, .add-product-name, 
+.add-category-description, .add-product-description,
 .add-category,
 .add-price {
   width: 100%;
   color: #bb521f;
 }
 
-.add-product-name p,
-.add-product-description p,
+.add-category-name p, .add-product-name p,
+.add-category-description p, .add-product-description p,
 .add-category p,
 .add-price p {
   min-width: 200px; 
 }
 
-.add-product-name input,
-.add-product-description textarea,
+.add-category-name input, .add-product-name input,
+.add-category-description textarea, .add-product-description textarea,
 .add-category select,
 .add-price input {
   width: 100%; 
@@ -1118,7 +1125,7 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
-.section-buttons {
+.category-buttons, .section-buttons {
   display: flex;
   flex-direction: row; 
   gap: 10px;

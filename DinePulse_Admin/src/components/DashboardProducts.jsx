@@ -33,7 +33,7 @@ export const DashboardProducts = () => {
   };
 
   useEffect(() => {
-    const API_URL = process.env.REACT_APP_API_URL+'MenuCategory/getCategory'
+    const API_URL = process.env.REACT_APP_API_URL+'MenuCategory/GetAllMenuCategories'
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -44,7 +44,7 @@ export const DashboardProducts = () => {
     axios.request(config)
         .then((response) => {
             console.log('Response Data:', response.data); 
-            const data = response.data.data;     
+            const data = response.data;     
             setCategoryList(data);
         })
         .catch((error) => {
@@ -111,6 +111,7 @@ export const DashboardProducts = () => {
               <thead>
                 <tr>
                   <th>Category ID</th>
+                  <th>Category Image</th>
                   <th>Category</th>
                   <th>Description</th>
                   <th>Actions</th>
@@ -118,10 +119,13 @@ export const DashboardProducts = () => {
               </thead>
               <tbody>
                 {getCategoryList.map((categorylist) => (
-                  <tr key={categorylist.category_id}>
-                      <td>{categorylist.category_id}</td>
-                      <td>{categorylist.category_name}</td>
-                      <td>{categorylist.category_description}</td>
+                  <tr key={categorylist.categoryId}>
+                      <td>{categorylist.categoryId}</td>
+                      <td style={{TextAlign:'center'}}>
+                        {categorylist.categoryImageBase64 && <img src={`data:image/jpeg;base64,${categorylist.categoryImageBase64}`} className='categoryImage' alt={categorylist.categoryName} style={{ display: 'block', margin: '0 auto' }}/>}
+                      </td>
+                      <td>{categorylist.categoryName}</td>
+                      <td>{categorylist.categoryDescription}</td>
                       <td>
                           <FaEdit className='edit_icon'/>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -191,22 +195,22 @@ export const DashboardProducts = () => {
             </div>
             <div className='add'>
                 <form className='flex-col'>
-                    <div className='add-img-upload flex-col'>
+                    <div className='add-category-img-upload flex-col'>
                         <p>Upload Image</p>
                         <label htmlFor='image'>
                             <img src={image ? URL.createObjectURL(image) : upload_image} alt='' />
                         </label>
                         <input onChange={(e)=>setImage(e.target.files[0])} type='file' id='image' hidden required />
                     </div>
-                    <div className='add-product-name flex-col'>
+                    <div className='add-category-name flex-col'>
                         <p>Category Name</p>
                         <input type='text' name='name' placeholder='Type here'/>
                     </div>
-                    <div className='add-product-description flex-col'>
+                    <div className='add-category-description flex-col'>
                         <p>Category Description</p>
                         <textarea name='description' placeholder='Write content here' required/>
                     </div>
-                    <div className='section-buttons'>
+                    <div className='category-buttons'>
                         <button type='submit' className='add-btn'>ADD</button>
                         <button type='button' className='cancel-btn' onClick={toggleModalCategory}>CANCEL</button>
                     </div>
