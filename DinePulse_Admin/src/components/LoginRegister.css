@@ -354,7 +354,7 @@ body {
   cursor: pointer;
 }
 
-.sidebar-list > a {
+.sidebar-list>a {
   text-decoration: none;
   color: #fff;
 }
@@ -1068,9 +1068,13 @@ body {
   gap: 10px;
 }
 
-.add-category-img-upload, .add-img-upload,
-.add-category-name, .add-product-name,
-.add-category-description, .add-product-description,
+.add-category-img-upload,
+.add-product-img-upload,
+.add-img-upload,
+.add-category-name,
+.add-product-name,
+.add-category-description,
+.add-product-description,
 .add-category,
 .add-price {
   display: flex;
@@ -1079,44 +1083,56 @@ body {
   gap: 20px;
 }
 
-.add-category-img-upload, .add-img-upload {
+.add-category-img-upload,
+.add-product-img-upload,
+.add-img-upload {
   display: flex;
   align-items: center;
   gap: 120px;
 }
 
-.add-category-img-upload p, .add-img-upload p {
+.add-category-img-upload p,
+.add-product-img-upload,
+.add-img-upload p {
   color: #bb521f;
 }
 
-.add-category-img-upload img, .add-img-upload img {
+.add-category-img-upload img,
+.add-product-img-upload img,
+.add-img-upload img {
   width: 80px;
   height: 70px;
   border: 3px solid #bb521f;
   border-radius: 4px;
 }
 
-.add-category-name, .add-product-name, 
-.add-category-description, .add-product-description,
+.add-category-name,
+.add-product-name,
+.add-category-description,
+.add-product-description,
 .add-category,
 .add-price {
   width: 100%;
   color: #bb521f;
 }
 
-.add-category-name p, .add-product-name p,
-.add-category-description p, .add-product-description p,
+.add-category-name p,
+.add-product-name p,
+.add-category-description p,
+.add-product-description p,
 .add-category p,
 .add-price p {
-  min-width: 200px; 
+  min-width: 200px;
 }
 
-.add-category-name input, .add-product-name input,
-.add-category-description textarea, .add-product-description textarea,
+.add-category-name input,
+.add-product-name input,
+.add-category-description textarea,
+.add-product-description textarea,
 .add-category select,
 .add-price input {
-  width: 100%; 
-  max-width: 600px; 
+  width: 100%;
+  max-width: 600px;
   padding: 5px;
   border: 2px solid #bb521f;
   border-radius: 8px;
@@ -1125,11 +1141,12 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
-.category-buttons, .section-buttons {
+.category-buttons,
+.section-buttons {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   gap: 10px;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .add-btn,
@@ -1157,6 +1174,7 @@ body {
   background-image: linear-gradient(144deg, #0f4f16, #3af26b);
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
 }
+
 /* === Popup page contents CSS Ends === */
 /* === For Settings Page === */
 .section_settings .formbox {
@@ -1302,14 +1320,14 @@ body {
 .content {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .products {
   flex: 1;
   padding: 20px;
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   border: 1px solid black;
   border-radius: 10px;
 }
@@ -1323,13 +1341,13 @@ body {
 }
 
 .product {
-  margin-right: 20px; 
-  margin-bottom: 20px; 
+  margin-right: 20px;
+  margin-bottom: 20px;
   /*border: 1px solid black;
   border-radius: 10px;*/
-  padding: 10px; 
-  width: 200px; 
-  box-sizing: border-box; 
+  padding: 10px;
+  width: 200px;
+  box-sizing: border-box;
 }
 
 .item {
@@ -1341,7 +1359,8 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
-.item h3, .item h4 {
+.item h3,
+.item h4 {
   color: #bb521f;
   font-size: 16px;
   text-transform: uppercase;
@@ -1358,7 +1377,7 @@ body {
   border-radius: 5px;
   border: 1px solid transparent;
   height: 26px;
-}   
+}
 
 .cartButton:hover {
   color: #333;
@@ -1415,11 +1434,12 @@ body {
   opacity: 1;
   cursor: pointer;
 }
+
 /* product showing ends */
 
 /* Cart */
 .cart {
-  width: 200px; 
+  width: 200px;
   padding: 20px;
   background-color: #f4f4f4;
   border: 2px solid green;
@@ -1440,4 +1460,5 @@ body {
 .cart ul li {
   margin-bottom: 5px;
 }
+
 /* Take orders contents css ends === */
