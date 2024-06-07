@@ -15,8 +15,9 @@ export const DashboardProducts = () => {
   const [getCategoryList, setCategoryList] = useState([]);
   const [isModalOpenCategory, setIsModalOpenCategory] = useState(false);
   const [isModalOpenMenu, setIsModalOpenMenu] = useState(false);
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [getMenuList, setMenuList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
@@ -30,25 +31,43 @@ export const DashboardProducts = () => {
     formData.append("categoryModel.CategoryName", categoryName);
     formData.append("categoryModel.CategoryDescription", categoryDescription);
     formData.append("categoryImage", categoryImage);
+    if (selectedCategory) {
+      formData.append("categoryModel.categoryId", selectedCategory.categoryId);
+    }
 
     try {
-      const response = await axios.post(
-        process.env.REACT_APP_API_URL + "MenuCategory/InsertCategory",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const url = selectedCategory
+        ? `${process.env.REACT_APP_API_URL}MenuCategory/UpdateMenuCategory`
+        : `${process.env.REACT_APP_API_URL}MenuCategory/InsertCategory`;
+
+      const method = selectedCategory ? "put" : "post";
+
+      const response = await axios({
+        method,
+        url,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200) {
-        toggleModalCategory();
+        setMessage(
+          selectedCategory
+            ? "Category updated successfully."
+            : "Category inserted successfully."
+        );
+        setIsModalOpenCategory(false);
+        setCategoryName("");
+        setCategoryDescription("");
+        setCategoryImage(null);
+        setSelectedCategory(null);
+        fetchCategories();
       } else {
-        setMessage("Failed to insert category.");
+        setMessage("Failed to save category.");
       }
     } catch (error) {
-      console.error("Error inserting category", error);
+      console.error("Error saving category", error);
       setMessage("An error occurred while processing your request.");
     }
   };
@@ -58,56 +77,119 @@ export const DashboardProducts = () => {
   };
 
   const toggleModalCategory = () => {
+    if (isModalOpenCategory) {
+      setSelectedCategory(null);
+      setCategoryName("");
+      setCategoryDescription("");
+      setCategoryImage(null);
+      setImage(null);
+    }
     setIsModalOpenCategory(!isModalOpenCategory);
-    console.log("Category Modal Toggled:", !isModalOpenCategory);
   };
 
   const toggleModalMenu = () => {
     setIsModalOpenMenu(!isModalOpenMenu);
-    console.log("Menu Modal Toggled:", !isModalOpenMenu);
+  };
+
+  const handleEditCategory = (category) => {
+    setSelectedCategory(category);
+    setCategoryName(category.categoryName);
+    setCategoryDescription(category.categoryDescription);
+    setImage(null);
+    toggleModalCategory();
+  };
+
+  // Inside your component function DashboardProducts
+  const [selectedCategoryToDelete, setSelectedCategoryToDelete] =
+    useState(null);
+
+  // Add a new state variable to control the delete modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  // Function to open the delete modal
+  const openDeleteModal = (category) => {
+    setSelectedCategoryToDelete(category);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Function to close the delete modal
+  const closeDeleteModal = () => {
+    setSelectedCategoryToDelete(null);
+    setIsDeleteModalOpen(false);
+  };
+
+  // Modify the handleDeleteCategory function to directly open the delete modal
+  const handleDeleteCategory = (categoryId) => {
+    const categoryToDelete = getCategoryList.find(
+      (category) => category.categoryId === categoryId
+    );
+    openDeleteModal(categoryToDelete);
+  };
+
+  const handleConfirmDelete = async (categoryId) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}MenuCategory/DeleteMenuCategory/${categoryId}`
+      );
+      if (response.status === 200) {
+        setMessage("Category deleted successfully.");
+        setCategoryList(
+          getCategoryList.filter(
+            (category) => category.categoryId !== categoryId
+          )
+        );
+        setIsDeleteModalOpen(false);
+      } else {
+        setMessage("Failed to delete category.");
+      }
+    } catch (error) {
+      console.error("Error deleting category", error);
+      setMessage("An error occurred while processing your request.");
+    }
+  };
+
+  const fetchCategories = async () => {
+    const API_URL = `${process.env.REACT_APP_API_URL}MenuCategory/GetAllMenuCategories`;
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      const data = response.data;
+      setCategoryList(data);
+    } catch (error) {
+      console.error("Caught error while fetching data:", error);
+    }
+  };
+
+  const fetchMenus = async () => {
+    const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuAll`;
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      const data = response.data.data;
+      setMenuList(data);
+    } catch (error) {
+      console.error("Caught error while fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    const API_URL =
-      process.env.REACT_APP_API_URL + "MenuCategory/GetAllMenuCategories";
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: API_URL,
-      headers: {},
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log("Response Data:", response.data);
-        const data = response.data;
-        setCategoryList(data);
-      })
-      .catch((error) => {
-        console.error("Caught error while fetching data:", error);
-      });
+    fetchCategories();
   }, []);
 
   useEffect(() => {
-    const API_URL = process.env.REACT_APP_API_URL + "Menu/GetMenuAll";
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: API_URL,
-      headers: {},
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log("Response Data:", response.data);
-        const data = response.data.data;
-        setMenuList(data);
-      })
-      .catch((error) => {
-        console.error("Caught error while fetching data:", error);
-      });
+    fetchMenus();
   }, []);
 
   return (
@@ -172,9 +254,17 @@ export const DashboardProducts = () => {
                     <td>{categorylist.categoryName}</td>
                     <td>{categorylist.categoryDescription}</td>
                     <td>
-                      <FaEdit className="edit_icon" />
+                      <FaEdit
+                        className="edit_icon"
+                        onClick={() => handleEditCategory(categorylist)}
+                      />
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <RiDeleteBin5Fill className="delete_icon" />
+                      <RiDeleteBin5Fill
+                        className="delete_icon"
+                        onClick={() =>
+                          handleDeleteCategory(categorylist.categoryId)
+                        }
+                      />
                     </td>
                   </tr>
                 ))}
@@ -238,7 +328,9 @@ export const DashboardProducts = () => {
         overlayClassName="modal-overlay"
       >
         <div className="modal-header">
-          <h2 className="modal-title">Add New Category</h2>
+          <h2 className="modal-title">
+            {selectedCategory ? "Edit Category" : "Add New Category"}
+          </h2>
           <button className="modal-close-button" onClick={toggleModalCategory}>
             <IoClose />
           </button>
@@ -249,16 +341,15 @@ export const DashboardProducts = () => {
               <p>Upload Image</p>
               <label htmlFor="image">
                 <img
-                  src={
-                    categoryImage
-                      ? URL.createObjectURL(categoryImage)
-                      : upload_image
-                  }
+                  src={image ? URL.createObjectURL(image) : upload_image}
                   alt=""
                 />
               </label>
               <input
-                onChange={(e) => setCategoryImage(e.target.files[0])}
+                onChange={(e) => {
+                  setCategoryImage(e.target.files[0]);
+                  setImage(e.target.files[0]);
+                }}
                 type="file"
                 id="image"
                 required
@@ -287,7 +378,7 @@ export const DashboardProducts = () => {
             </div>
             <div className="category-buttons">
               <button type="submit" className="add-btn">
-                ADD
+                {selectedCategory ? "UPDATE" : "ADD"}
               </button>
               <button
                 type="button"
@@ -372,6 +463,36 @@ export const DashboardProducts = () => {
               </button>
             </div>
           </form>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onRequestClose={closeDeleteModal}
+        contentLabel="Delete Category"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <div className="modal-header">
+          <h2 className="modal-title">Delete Category</h2>
+          <button className="modal-close-button" onClick={closeDeleteModal}>
+            <IoClose />
+          </button>
+        </div>
+        <div className="delete">
+          <p>Are you sure you want to delete this category?</p>
+          <div className="delete-buttons">
+            <button
+              className="delete-btn"
+              onClick={() =>
+                handleConfirmDelete(selectedCategoryToDelete.categoryId)
+              }
+            >
+              Delete
+            </button>
+            <button className="cancel-btn" onClick={closeDeleteModal}>
+              Cancel
+            </button>
+          </div>
         </div>
       </Modal>
     </main>
