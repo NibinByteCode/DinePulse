@@ -41,7 +41,7 @@ app.UseAuthorization();
 
 // Use CORS policy
 app.UseCors("AllowAll");
-
+app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();

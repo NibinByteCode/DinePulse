@@ -19,12 +19,14 @@ namespace DinePulse_API.Controllers
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);
         }
+        
         [HttpGet]
         [ActionName("GetAllMenuCategories")]
         public IActionResult GetAllMenuCategories()
         {
             try
             {
+                
                 DataTable table = dataLayer.Getfromdb("MenuCategory_GetCategory");
 
                 List<CategoryModel> categories = new List<CategoryModel>();

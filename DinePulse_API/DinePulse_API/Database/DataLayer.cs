@@ -75,7 +75,26 @@ namespace DinePulse_API.Database
                 return null;
             }
         }
-
+        public DataSet Getbulkfromdb_ds(string spname, List<SqlParameter> sp = null)
+        {
+            try
+            {
+                com = new SqlCommand(spname, con);
+                com.CommandTimeout = 300;
+                DataSet ds = new DataSet();
+                com.CommandType = CommandType.StoredProcedure;
+                if (sp != null)
+                    com.Parameters.AddRange(sp.ToArray());
+                da = new SqlDataAdapter(com);
+                da.Fill(ds);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError(ex.Message);
+                return null;
+            }
+        }
         public int ExecuteSp_transaction(string StoredProcedureName, List<SqlParameter> sp = null)
         {
             try
