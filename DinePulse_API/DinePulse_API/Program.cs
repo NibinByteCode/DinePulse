@@ -1,3 +1,4 @@
+using DinePulse_API.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +44,6 @@ app.UseAuthorization();
 app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.MapControllers();
-
+app.MapHub<OrderHub>("/orderHub");
 app.Run();
 
