@@ -10,7 +10,7 @@ namespace DinePulse_API.Database
 
         public DataLayer(IConfiguration configuration)
         {
-            _connectionString = configuration.GetSection("ConnectionStrings").GetSection("DefaultConnection").Value;
+            _connectionString = configuration.GetConnectionString("Dinepulse:SqlDb");
             Connection();
         }
 
