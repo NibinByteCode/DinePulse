@@ -17,22 +17,25 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.x'
           include-prerelease: true
 
+      - name: Restore dependencies
+        run: dotnet restore ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
+
       - name: Build with dotnet
         run: dotnet build --configuration Release ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Publish with dotnet
+        run: dotnet publish --configuration Release --output ${{ github.workspace }}/myapp ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{ github.workspace }}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -54,4 +57,4 @@ jobs:
           app-name: 'dinepulseapi'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D0545F888C147F4B682F508CA617F16 }}
-          package: .
+          package: ${{ github.workspace }}/.net-app
