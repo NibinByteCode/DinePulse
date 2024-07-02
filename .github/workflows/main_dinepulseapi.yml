@@ -34,7 +34,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: .net-app
+          name: dotnet-app
           path: ${{ github.workspace }}/myapp
 
   deploy:
@@ -48,7 +48,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
+          name: dotnet-app
+          path: ${{ github.workspace }}/myapp
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -57,4 +58,4 @@ jobs:
           app-name: 'dinepulseapi'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D0545F888C147F4B682F508CA617F16 }}
-          package: ${{ github.workspace }}/.net-app
+          package: ${{ github.workspace }}/myapp
