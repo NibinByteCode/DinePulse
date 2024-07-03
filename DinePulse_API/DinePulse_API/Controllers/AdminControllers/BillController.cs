@@ -6,13 +6,13 @@ using System.Data.SqlClient;
 using System.Data;
 using DinePulse_API.Database;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BillController : ControllerBase
     {
-        
+
         DataLayer dataLayer;
         readonly IConfiguration _iconfiguration;
         public BillController(IConfiguration iconfiguration)
@@ -25,14 +25,15 @@ namespace DinePulse_API.Controllers
         public IActionResult GetTotalRevenueReport([FromQuery] DateTime reportDate)
         {
             try
-            {       List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>
         {
             new SqlParameter("@ReportDate", SqlDbType.VarChar) { Value = reportDate }
         };
 
-               
+
                 DataSet ds = dataLayer.Getbulkfromdb_ds("Report_TotalRevenueReport", parameters);
-              
+
                 DataTable detailsTable = ds.Tables[0];
                 DataTable totalTable = ds.Tables[1];
                 List<RevenueReport> revenueReports = new List<RevenueReport>();
@@ -51,7 +52,7 @@ namespace DinePulse_API.Controllers
                 {
                     grandTotal = Convert.ToDecimal(totalTable.Rows[0]["GrandTotal"]);
                 }
-                
+
                 RevenueReportResponse response = new RevenueReportResponse
                 {
                     RevenueReports = revenueReports,

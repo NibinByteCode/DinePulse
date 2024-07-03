@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using DinePulse_API.Models;
 
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -60,12 +60,12 @@ namespace DinePulse_API.Controllers
             {
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
-                   
+
                     new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = AddUserRequest.userName },
                     new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = AddUserRequest.userPassword },
                     new SqlParameter("@user_type", SqlDbType.VarChar, 50) { Value = AddUserRequest.userType },
                     new SqlParameter("@user_status", SqlDbType.VarChar, 50) { Value = "Active" },
-                    new SqlParameter("@user_registered_date", SqlDbType.Date) { Value = System.DateTime.Now }
+                    new SqlParameter("@user_registered_date", SqlDbType.Date) { Value = DateTime.Now }
                 };
 
                 int rowsAffected = dataLayer.ExecuteSp_transaction("InsertUser", parameters);
@@ -129,7 +129,7 @@ namespace DinePulse_API.Controllers
 
                 if (table.Rows.Count > 0)
                 {
-                    string JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    string JSONresult = JsonHelper.DataTableToJsonObj(table);
                     return Ok(new { data = JSONresult });
                 }
                 else
@@ -150,7 +150,7 @@ namespace DinePulse_API.Controllers
         {
             try
             {
-               List<SqlParameter> parameters = new List<SqlParameter>
+                List<SqlParameter> parameters = new List<SqlParameter>
                 {
                     new SqlParameter("@user_id", SqlDbType.Int) { Value = userId }
                 };

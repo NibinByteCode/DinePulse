@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -31,7 +31,7 @@ namespace DinePulse_API.Controllers
                 if (table.Rows.Count > 0)
                 {
                     string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
                     if (JSONresult != null)
                     {
 
@@ -68,7 +68,7 @@ namespace DinePulse_API.Controllers
                 if (table.Rows.Count > 0)
                 {
                     string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
                     if (JSONresult != null)
                     {
 
@@ -112,7 +112,7 @@ namespace DinePulse_API.Controllers
                 if (table.Rows.Count > 0)
                 {
                     string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
 
                     if (!string.IsNullOrEmpty(JSONresult))
                     {
@@ -142,7 +142,7 @@ namespace DinePulse_API.Controllers
             try
             {
                 byte[] imageBytes = Convert.FromBase64String(menuModel.ItemImageBase64);
-               
+
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
                     new SqlParameter("@item_id", SqlDbType.Int) { Value = menuModel.ItemId },
@@ -191,7 +191,7 @@ namespace DinePulse_API.Controllers
             new SqlParameter("@item_image", SqlDbType.VarBinary, -1) { Value = imageBytes },
         };
 
-               
+
                 int rowsAffected = dataLayer.ExecuteSp_transaction("Menu_UpdateMenu", parameters);
 
                 if (rowsAffected > 0)

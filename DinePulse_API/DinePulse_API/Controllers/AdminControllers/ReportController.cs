@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]")]
     [ApiController]

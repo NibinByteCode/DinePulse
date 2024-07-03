@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -19,14 +19,14 @@ namespace DinePulse_API.Controllers
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);
         }
-        
+
         [HttpGet]
         [ActionName("GetAllMenuCategories")]
         public IActionResult GetAllMenuCategories()
         {
             try
             {
-                
+
                 DataTable table = dataLayer.Getfromdb("MenuCategory_GetCategory");
 
                 List<CategoryModel> categories = new List<CategoryModel>();
@@ -153,7 +153,7 @@ namespace DinePulse_API.Controllers
             new SqlParameter("@category_id", SqlDbType.Int) { Value = categoryId }
         };
 
-               
+
                 int rowsAffected = dataLayer.ExecuteSp_transaction("MenuCategory_DeleteCategory", parameters);
 
                 if (rowsAffected > 0)
@@ -167,7 +167,7 @@ namespace DinePulse_API.Controllers
             }
             catch (Exception ex)
             {
-              
+
                 new LogHelper().LogError("Error deleting menu category: " + ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }

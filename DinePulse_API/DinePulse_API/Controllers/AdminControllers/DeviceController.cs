@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -29,7 +29,7 @@ namespace DinePulse_API.Controllers
                 DataTable table = dataLayer.Getfromdb("Device_GetDevices");
                 if (table.Rows.Count > 0)
                 {
-                    string JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    string JSONresult = JsonHelper.DataTableToJsonObj(table);
                     return Ok(new { data = JSONresult });
                 }
                 else

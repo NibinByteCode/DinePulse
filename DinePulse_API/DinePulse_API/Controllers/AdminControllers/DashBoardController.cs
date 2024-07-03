@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
-namespace DinePulse_API.Controllers
+namespace DinePulse_API.Controllers.AdminControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -30,7 +30,7 @@ namespace DinePulse_API.Controllers
                 if (table.Rows.Count > 0)
                 {
                     string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
                     if (JSONresult != null)
                     {
 
@@ -57,8 +57,8 @@ namespace DinePulse_API.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetRecentOrders")] 
-             public IActionResult Dash_GetRecentOrder()
+        [ActionName("GetRecentOrders")]
+        public IActionResult Dash_GetRecentOrder()
         {
             try
             {
@@ -67,7 +67,7 @@ namespace DinePulse_API.Controllers
                 if (table.Rows.Count > 0)
                 {
                     string JSONresult;
-                    JSONresult = Utils.JsonHelper.DataTableToJsonObj(table);
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
                     if (JSONresult != null)
                     {
 
