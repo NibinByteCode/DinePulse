@@ -5,6 +5,7 @@ import 'home_page.dart';
 import 'choose_table_page.dart';
 import 'menu_page.dart';
 import 'checkout_page.dart';
+import 'onboarding_screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashPage(),
+        '/onboardingscreens': (context) => OnBoardingView(),
         '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/choose_table': (context) => ChooseTablePage(),
