@@ -10,7 +10,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
@@ -18,17 +18,52 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Savor the goodness, embrace wellness.'),
-            Text(
-              'DINEPULSE',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      backgroundColor:
+          Colors.transparent, // Set Scaffold background to transparent
+      body: Stack(
+        children: [
+          // Background image
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background-splash.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ],
-        ),
+          ),
+          const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image(
+                  image: AssetImage('assets/images/restaurant_logo.png'),
+                  width: 300,
+                  height: 220,
+                ),
+                Text(
+                  'DINEPULSE',
+                  style: TextStyle(
+                    fontSize: 45,
+                    color: Color.fromRGBO(203, 79, 41, 1),
+                    fontFamily: 'Calistoga',
+                    letterSpacing: 1,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  'Savor the goodness, embrace wellness!!!',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Calistoga',
+                    color: Color.fromARGB(221, 33, 33, 33),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
