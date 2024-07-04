@@ -18,11 +18,9 @@ The Project mainly has 3 Parts:
 - An Admin dashboard using REACT.
 - A Mobile App developed using Flutter.
 
-**How to Run the Project**
-
 **Using the Cloud API**
 
-The Backend API is already hosted in the Azure Cloud with the Database server configured in the Azure SQL . A CI/CD pipeline with GitHub Actions is configured so as whenever the commit happens to the main, API will be build and deployed to the Backend Server.
+The Backend API is already hosted in the Azure Cloud with the Database server configured in the Azure SQL . A CI/CD pipeline with GitHub Actions is configured so as whenever the commit happens to the main branch, API will be build and deployed to the Backend Server.
        
 **Using Local Instance of API:**
 - First Create a database in MS SQL with name as dinepulse and run the DB Scripts available in folder- Dinepulse_DinepulseSQLServer.
