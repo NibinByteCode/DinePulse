@@ -23,7 +23,7 @@ class CategoryButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ElevatedButton(
         onPressed: () {
-          // Filter items by category
+          //filter
         },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),

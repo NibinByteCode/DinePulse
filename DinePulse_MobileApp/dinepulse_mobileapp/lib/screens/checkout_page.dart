@@ -22,22 +22,46 @@ class CheckoutPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/menu', arguments: {
-                  'table': 1,
-                  'count': 1
-                }); // Ensure arguments if required
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                backgroundColor: Color.fromRGBO(203, 79, 41, 1),
-              ),
-              child: Text(
-                'CONTINUE SHOPPING',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/menu',
+                      arguments: {'table': 1, 'count': 1});
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                ),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromRGBO(255, 49, 49, 1),
+                        Color.fromRGBO(255, 145, 77, 1),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Container(
+                    constraints:
+                        const BoxConstraints(minWidth: 60.0, minHeight: 36.0),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'CONTINUE SHOPPING',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Calistoga',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -27,40 +27,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: Color.fromRGBO(203, 79, 41, 1),
       actions: [
         if (showCartIcon)
-          Stack(
-            children: [
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Color.fromRGBO(203, 79, 41, 1),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/cart');
-                },
-              ),
-              if (cartService.itemCount > 0)
-                Positioned(
-                  right: 8,
-                  top: 8,
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 18,
-                      minHeight: 18,
-                    ),
-                    child: Text(
-                      '${cartService.itemCount}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/cart');
+            },
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: Color.fromRGBO(203, 79, 41, 1),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                ),
+                if (cartService.itemCount > 0)
+                  Positioned(
+                    right: 4,
+                    top: 4,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        '${cartService.itemCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         if (showProfileIcon)
           IconButton(
@@ -84,6 +89,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Navigator.pop(context);
                         Navigator.pushReplacementNamed(context, '/login');
                       },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide(
+                            color: Color.fromRGBO(203, 79, 41, 1), width: 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                       child: const Text(
                         'LOGOUT',
                         style: TextStyle(

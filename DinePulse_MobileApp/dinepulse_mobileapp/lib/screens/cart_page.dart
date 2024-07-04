@@ -27,14 +27,42 @@ class _CartPageState extends State<CartPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('No'),
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              side: BorderSide(color: Color.fromRGBO(203, 79, 41, 1), width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'No',
+              style: TextStyle(
+                color: Color.fromRGBO(203, 79, 41, 1),
+                fontFamily: 'Calistoga',
+                fontSize: 12,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               _removeItem(item);
             },
-            child: const Text('Yes'),
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              side: BorderSide(color: Color.fromRGBO(4, 122, 8, 1), width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Yes',
+              style: TextStyle(
+                color: Color.fromRGBO(4, 122, 8, 1),
+                fontFamily: 'Calistoga',
+                fontSize: 12,
+              ),
+            ),
           ),
         ],
       ),
@@ -68,7 +96,21 @@ class _CartPageState extends State<CartPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('OK'),
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              side: BorderSide(color: Color.fromRGBO(4, 122, 8, 1), width: 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'OK',
+              style: TextStyle(
+                color: Color.fromRGBO(4, 122, 8, 1),
+                fontFamily: 'Calistoga',
+                fontSize: 12,
+              ),
+            ),
           ),
         ],
       ),
@@ -91,9 +133,23 @@ class _CartPageState extends State<CartPage> {
               itemBuilder: (context, index) {
                 final item = cartService.items[index];
                 return Card(
+                  color: Color.fromRGBO(255, 244, 226, 1),
                   margin: EdgeInsets.symmetric(vertical: 8.0),
                   child: ListTile(
-                    title: Text(item.name),
+                    leading: Image.asset(
+                      'assets/images/no-image-image.png',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                    title: Text(
+                      item.name,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(203, 79, 41, 1),
+                        fontSize: 15,
+                        fontFamily: 'Calistoga',
+                      ),
+                    ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -107,7 +163,13 @@ class _CartPageState extends State<CartPage> {
                               },
                             ),
                             Text(
-                                '${item.quantity} x \$${item.price.toStringAsFixed(2)}'),
+                              '${item.quantity} x \$${item.price.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Color.fromRGBO(203, 79, 41, 1),
+                                fontSize: 12,
+                                fontFamily: 'Calistoga',
+                              ),
+                            ),
                             IconButton(
                               icon: Icon(Icons.add),
                               onPressed: () {
@@ -116,14 +178,19 @@ class _CartPageState extends State<CartPage> {
                             ),
                           ],
                         ),
-                        Text('Total: \$${item.total.toStringAsFixed(2)}'),
+                        Text(
+                          'Total: \$${item.total.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            color: Color.fromRGBO(203, 79, 41, 1),
+                            fontSize: 12,
+                            fontFamily: 'Calistoga',
+                          ),
+                        ),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Cooking Instructions',
                           ),
-                          onChanged: (value) {
-                            // Save cooking instructions if needed
-                          },
+                          onChanged: (value) {},
                         ),
                       ],
                     ),
@@ -144,24 +211,99 @@ class _CartPageState extends State<CartPage> {
               children: [
                 Text(
                   'TOTAL: \$${cartService.totalPrice.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Color.fromRGBO(203, 79, 41, 1),
+                    fontSize: 18,
+                    fontFamily: 'Calistoga',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/menu', arguments: {
-                          'table': 1,
-                          'count': 1
-                        }); // Ensure arguments if required
-                      },
-                      child: Text('CONTINUE SHOPPING'),
+                    Container(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/menu',
+                              arguments: {'table': 1, 'count': 1});
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(255, 49, 49, 1),
+                                Color.fromRGBO(255, 145, 77, 1),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minWidth: 60.0, minHeight: 36.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'CONTINUE SHOPPING',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Calistoga',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
-                      onPressed: _confirmOrder,
-                      child: Text('CONFIRM ORDER'),
+                    Container(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: _confirmOrder,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(255, 49, 49, 1),
+                                Color.fromRGBO(255, 145, 77, 1),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minWidth: 60.0, minHeight: 36.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'CONFIRM ORDER',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Calistoga',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -24,7 +24,8 @@ class _SplashPageState extends State<SplashPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background-splash.png'),
+                image: AssetImage(
+                    'assets/images/background-splash.png'), // https://www.canva.com/design/DAGFcXs5WiU/NyX_VBsl0lwZA43H6Y7WlA/edit
                 fit: BoxFit.cover,
               ),
             ),

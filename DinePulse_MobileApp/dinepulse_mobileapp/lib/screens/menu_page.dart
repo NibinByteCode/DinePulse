@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
 import '../models/cart_item.dart';
 import '../services/cart_service.dart';
-import '../widgets/category_button.dart'; // Import the CategoryButton
+import '../widgets/category_button.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -20,6 +20,9 @@ class _MenuPageState extends State<MenuPage> {
       cartService.addItem(item);
     });
   }
+
+  bool _isHoveringCancel = false;
+  bool _isHoveringAddToCart = false;
 
   @override
   Widget build(BuildContext context) {
@@ -271,32 +274,94 @@ class _MenuPageState extends State<MenuPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
+                                          MouseRegion(
+                                            onEnter: (_) {
+                                              setState(() {
+                                                _isHoveringCancel = true;
+                                              });
                                             },
-                                            child: const Text(
-                                              'CANCEL',
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    203, 79, 41, 1),
-                                                fontSize: 12,
-                                                fontFamily: 'Calistoga',
+                                            onExit: (_) {
+                                              setState(() {
+                                                _isHoveringCancel = false;
+                                              });
+                                            },
+                                            child: TextButton(
+                                              style: TextButton.styleFrom(
+                                                side: BorderSide(
+                                                  color: _isHoveringCancel
+                                                      ? Colors.white
+                                                      : Color.fromRGBO(
+                                                          203, 79, 41, 1),
+                                                ),
+                                                backgroundColor:
+                                                    _isHoveringCancel
+                                                        ? Color.fromRGBO(
+                                                            203, 79, 41, 1)
+                                                        : Colors.transparent,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                'CANCEL',
+                                                style: TextStyle(
+                                                  color: _isHoveringCancel
+                                                      ? Colors.white
+                                                      : Color.fromRGBO(
+                                                          203, 79, 41, 1),
+                                                  fontSize: 12,
+                                                  fontFamily: 'Calistoga',
+                                                ),
                                               ),
                                             ),
                                           ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              _addToCart(menuItems[index]);
+                                          MouseRegion(
+                                            onEnter: (_) {
+                                              setState(() {
+                                                _isHoveringAddToCart = true;
+                                              });
                                             },
-                                            child: const Text(
-                                              'ADD TO CART',
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    203, 79, 41, 1),
-                                                fontSize: 12,
-                                                fontFamily: 'Calistoga',
+                                            onExit: (_) {
+                                              setState(() {
+                                                _isHoveringAddToCart = false;
+                                              });
+                                            },
+                                            child: TextButton(
+                                              style: TextButton.styleFrom(
+                                                side: BorderSide(
+                                                  color: Color.fromRGBO(
+                                                      4, 122, 8, 1),
+                                                ),
+                                                backgroundColor:
+                                                    _isHoveringAddToCart
+                                                        ? Color.fromRGBO(
+                                                            4, 122, 8, 1)
+                                                        : Colors.transparent,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                _addToCart(menuItems[index]);
+                                              },
+                                              child: Text(
+                                                'ADD TO CART',
+                                                style: TextStyle(
+                                                  color: _isHoveringAddToCart
+                                                      ? Colors.white
+                                                      : Color.fromRGBO(
+                                                          4, 122, 8, 1),
+                                                  fontSize: 12,
+                                                  fontFamily: 'Calistoga',
+                                                ),
                                               ),
                                             ),
                                           ),

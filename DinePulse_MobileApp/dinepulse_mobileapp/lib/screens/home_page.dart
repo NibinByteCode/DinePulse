@@ -61,10 +61,8 @@ class HomePage extends StatelessWidget {
                 icon: Icons.restaurant,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/menu', arguments: {
-                    'table': 1,
-                    'count': 1
-                  }); // Ensure arguments if required
+                  Navigator.pushNamed(context, '/menu',
+                      arguments: {'table': 1, 'count': 1});
                 }),
             MyListTile(
                 text: "CART",
@@ -136,7 +134,8 @@ class HomePage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image(
-                      image: AssetImage('assets/images/carousal-image-1.jpg'),
+                      image: AssetImage(
+                          'assets/images/carousal-image-1.jpg'), // https://demo.sun-themes.com/fooday/wp-content/uploads/2017/08/product-1-1-600x400.jpg
                     ),
                   ),
                 ),
@@ -151,7 +150,8 @@ class HomePage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image(
-                      image: AssetImage('assets/images/carousal-image-2.jpg'),
+                      image: AssetImage(
+                          'assets/images/carousal-image-2.jpg'), //https://www.pinterest.ca/pin/western-food--1070519773903328659/
                     ),
                   ),
                 ),
@@ -166,7 +166,8 @@ class HomePage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image(
-                      image: AssetImage('assets/images/carousal-image-3.jpg'),
+                      image: AssetImage(
+                          'assets/images/carousal-image-3.jpg'), // https://i.cbc.ca/1.4753643.1532024090!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/salmon-meal.jpg
                     ),
                   ),
                 ),
@@ -231,10 +232,8 @@ class HomePage extends StatelessWidget {
               height: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/menu', arguments: {
-                    'table': 1,
-                    'count': 1
-                  }); // Ensure arguments if required
+                  Navigator.pushNamed(context, '/menu',
+                      arguments: {'table': 1, 'count': 1});
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
