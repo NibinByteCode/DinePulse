@@ -14,3 +14,5 @@ Please make sure to change the connection strings/ API urls in the corresponding
 
 - For Admin Dashboard : In the .env file available in the root folder ie Dinepulse_Admin
 - For Mobile App : The .env file avaialble in the root folder ir Dinepulse_MobileApp
+
+In order to Login to the Dashboard or Mobile App, API should be accessible either as Local instance or in Cloud.
