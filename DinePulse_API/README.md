@@ -19,6 +19,6 @@ In order to Login to the Dashboard or Mobile App, API should be accessible eithe
 
 You can check the availability of the API by click this link below: 
 
-https://dinepulseapi.azurewebsites.net/api/Menu/GetMenuAll
+https://dinepulseapi.azurewebsites.net/api/DashBoard/TestAPI
 
  
