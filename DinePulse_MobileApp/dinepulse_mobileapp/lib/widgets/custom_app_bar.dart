@@ -1,3 +1,4 @@
+import 'package:dinepulse_mobileapp/screens/popups/profile_popup.dart';
 import 'package:flutter/material.dart';
 import '../services/cart_service.dart';
 
@@ -27,75 +28,52 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: Color.fromRGBO(203, 79, 41, 1),
       actions: [
         if (showCartIcon)
-          Stack(
-            children: [
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Color.fromRGBO(203, 79, 41, 1),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/cart');
-                },
-              ),
-              if (cartService.itemCount > 0)
-                Positioned(
-                  right: 8,
-                  top: 8,
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 18,
-                      minHeight: 18,
-                    ),
-                    child: Text(
-                      '${cartService.itemCount}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/cart');
+            },
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: Color.fromRGBO(203, 79, 41, 1),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                ),
+                if (cartService.itemCount > 0)
+                  Positioned(
+                    right: 4,
+                    top: 4,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        '${cartService.itemCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         if (showProfileIcon)
           IconButton(
             icon: Icon(Icons.account_circle),
             color: Color.fromRGBO(203, 79, 41, 1),
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(
-                    'Do you want to Logout?',
-                    style: const TextStyle(
-                      color: Color.fromRGBO(203, 79, 41, 1),
-                      fontSize: 15,
-                      fontFamily: 'Calistoga',
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      child: const Text(
-                        'LOGOUT',
-                        style: TextStyle(
-                          color: Color.fromRGBO(203, 79, 41, 1),
-                          fontSize: 13,
-                          fontFamily: 'Calistoga',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              showProfilePopup(context);
             },
           ),
       ],

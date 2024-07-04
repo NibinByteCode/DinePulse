@@ -24,7 +24,8 @@ class LoginPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background-login.png'),
+            image: AssetImage(
+                'assets/images/background-login.png'), // https://www.canva.com/design/DAGFhDd9T5E/yp6AFo724Do08iUkldbROw/edit
             fit: BoxFit.cover,
           ),
         ),

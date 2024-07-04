@@ -1,3 +1,5 @@
+import 'package:dinepulse_mobileapp/screens/popups/empty_cart_popup.dart';
+import 'package:dinepulse_mobileapp/screens/popups/item_remove_popup.dart';
 import 'package:flutter/material.dart';
 import '../models/cart_item.dart';
 import '../services/cart_service.dart';
@@ -15,32 +17,6 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-  void _showRemoveConfirmationDialog(CartItem item) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Remove Item'),
-        content: const Text(
-            'Are you sure you want to remove this item from the cart?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('No'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _removeItem(item);
-            },
-            child: const Text('Yes'),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _updateQuantity(CartItem item, int quantity) {
     setState(() {
       if (quantity > 0) {
@@ -49,30 +25,18 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
+  void _updateCookingInstructions(CartItem item, String instructions) {
+    setState(() {
+      cartService.updateCookingInstructions(item, instructions);
+    });
+  }
+
   void _confirmOrder() {
     if (cartService.itemCount == 0) {
-      _showEmptyCartDialog();
+      showEmptyCartDialog(context);
     } else {
       Navigator.pushNamed(context, '/checkout');
     }
-  }
-
-  void _showEmptyCartDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Empty Cart'),
-        content: const Text('There are no items in the cart.'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -91,47 +55,110 @@ class _CartPageState extends State<CartPage> {
               itemBuilder: (context, index) {
                 final item = cartService.items[index];
                 return Card(
+                  color: Color.fromRGBO(255, 244, 226, 1),
                   margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: ListTile(
-                    title: Text(item.name),
-                    subtitle: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () {
-                                _updateQuantity(item, item.quantity - 1);
-                              },
+                            Image.asset(
+                              'assets/images/no-image-image.png',
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                                '${item.quantity} x \$${item.price.toStringAsFixed(2)}'),
+                            SizedBox(width: 8.0),
+                            Expanded(
+                              child: Text(
+                                item.name,
+                                style: const TextStyle(
+                                  color: Color.fromRGBO(203, 79, 41, 1),
+                                  fontSize: 15,
+                                  fontFamily: 'Calistoga',
+                                ),
+                              ),
+                            ),
                             IconButton(
-                              icon: Icon(Icons.add),
+                              icon: Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
-                                _updateQuantity(item, item.quantity + 1);
+                                showItemRemoveConfirmationDialog(
+                                    context, item, _removeItem);
                               },
                             ),
                           ],
                         ),
-                        Text('Total: \$${item.total.toStringAsFixed(2)}'),
+                        SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color.fromRGBO(203, 79, 41, 1)),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      _updateQuantity(item, item.quantity - 1);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(width: 8.0),
+                                Text(
+                                  '${item.quantity} x \$${item.price.toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(203, 79, 41, 1),
+                                    fontSize: 14,
+                                    fontFamily: 'Calistoga',
+                                  ),
+                                ),
+                                SizedBox(width: 8.0),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color.fromRGBO(203, 79, 41, 1)),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      _updateQuantity(item, item.quantity + 1);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Total: \$${item.total.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Color.fromRGBO(203, 79, 41, 1),
+                                fontSize: 15,
+                                fontFamily: 'Calistoga',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8.0),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Cooking Instructions',
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
                           ),
                           onChanged: (value) {
-                            // Save cooking instructions if needed
+                            _updateCookingInstructions(item, value);
                           },
                         ),
                       ],
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        _showRemoveConfirmationDialog(item);
-                      },
                     ),
                   ),
                 );
@@ -144,24 +171,99 @@ class _CartPageState extends State<CartPage> {
               children: [
                 Text(
                   'TOTAL: \$${cartService.totalPrice.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Color.fromRGBO(203, 79, 41, 1),
+                    fontSize: 18,
+                    fontFamily: 'Calistoga',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/menu', arguments: {
-                          'table': 1,
-                          'count': 1
-                        }); // Ensure arguments if required
-                      },
-                      child: Text('CONTINUE SHOPPING'),
+                    Container(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/menu',
+                              arguments: {'table': 1, 'count': 1});
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(255, 49, 49, 1),
+                                Color.fromRGBO(255, 145, 77, 1),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minWidth: 60.0, minHeight: 36.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'CONTINUE SHOPPING',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Calistoga',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
-                      onPressed: _confirmOrder,
-                      child: Text('CONFIRM ORDER'),
+                    Container(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: _confirmOrder,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color.fromRGBO(255, 49, 49, 1),
+                                Color.fromRGBO(255, 145, 77, 1),
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                minWidth: 60.0, minHeight: 36.0),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'CONFIRM ORDER',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'Calistoga',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
