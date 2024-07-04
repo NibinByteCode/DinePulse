@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'splash_page.dart';
-import 'login_page.dart';
-import 'home_page.dart';
-import 'choose_table_page.dart';
-import 'menu_page.dart';
-import 'checkout_page.dart';
-import 'onboarding_screens.dart';
+import 'screens/splash_page.dart';
+import 'screens/login_page.dart';
+import 'screens/home_page.dart';
+import 'screens/choose_table_page.dart';
+import 'screens/menu_page.dart';
+import 'screens/checkout_page.dart';
+import 'screens/onboarding_screens.dart';
 
 void main() {
   runApp(const MyApp());
