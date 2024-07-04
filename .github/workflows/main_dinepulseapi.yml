@@ -1,12 +1,11 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - dinepulseapi
 
 on:
   push:
     branches:
       - main
+    paths:
+      - './dinepulse/dinepulse_api/**'
   workflow_dispatch:
 
 jobs:
@@ -23,13 +22,13 @@ jobs:
           include-prerelease: true
 
       - name: Restore dependencies
-        run: dotnet restore ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
+        run: dotnet restore ./dinepulse/dinepulse_api/DinePulse_API/DinePulse_API.csproj
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
+        run: dotnet build --configuration Release ./dinepulse/dinepulse_api/DinePulse_API/DinePulse_API.csproj
 
       - name: Publish with dotnet
-        run: dotnet publish --configuration Release --output ${{ github.workspace }}/myapp ./DinePulse_API/DinePulse_API/DinePulse_API.csproj
+        run: dotnet publish --configuration Release --output ${{ github.workspace }}/myapp ./dinepulse/dinepulse_api/DinePulse_API/DinePulse_API.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
