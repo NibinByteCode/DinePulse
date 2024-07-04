@@ -25,6 +25,18 @@ class CartService {
     }
   }
 
+  void updateCookingInstructions(CartItem item, String instructions) {
+    final index = _items.indexOf(item);
+    if (index != -1) {
+      _items[index] = CartItem(
+        name: _items[index].name,
+        price: _items[index].price,
+        quantity: _items[index].quantity,
+        cookingInstructions: instructions,
+      );
+    }
+  }
+
   void clearCart() {
     _items.clear();
   }
