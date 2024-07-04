@@ -32,7 +32,7 @@ The Backend API is already hosted in the Azure Cloud with the Database server co
 Default 
         Username : admin
         
-        Password : admin123.
+        Password : admin123
         
 This user will be able to login in both Admin dashboard and Mobile application.
   
