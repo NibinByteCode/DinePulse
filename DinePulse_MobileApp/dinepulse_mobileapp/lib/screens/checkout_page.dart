@@ -24,7 +24,10 @@ class CheckoutPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/menu');
+                Navigator.pushNamed(context, '/menu', arguments: {
+                  'table': 1,
+                  'count': 1
+                }); // Ensure arguments if required
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),

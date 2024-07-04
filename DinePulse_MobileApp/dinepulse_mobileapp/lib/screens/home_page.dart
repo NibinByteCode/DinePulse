@@ -1,68 +1,15 @@
+import 'package:dinepulse_mobileapp/widgets/list_tile.dart';
 import 'package:flutter/material.dart';
-import '../widgets/list_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../widgets/custom_app_bar.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'DINEPULSE',
-          style: TextStyle(
-            color: Color.fromRGBO(203, 79, 41, 1),
-            fontSize: 20,
-            fontFamily: 'Calistoga',
-          ),
-        ),
-        centerTitle: true,
-        foregroundColor: Color.fromRGBO(203, 79, 41, 1),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            iconSize: 35,
-            color: Color.fromRGBO(203, 79, 41, 1),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text(
-                    'Do you want to Logout?',
-                    style: const TextStyle(
-                      color: Color.fromRGBO(203, 79, 41, 1),
-                      fontSize: 15,
-                      fontFamily: 'Calistoga',
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      child: const Text(
-                        'LOGOUT',
-                        style: TextStyle(
-                          color: Color.fromRGBO(203, 79, 41, 1),
-                          fontSize: 13,
-                          fontFamily: 'Calistoga',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          const Text(
-            "Staff 1",
-            style: TextStyle(
-              color: Color.fromRGBO(203, 79, 41, 1),
-              fontSize: 15,
-              fontFamily: 'Calistoga',
-            ),
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: 'DINEPULSE',
+        showProfileIcon: true,
       ),
       drawer: Drawer(
         child: Column(
@@ -114,7 +61,10 @@ class HomePage extends StatelessWidget {
                 icon: Icons.restaurant,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/menu');
+                  Navigator.pushNamed(context, '/menu', arguments: {
+                    'table': 1,
+                    'count': 1
+                  }); // Ensure arguments if required
                 }),
             MyListTile(
                 text: "CART",
@@ -281,7 +231,10 @@ class HomePage extends StatelessWidget {
               height: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/menu');
+                  Navigator.pushNamed(context, '/menu', arguments: {
+                    'table': 1,
+                    'count': 1
+                  }); // Ensure arguments if required
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/cart_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -26,12 +27,40 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: Color.fromRGBO(203, 79, 41, 1),
       actions: [
         if (showCartIcon)
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            color: Color.fromRGBO(203, 79, 41, 1),
-            onPressed: () {
-              Navigator.pushNamed(context, '/cart');
-            },
+          Stack(
+            children: [
+              IconButton(
+                icon: Icon(Icons.shopping_cart),
+                color: Color.fromRGBO(203, 79, 41, 1),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/cart');
+                },
+              ),
+              if (cartService.itemCount > 0)
+                Positioned(
+                  right: 8,
+                  top: 8,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 18,
+                      minHeight: 18,
+                    ),
+                    child: Text(
+                      '${cartService.itemCount}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+            ],
           ),
         if (showProfileIcon)
           IconButton(
