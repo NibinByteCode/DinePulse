@@ -1,9 +1,13 @@
+import 'package:dinepulse_mobileapp/services/loginvalidation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _userIdController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  LoginPage({super.key});
 
   OutlineInputBorder borderColor(Color input) {
     return OutlineInputBorder(
@@ -25,7 +29,7 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: Center(
@@ -33,7 +37,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Image.asset(
                       'assets/images/restaurant_logo.png',
                       width: 200,
@@ -60,16 +64,17 @@ class LoginPage extends StatelessWidget {
                             color: Color.fromARGB(221, 33, 33, 33),
                             fontFamily: 'Calistoga',
                           ),
-                          border: borderColor(Color.fromRGBO(203, 79, 41, 1)),
+                          border:
+                              borderColor(const Color.fromRGBO(203, 79, 41, 1)),
                           focusedBorder:
-                              borderColor(Color.fromRGBO(113, 36, 12, 1)),
+                              borderColor(const Color.fromRGBO(113, 36, 12, 1)),
                           enabledBorder:
-                              borderColor(Color.fromRGBO(203, 79, 41, 1)),
+                              borderColor(const Color.fromRGBO(203, 79, 41, 1)),
                           suffixIcon: const Icon(
                             Icons.person,
                             color: Color.fromRGBO(203, 79, 41, 1),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                         ),
                         validator: (value) {
@@ -80,7 +85,7 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: 300,
                       child: TextFormField(
@@ -91,16 +96,17 @@ class LoginPage extends StatelessWidget {
                             color: Color.fromARGB(221, 33, 33, 33),
                             fontFamily: 'Calistoga',
                           ),
-                          border: borderColor(Color.fromRGBO(203, 79, 41, 1)),
+                          border:
+                              borderColor(const Color.fromRGBO(203, 79, 41, 1)),
                           focusedBorder:
-                              borderColor(Color.fromRGBO(113, 36, 12, 1)),
+                              borderColor(const Color.fromRGBO(113, 36, 12, 1)),
                           enabledBorder:
-                              borderColor(Color.fromRGBO(203, 79, 41, 1)),
+                              borderColor(const Color.fromRGBO(203, 79, 41, 1)),
                           suffixIcon: const Icon(
                             Icons.lock,
                             color: Color.fromRGBO(203, 79, 41, 1),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
                         ),
                         obscureText: true,
@@ -112,14 +118,30 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: Container(
                         width: 200,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushReplacementNamed(context, '/home');
+                              final username = _userIdController.text;
+                              final password = _passwordController.text;
+                              final response =
+                                  await loginUser(username, password);
+                              if (response.loginStatus) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/home');
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: response.loginMessage,
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                             }
                           },
                           style: ElevatedButton.styleFrom(

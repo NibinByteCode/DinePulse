@@ -7,8 +7,10 @@ import 'screens/menu_page.dart';
 import 'screens/cart_page.dart';
 import 'screens/checkout_page.dart';
 import 'screens/onboarding_screens.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
