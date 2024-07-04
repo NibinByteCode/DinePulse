@@ -1,6 +1,7 @@
 ﻿using DinePulse_API.Database;
 using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -92,5 +93,13 @@ namespace DinePulse_API.Controllers.AdminControllers
                 return BadRequest("No Data Fetched...Please Try Later");
             }
         }
+
+        [HttpGet]
+        [ActionName("TestAPI")]
+        public IActionResult TestAPI()
+        {
+            return Ok("Dinepulse API is live...");
+        }
+
     }
 }
