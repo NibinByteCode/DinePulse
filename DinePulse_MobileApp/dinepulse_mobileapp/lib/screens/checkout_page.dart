@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
 
 class CheckoutPage extends StatelessWidget {
+  const CheckoutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class CheckoutPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Your order is getting ready',
               style: TextStyle(
                 fontSize: 20,
@@ -21,7 +23,7 @@ class CheckoutPage extends StatelessWidget {
                 color: Color.fromRGBO(203, 79, 41, 1),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: 200,
               child: ElevatedButton(
