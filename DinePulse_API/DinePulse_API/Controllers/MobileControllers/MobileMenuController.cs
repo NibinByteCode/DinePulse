@@ -1,4 +1,5 @@
 ﻿using DinePulse_API.Database;
+using DinePulse_API.Models;
 using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -53,5 +54,39 @@ namespace DinePulse_API.Controllers.MobileControllers
                 return BadRequest("No Data Fetched...Please Try Later");
             }
         }
+
+        [HttpGet]
+        [ActionName("GetAllMenuCategories")]
+        public IActionResult GetAllMenuCategories()
+        {
+            try
+            {
+
+                DataTable table = dataLayer.Getfromdb("MenuCategory_GetCategory");
+
+                List<CategoryModel> categories = new List<CategoryModel>();
+                foreach (DataRow row in table.Rows)
+                {
+                    CategoryModel category = new CategoryModel
+                    {
+                        CategoryId = Convert.ToInt32(row["category_id"]),
+                        CategoryName = row["category_name"].ToString(),
+                        CategoryDescription = row["category_description"].ToString(),
+                        CategoryImageBase64 = Convert.ToBase64String(row["category_image"] as byte[])
+                    };
+
+                    categories.Add(category);
+                }
+
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error retrieving menu categories: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
     }
+
+
 }
