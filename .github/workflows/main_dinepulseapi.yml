@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'DinePulse/DinePulse_API/**'
+      - './DinePulse_API/**'
   workflow_dispatch:
 
 jobs:
