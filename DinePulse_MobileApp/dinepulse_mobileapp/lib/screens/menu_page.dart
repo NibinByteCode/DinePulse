@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import '../widgets/custom_app_bar.dart';
+import '../models/cart_item.dart';
+import '../services/cart_service.dart';
+import '../widgets/category_button.dart'; // Import the CategoryButton
 
-class MenuPage extends StatelessWidget {
+class MenuPage extends StatefulWidget {
+  @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  final List<CartItem> menuItems = List.generate(
+    10,
+    (index) => CartItem(name: 'Beef Cheese Burger $index', price: 12.99),
+  );
+
+  void _addToCart(CartItem item) {
+    setState(() {
+      cartService.addItem(item);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
@@ -19,15 +38,11 @@ class MenuPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-          title: const Text(
-        'SELECT CATEGORY',
-        style: TextStyle(
-          color: Color.fromRGBO(203, 79, 41, 1),
-          fontSize: 20,
-          fontFamily: 'Calistoga',
-        ),
-      )),
+      appBar: CustomAppBar(
+        title: 'SELECT CATEGORY',
+        showCartIcon: true,
+        showProfileIcon: true,
+      ),
       body: Column(
         children: [
           Padding(
@@ -127,7 +142,7 @@ class MenuPage extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(16.0),
-              itemCount: 10, // Number of menu items
+              itemCount: menuItems.length,
               itemBuilder: (context, index) {
                 return Card(
                   color: Color.fromRGBO(255, 244, 226, 1),
@@ -140,16 +155,16 @@ class MenuPage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     title: Text(
-                      'Beef Cheese Burger $index',
+                      menuItems[index].name,
                       style: const TextStyle(
                         color: Color.fromRGBO(203, 79, 41, 1),
                         fontSize: 15,
                         fontFamily: 'Calistoga',
                       ),
                     ),
-                    subtitle: const Text(
-                      'Price: \$12.99',
-                      style: TextStyle(
+                    subtitle: Text(
+                      'Price: \$${menuItems[index].price.toStringAsFixed(2)}',
+                      style: const TextStyle(
                         color: Color.fromRGBO(203, 79, 41, 1),
                         fontSize: 12,
                         fontFamily: 'Calistoga',
@@ -175,93 +190,115 @@ class MenuPage extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(
-                              'Beef Cheese Burger $index',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Color.fromRGBO(203, 79, 41, 1),
-                                fontSize: 16,
-                                fontFamily: 'Calistoga',
-                              ),
-                            ),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.remove,
-                                        color: Color.fromRGBO(203, 79, 41, 1),
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                    const Text(
-                                      '1',
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(203, 79, 41, 1),
-                                        fontSize: 14,
-                                        fontFamily: 'Calistoga',
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.add,
-                                          color:
-                                              Color.fromRGBO(203, 79, 41, 1)),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 15),
-                                const Text(
-                                  'TOTAL : \$12.99',
-                                  style: TextStyle(
+                          builder: (context) => StatefulBuilder(
+                            builder: (context, setState) {
+                              return AlertDialog(
+                                title: Text(
+                                  menuItems[index].name,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
                                     color: Color.fromRGBO(203, 79, 41, 1),
-                                    fontSize: 13,
+                                    fontSize: 16,
                                     fontFamily: 'Calistoga',
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(Icons.delete_forever_rounded,
-                                        color: Color.fromRGBO(203, 79, 41, 1)),
-                                    SizedBox(width: 7),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            color:
+                                                Color.fromRGBO(203, 79, 41, 1),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (menuItems[index].quantity >
+                                                  1) {
+                                                menuItems[index].quantity--;
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        Text(
+                                          menuItems[index].quantity.toString(),
+                                          style: const TextStyle(
+                                            color:
+                                                Color.fromRGBO(203, 79, 41, 1),
+                                            fontSize: 14,
+                                            fontFamily: 'Calistoga',
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color:
+                                                Color.fromRGBO(203, 79, 41, 1),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              menuItems[index].quantity++;
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 15),
                                     Text(
-                                      'Remove item',
-                                      style: TextStyle(
+                                      'TOTAL : \$${(menuItems[index].price * menuItems[index].quantity).toStringAsFixed(2)}',
+                                      style: const TextStyle(
                                         color: Color.fromRGBO(203, 79, 41, 1),
-                                        fontSize: 11,
+                                        fontSize: 13,
                                         fontFamily: 'Calistoga',
                                       ),
                                     ),
+                                    SizedBox(height: 10),
+                                    const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.delete_forever_rounded,
+                                            color:
+                                                Color.fromRGBO(203, 79, 41, 1)),
+                                        SizedBox(width: 7),
+                                        Text(
+                                          'Remove item',
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(203, 79, 41, 1),
+                                            fontSize: 11,
+                                            fontFamily: 'Calistoga',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  // Add item to cart
-                                },
-                                style: TextButton.styleFrom(
-                                  alignment: Alignment.center,
-                                ),
-                                child: const Text(
-                                  'ADD TO CART',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(203, 79, 41, 1),
-                                    fontSize: 12,
-                                    fontFamily: 'Calistoga',
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      _addToCart(menuItems[index]);
+                                    },
+                                    style: TextButton.styleFrom(
+                                      alignment: Alignment.center,
+                                    ),
+                                    child: const Text(
+                                      'ADD TO CART',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(203, 79, 41, 1),
+                                        fontSize: 12,
+                                        fontFamily: 'Calistoga',
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
+                                ],
+                              );
+                            },
                           ),
                         );
                       },
@@ -272,61 +309,6 @@ class MenuPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CategoryButton extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final double fontSize;
-  final Color iconColor;
-  final Color backgroundColor;
-  final double borderRadius;
-
-  const CategoryButton({
-    required this.label,
-    required this.icon,
-    required this.iconColor,
-    required this.fontSize,
-    required this.backgroundColor,
-    required this.borderRadius,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          // Filter items by category
-        },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 20,
-              color: iconColor,
-            ),
-            SizedBox(width: 4), //Space between icon and text
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontFamily: 'Calistoga',
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

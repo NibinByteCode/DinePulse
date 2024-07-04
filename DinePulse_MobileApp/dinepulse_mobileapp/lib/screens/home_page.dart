@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'list_tile.dart';
+import '../widgets/list_tile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatelessWidget {
@@ -68,12 +68,10 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Drawer header logo
             const DrawerHeader(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image widget
                   Expanded(
                     flex: 2,
                     child: Image(
@@ -82,8 +80,6 @@ class HomePage extends StatelessWidget {
                       height: 150,
                     ),
                   ),
-                  //SizedBox(width: 10),
-                  // Text widget
                   Expanded(
                     flex: 3,
                     child: Text(
@@ -100,15 +96,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10.0),
-            //shop tile
             MyListTile(
                 text: "HOME",
                 icon: Icons.home,
                 onTap: () {
                   Navigator.pop(context);
-                  //Navigator.pushNamed(context, '/home_page');
                 }),
-            // products tile
             MyListTile(
                 text: "TABLES",
                 icon: Icons.table_chart_sharp,
@@ -116,7 +109,6 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/choose_table');
                 }),
-            // MENU tile
             MyListTile(
                 text: "MENU",
                 icon: Icons.restaurant,
@@ -124,15 +116,13 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/menu');
                 }),
-            // cart tile
             MyListTile(
                 text: "CART",
                 icon: Icons.shopping_cart,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/checkout');
+                  Navigator.pushNamed(context, '/cart');
                 }),
-            // exit shop tile
             MyListTile(
                 text: "EXIT",
                 icon: Icons.logout_rounded,
@@ -140,7 +130,7 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/login');
                 }),
-            Spacer(), //Pushes the Row below to the bottom
+            Spacer(),
             const Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -172,7 +162,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CarouselSlider(
               options: CarouselOptions(
@@ -190,8 +179,8 @@ class HomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Colors.white70, // Border color
-                      width: 1.0, // Border width
+                      color: Colors.white70,
+                      width: 1.0,
                     ),
                   ),
                   child: ClipRRect(
@@ -205,8 +194,8 @@ class HomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Colors.white70, // Border color
-                      width: 1.0, // Border width
+                      color: Colors.white70,
+                      width: 1.0,
                     ),
                   ),
                   child: ClipRRect(
@@ -220,8 +209,8 @@ class HomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Colors.white70, // Border color
-                      width: 1.0, // Border width
+                      color: Colors.white70,
+                      width: 1.0,
                     ),
                   ),
                   child: ClipRRect(

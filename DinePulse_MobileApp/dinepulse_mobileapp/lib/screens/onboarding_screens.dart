@@ -9,23 +9,26 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-  int selectedPage = 0; 
+  int selectedPage = 0;
   PageController controller = PageController();
 
   List pagecontentsArray = [
     {
       "title": "Find Food You Love",
-      "subtitle": "Explore DinePulse: Discover diverse flavors and fast,\nreliable delivery right to your door.",
+      "subtitle":
+          "Explore DinePulse: Discover diverse flavors and fast,\nreliable delivery right to your door.",
       "image": "assets/images/landing-screen-1.png",
     },
     {
       "title": "Quick Delivery at your Doorstep",
-      "subtitle": "Bringing delicious meals swiftly to your doorstep,\noffering a diverse range of culinary delights to satisfy your cravings.",
+      "subtitle":
+          "Bringing delicious meals swiftly to your doorstep,\noffering a diverse range of culinary delights to satisfy your cravings.",
       "image": "assets/images/landing-screen-2.png",
     },
     {
       "title": "Easy and Online Payment",
-      "subtitle": "Simplifying your dining experience with \nsecure, effortless online payments.",
+      "subtitle":
+          "Simplifying your dining experience with \nsecure, effortless online payments.",
       "image": "assets/images/landing-screen-3.png",
     },
   ];
@@ -47,7 +50,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          //PageView and content
           PageView.builder(
             controller: controller,
             itemCount: pagecontentsArray.length,
@@ -66,9 +68,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20.0, // Adjusting the space between the image and title
-                  ),
+                  const SizedBox(height: 20.0),
                   Text(
                     pObj["title"].toString(),
                     textAlign: TextAlign.center,
@@ -78,9 +78,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       fontFamily: 'Calistoga',
                     ),
                   ),
-                  const SizedBox(
-                    height: 10.0, // Adjusting the space between the title and subtitle
-                  ),
+                  const SizedBox(height: 10.0),
                   Text(
                     pObj["subtitle"].toString(),
                     textAlign: TextAlign.center,
@@ -95,7 +93,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               );
             }),
           ),
-          // Second child: Indicators and Next Button
           Positioned(
             bottom: 10.0,
             child: Column(
@@ -110,22 +107,22 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       height: 8,
                       width: 8,
                       decoration: BoxDecoration(
-                        color: index == selectedPage ? Colors.red : Colors.brown,
+                        color:
+                            index == selectedPage ? Colors.red : Colors.brown,
                         borderRadius: BorderRadius.circular(4),
                       ),
                     );
                   }).toList(),
                 ),
-                const SizedBox(height: 16.0), // Adjusting spacing between indicators and button
+                const SizedBox(height: 16.0),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: const Color.fromRGBO(203, 79, 41, 1), // Button background color
+                    color: const Color.fromRGBO(203, 79, 41, 1),
                   ),
                   child: IconButton(
                     onPressed: () {
                       if (selectedPage >= 2) {
-                        // Home Screen
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -133,7 +130,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                           ),
                         );
                       } else {
-                        // Next Screen
                         setState(() {
                           selectedPage = selectedPage + 1;
                           controller.animateToPage(selectedPage,
@@ -144,7 +140,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     },
                     icon: const Icon(Icons.arrow_forward),
                     iconSize: 15.0,
-                    color: Colors.white, // Icon color
+                    color: Colors.white,
                   ),
                 ),
               ],

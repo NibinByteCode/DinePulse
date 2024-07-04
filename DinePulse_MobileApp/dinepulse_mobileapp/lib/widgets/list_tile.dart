@@ -20,17 +20,17 @@ class MyListTile extends StatelessWidget {
         leading: Icon(
           icon,
           color: Color.fromRGBO(203, 79, 41, 1),
-        ), // Icon
+        ),
         title: Text(
-            text,
-            style: TextStyle(
-              fontSize: 15,
-              color: Color.fromRGBO(203, 79, 41, 1),
-              fontFamily: 'Calistoga',
-            )
+          text,
+          style: TextStyle(
+            fontSize: 15,
+            color: Color.fromRGBO(203, 79, 41, 1),
+            fontFamily: 'Calistoga',
+          ),
         ),
         onTap: onTap,
       ),
     );
   }
-}// ListTile
+}

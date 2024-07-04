@@ -34,7 +34,6 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 10),
-                    // Logo
                     Image.asset(
                       'assets/images/restaurant_logo.png',
                       width: 200,

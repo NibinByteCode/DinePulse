@@ -4,6 +4,7 @@ import 'screens/login_page.dart';
 import 'screens/home_page.dart';
 import 'screens/choose_table_page.dart';
 import 'screens/menu_page.dart';
+import 'screens/cart_page.dart';
 import 'screens/checkout_page.dart';
 import 'screens/onboarding_screens.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/choose_table': (context) => ChooseTablePage(),
         '/menu': (context) => MenuPage(),
+        '/cart': (context) => CartPage(),
         '/checkout': (context) => CheckoutPage(),
       },
     );

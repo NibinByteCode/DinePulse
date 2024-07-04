@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_app_bar.dart';
 
 class ChooseTablePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'CHOOSE TABLES',
-          style: TextStyle(
-            color: Color.fromRGBO(203, 79, 41, 1),
-            fontSize: 20,
-            fontFamily: 'Calistoga',
-          ),
-        ),
-        centerTitle: true,
-        foregroundColor: Color.fromRGBO(203, 79, 41, 1),
+      appBar: CustomAppBar(
+        title: 'CHOOSE TABLES',
+        showProfileIcon: true,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -52,17 +45,15 @@ class ChooseTablePage extends StatelessWidget {
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color.fromRGBO(
-                                  203, 79, 41, 1), // Border color
-                              width: 1.0, // Border width
+                              color: Color.fromRGBO(203, 79, 41, 1),
+                              width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color.fromRGBO(
-                                  203, 79, 41, 1), // Border color
-                              width: 1.0, // Border width
+                              color: Color.fromRGBO(203, 79, 41, 1),
+                              width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
@@ -93,8 +84,7 @@ class ChooseTablePage extends StatelessWidget {
               },
               child: Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      8.0), // Optional: Border radius for rounded corners
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
                 color: Color.fromRGBO(248, 143, 143, 1.0),
                 child: Center(
