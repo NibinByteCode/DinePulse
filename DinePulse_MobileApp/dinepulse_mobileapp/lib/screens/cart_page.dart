@@ -57,73 +57,108 @@ class _CartPageState extends State<CartPage> {
                 return Card(
                   color: Color.fromRGBO(255, 244, 226, 1),
                   margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: ListTile(
-                    leading: Image.asset(
-                      'assets/images/no-image-image.png',
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    ),
-                    title: Text(
-                      item.name,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(203, 79, 41, 1),
-                        fontSize: 15,
-                        fontFamily: 'Calistoga',
-                      ),
-                    ),
-                    subtitle: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () {
-                                _updateQuantity(item, item.quantity - 1);
-                              },
+                            Image.asset(
+                              'assets/images/no-image-image.png',
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                              '${item.quantity} x \$${item.price.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                color: Color.fromRGBO(203, 79, 41, 1),
-                                fontSize: 12,
-                                fontFamily: 'Calistoga',
+                            SizedBox(width: 8.0),
+                            Expanded(
+                              child: Text(
+                                item.name,
+                                style: const TextStyle(
+                                  color: Color.fromRGBO(203, 79, 41, 1),
+                                  fontSize: 15,
+                                  fontFamily: 'Calistoga',
+                                ),
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.add),
+                              icon: Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
-                                _updateQuantity(item, item.quantity + 1);
+                                showItemRemoveConfirmationDialog(
+                                    context, item, _removeItem);
                               },
                             ),
                           ],
                         ),
-                        Text(
-                          'Total: \$${item.total.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            color: Color.fromRGBO(203, 79, 41, 1),
-                            fontSize: 12,
-                            fontFamily: 'Calistoga',
-                          ),
+                        SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color.fromRGBO(203, 79, 41, 1)),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      _updateQuantity(item, item.quantity - 1);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(width: 8.0),
+                                Text(
+                                  '${item.quantity} x \$${item.price.toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(203, 79, 41, 1),
+                                    fontSize: 14,
+                                    fontFamily: 'Calistoga',
+                                  ),
+                                ),
+                                SizedBox(width: 8.0),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color.fromRGBO(203, 79, 41, 1)),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      _updateQuantity(item, item.quantity + 1);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Total: \$${item.total.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Color.fromRGBO(203, 79, 41, 1),
+                                fontSize: 15,
+                                fontFamily: 'Calistoga',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
+                        SizedBox(height: 8.0),
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Cooking Instructions',
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
                           ),
                           onChanged: (value) {
                             _updateCookingInstructions(item, value);
                           },
                         ),
                       ],
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        showItemRemoveConfirmationDialog(
-                            context, item, _removeItem);
-                      },
                     ),
                   ),
                 );
