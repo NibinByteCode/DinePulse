@@ -21,11 +21,15 @@ The Project mainly has 3 Parts:
 **Using the Cloud API**
 
 The Backend API is already hosted in the Azure Cloud with the Database server configured in the Azure SQL . A CI/CD pipeline with GitHub Actions is configured so as whenever the commit happens to the main branch, API will be build and deployed to the Backend Server.
-       
+
+**Swagger Link for the API**
+The API End points can be interacted and tested using the following Swagger Link: https://dinepulseapi.azurewebsites.net/Swagger/index.html   
+
 **Using Local Instance of API:**
-- First Create a database in MS SQL with name as dinepulse and run the DB Scripts available in folder- Dinepulse_DinepulseSQLServer.
+- First Create a database in MS SQL with name as dinepulse and run the DB Scripts available in folder- Dinepulse/DinepulseSQLServer.
 - Run the API Source Code using Visual Studio from the folder Dinepulse/Dinepulse_API. Make sure to change the Connection String in the secrets.json file.
 - Run the Admin Dashboard app from the folder- Dinepulse/Dinepulse_Admin - using command *npm start* . Make sure to change the API URL in the .env file.
+- For the Flutter Mobile Application, assuming the Fluuter SDk is configured in the system, Project can be run from the folder Dinpulse/DinePulse_MobileApp/dinepulse_mobileapp using the Command - *Flutter run*
 
 **User Credentials**
 
