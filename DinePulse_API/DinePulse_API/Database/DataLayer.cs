@@ -106,7 +106,7 @@ namespace DinePulse_API.Database
                     CommandType = CommandType.StoredProcedure
                 };
                 SqlTransaction transaction;
-                transaction = con.BeginTransaction("InsertTransaction"); // Start a local transaction.
+                transaction = con.BeginTransaction("InsertTransaction"); 
                 cmdProc.Transaction = transaction;
                 if (sp != null)
                     cmdProc.Parameters.AddRange(sp.ToArray());
@@ -148,6 +148,53 @@ namespace DinePulse_API.Database
 
 
         }
+        public async Task<int> ExecuteNonQueryAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+        {
+            try
+            {
+                await con.OpenAsync();
+                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+                {
+                    cmdProc.CommandType = CommandType.StoredProcedure;
+                    SqlTransaction transaction = con.BeginTransaction("InsertTransaction");
+                    cmdProc.Transaction = transaction;
 
+                    if (parameters != null)
+                    {
+                        cmdProc.Parameters.AddRange(parameters.ToArray());
+                    }
+
+                    try
+                    {
+                        int result = await cmdProc.ExecuteNonQueryAsync();
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        new LogHelper().LogError("Commit Exception Type: " + ex.GetType());
+                        try
+                        {
+                            transaction.Rollback();
+                        }
+                        catch (Exception ex2)
+                        {
+                            new LogHelper().LogError("Rollback Exception Type: " + ex2.GetType());
+                            new LogHelper().LogError(ex.Message);
+                        }
+                        return 0;
+                    }
+                    finally
+                    {
+                        await con.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError(ex.Message);
+                return 0;
+            }
+        }
     }
 }
