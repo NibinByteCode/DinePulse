@@ -157,7 +157,7 @@ namespace DinePulse_API.Controllers.AdminControllers
 
                     if (!string.IsNullOrEmpty(JSONresult))
                     {
-                        return Ok(new { data = JSONresult });
+                        return Ok("{\"data\":" + JSONresult + "}");
                     }
                     else
                     {
