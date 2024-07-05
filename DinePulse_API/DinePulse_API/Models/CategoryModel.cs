@@ -6,6 +6,6 @@
         public string? CategoryName { get; set; }
         public string? CategoryDescription { get; set; }
         public string? CategoryImageBase64 { get; set; }
-
+        public string? CategoryImage { get; set; }
     }
 }

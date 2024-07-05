@@ -37,7 +37,8 @@ namespace DinePulse_API.Controllers.AdminControllers
                         CategoryId = Convert.ToInt32(row["category_id"]),
                         CategoryName = row["category_name"].ToString(),
                         CategoryDescription = row["category_description"].ToString(),
-                        CategoryImageBase64 = Convert.ToBase64String(row["category_image"] as byte[])
+                        CategoryImageBase64 = Convert.ToBase64String(row["category_image"] as byte[]),
+                        CategoryImage=row["category_image_file"].ToString()
                     };
 
                     categories.Add(category);
