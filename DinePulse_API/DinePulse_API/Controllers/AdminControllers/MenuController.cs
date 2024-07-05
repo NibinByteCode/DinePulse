@@ -135,6 +135,47 @@ namespace DinePulse_API.Controllers.AdminControllers
             }
         }
 
+
+        [HttpGet]
+        [ActionName("GetMenuByCategoryId")]
+        public IActionResult GetMenuByCategoryId(string itemId)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+        {
+            new SqlParameter() { ParameterName = "@item_id", SqlDbType = SqlDbType.VarChar, Value = itemId }
+        };
+
+                DataTable table = new DataTable();
+                table = dataLayer.Getbulkfromdb("GetMenuByCategoryId", sp);
+
+                if (table.Rows.Count > 0)
+                {
+                    string JSONresult;
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
+
+                    if (!string.IsNullOrEmpty(JSONresult))
+                    {
+                        return Ok(new { data = JSONresult });
+                    }
+                    else
+                    {
+                        return NotFound(); // No data found
+                    }
+                }
+                else
+                {
+                    return NotFound(); // No data found
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error getting data..." + ex.Message);
+                return BadRequest("No Data Fetched...Please Try Later");
+            }
+        }
+
         [HttpPost]
         [ActionName("InsertMenuItem")]
         public IActionResult InsertMenuItem([FromBody] MenuModel menuModel)
