@@ -1,4 +1,5 @@
 import 'package:dinepulse_mobileapp/screens/popups/item_add_popup.dart';
+import 'package:dinepulse_mobileapp/services/menu_fetch.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
 import '../models/cart_item.dart';
@@ -6,15 +7,20 @@ import '../services/cart_service.dart';
 import '../widgets/category_button.dart';
 
 class MenuPage extends StatefulWidget {
+  const MenuPage({super.key});
+
   @override
   _MenuPageState createState() => _MenuPageState();
 }
 
 class _MenuPageState extends State<MenuPage> {
-  final List<CartItem> menuItems = List.generate(
-    10,
-    (index) => CartItem(name: 'Beef Cheese Burger $index', price: 12.99),
-  );
+  late Future<List<CartItem>> futureMenuItems;
+
+  @override
+  void initState() {
+    super.initState();
+    futureMenuItems = fetchMenu();
+  }
 
   void _addToCart(CartItem item) {
     setState(() {
@@ -75,13 +81,15 @@ class _MenuPageState extends State<MenuPage> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
-                border: borderColor(Color.fromRGBO(203, 79, 41, 1)),
-                focusedBorder: borderColor(Color.fromRGBO(113, 36, 12, 1)),
-                enabledBorder: borderColor(Color.fromRGBO(203, 79, 41, 1)),
+                border: borderColor(const Color.fromRGBO(203, 79, 41, 1)),
+                focusedBorder:
+                    borderColor(const Color.fromRGBO(113, 36, 12, 1)),
+                enabledBorder:
+                    borderColor(const Color.fromRGBO(203, 79, 41, 1)),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: SingleChildScrollView(
@@ -141,59 +149,76 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.all(16.0),
-              itemCount: menuItems.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Color.fromRGBO(255, 244, 226, 1),
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: ListTile(
-                    leading: Image.asset(
-                      'assets/images/no-image-image.png',
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    ),
-                    title: Text(
-                      menuItems[index].name,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(203, 79, 41, 1),
-                        fontSize: 15,
-                        fontFamily: 'Calistoga',
-                      ),
-                    ),
-                    subtitle: Text(
-                      'Price: \$${menuItems[index].price.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        color: Color.fromRGBO(203, 79, 41, 1),
-                        fontSize: 12,
-                        fontFamily: 'Calistoga',
-                      ),
-                    ),
-                    trailing: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(203, 79, 41, 1),
-                        elevation: 0,
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4.0),
+            //Ref : https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html
+            child: FutureBuilder<List<CartItem>>(
+              future: futureMenuItems,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.hasData) {
+                  final menuItems = snapshot.data!;
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
+                    itemCount: menuItems.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: const Color.fromRGBO(255, 244, 226, 1),
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: Image.network(
+                            menuItems[index].imagePath,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
+                          title: Text(
+                            menuItems[index].name,
+                            style: const TextStyle(
+                              color: Color.fromRGBO(203, 79, 41, 1),
+                              fontSize: 15,
+                              fontFamily: 'Calistoga',
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Price: \$${menuItems[index].price.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              color: Color.fromRGBO(203, 79, 41, 1),
+                              fontSize: 12,
+                              fontFamily: 'Calistoga',
+                            ),
+                          ),
+                          trailing: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromRGBO(203, 79, 41, 1),
+                              elevation: 0,
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                            ),
+                            child: const Text(
+                              "ADD",
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'Calistoga',
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              showItemAddPopup(
+                                  context, menuItems[index], _addToCart);
+                            },
+                          ),
                         ),
-                      ),
-                      child: const Text(
-                        "ADD",
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'Calistoga',
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () {
-                        showItemAddPopup(context, menuItems[index], _addToCart);
-                      },
-                    ),
-                  ),
-                );
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(child: Text('No data available'));
+                }
               },
             ),
           ),

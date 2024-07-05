@@ -9,6 +9,7 @@ class CategoryButton extends StatelessWidget {
   final double borderRadius;
 
   const CategoryButton({
+    super.key,
     required this.label,
     required this.icon,
     required this.iconColor,
@@ -26,7 +27,7 @@ class CategoryButton extends StatelessWidget {
           //filter
         },
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -39,7 +40,7 @@ class CategoryButton extends StatelessWidget {
               size: 20,
               color: iconColor,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
               label,
               style: TextStyle(

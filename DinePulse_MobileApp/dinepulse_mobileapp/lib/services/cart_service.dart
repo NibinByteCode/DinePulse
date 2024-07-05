@@ -31,6 +31,7 @@ class CartService {
       _items[index] = CartItem(
         name: _items[index].name,
         price: _items[index].price,
+        imagePath: _items[index].imagePath,
         quantity: _items[index].quantity,
         cookingInstructions: instructions,
       );

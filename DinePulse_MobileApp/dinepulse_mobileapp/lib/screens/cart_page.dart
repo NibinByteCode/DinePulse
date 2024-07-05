@@ -55,8 +55,8 @@ class _CartPageState extends State<CartPage> {
               itemBuilder: (context, index) {
                 final item = cartService.items[index];
                 return Card(
-                  color: Color.fromRGBO(255, 244, 226, 1),
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  color: const Color.fromRGBO(255, 244, 226, 1),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -64,8 +64,8 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              'assets/images/no-image-image.png',
+                            Image.network(
+                              item.imagePath,
                               width: 50,
                               height: 50,
                               fit: BoxFit.cover,
