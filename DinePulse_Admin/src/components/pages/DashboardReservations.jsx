@@ -1,6 +1,6 @@
 import React from "react";
-import free_table from "./Assets/free_table.png";
-import reserved_table from "./Assets/reserved_table.png";
+import free_table from "../assets/free_table.png";
+import reserved_table from "../assets/reserved_table.png";
 
 export const DashboardReservations = () => {
   return (

@@ -5,7 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
-import upload_image from "./Assets/upload_image.png";
+import upload_image from "../assets/upload_image.png";
 
 // Set the app element for accessibility
 Modal.setAppElement("#root");

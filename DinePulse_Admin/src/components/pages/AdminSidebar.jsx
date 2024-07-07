@@ -1,5 +1,5 @@
 import React from "react";
-import restaurant_logo from "./Assets/restaurant_logo.png";
+import restaurant_logo from "../assets/restaurant_logo.png";
 import { MdSpaceDashboard, MdTableRestaurant } from "react-icons/md";
 import {
   IoFastFood,

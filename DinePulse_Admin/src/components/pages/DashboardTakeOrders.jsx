@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import mojito_blackberry from './Assets/mojito_blackberry.jpg';
-import chicken_rice from './Assets/chicken_rice.jpg';
+import mojito_blackberry from '../assets/mojito_blackberry.jpg';
+import chicken_rice from '../assets/chicken_rice.jpg';
 
 export const DashboardTakeOrders = () => {
 

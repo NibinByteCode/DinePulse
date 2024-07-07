@@ -988,13 +988,13 @@ body {
 }
 
 .admin-background {
-  background: url("./Assets/admin_background.png");
+  background: url("../assets/admin_background.png");
   background-size: cover;
   min-height: 100vh;
 }
 
 .plain-background {
-  background: url("./Assets/plain_background.png");
+  background: url("../assets/plain_background.png");
   background-size: cover;
   min-height: 100vh;
 }

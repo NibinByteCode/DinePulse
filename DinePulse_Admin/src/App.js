@@ -1,19 +1,19 @@
-import './components/LoginRegister.css';
-import { AdminHome } from "./components/AdminHome";
-import { AdminRegister } from "./components/AdminRegister";
-import { AdminHeader } from "./components/AdminHeader";
-import { AdminSidebar } from "./components/AdminSidebar";
-import { AdminDashboard } from "./components/AdminDashboard";
-import { DashboardProducts } from "./components/DashboardProducts";
-import { DashboardTables } from "./components/DashboardTables";
-import { DashboardReservations } from "./components/DashboardReservations";
-import { DashboardEmployees } from "./components/DashboardEmployees";
-import { DashboardTakeOrders } from "./components/DashboardTakeOrders";
-import { DashboardOrders } from "./components/DashboardOrders";
-import { DashboardKitchen } from "./components/DashboardKitchen";
-import { DashboardReceipts } from "./components/DashboardReceipts";
-import { DashboardReports } from "./components/DashboardReports";
-import { DashboardSettings } from "./components/DashboardSettings";
+import './components/css/AdminDashboardStyles.css';
+import { AdminHome } from "./components/pages/AdminHome";
+import { AdminRegister } from "./components/pages/AdminRegister";
+import { AdminHeader } from "./components/pages/AdminHeader";
+import { AdminSidebar } from "./components/pages/AdminSidebar";
+import { AdminDashboard } from "./components/pages/AdminDashboard";
+import { DashboardProducts } from "./components/pages/DashboardProducts";
+import { DashboardTables } from "./components/pages/DashboardTables";
+import { DashboardReservations } from "./components/pages/DashboardReservations";
+import { DashboardEmployees } from "./components/pages/DashboardEmployees";
+import { DashboardTakeOrders } from "./components/pages/DashboardTakeOrders";
+import { DashboardOrders } from "./components/pages/DashboardOrders";
+import { DashboardKitchen } from "./components/pages/DashboardKitchen";
+import { DashboardReceipts } from "./components/pages/DashboardReceipts";
+import { DashboardReports } from "./components/pages/DashboardReports";
+import { DashboardSettings } from "./components/pages/DashboardSettings";
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {

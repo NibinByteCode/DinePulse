@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import orderrecieved_icon from "./Assets/orderrecieved_icon.png";
-import orderdelivered_icon from "./Assets/orderdelivered_icon.png";
-import orderpending_icon from "./Assets/orderpending_icon.png";
-import netrevenue_icon from "./Assets/netrevenue_icon.png";
+import orderrecieved_icon from "../assets/orderrecieved_icon.png";
+import orderdelivered_icon from "../assets/orderdelivered_icon.png";
+import orderpending_icon from "../assets/orderpending_icon.png";
+import netrevenue_icon from "../assets/netrevenue_icon.png";
 import axios from 'axios';
 
 export const AdminDashboard = () => {

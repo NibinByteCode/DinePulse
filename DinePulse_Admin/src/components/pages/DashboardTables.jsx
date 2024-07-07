@@ -5,7 +5,6 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from 'react-modal';
 import axios from 'axios';
 import { IoClose } from "react-icons/io5";
-import upload_image from './Assets/upload_image.png';
 
 // Set the app element for accessibility
 Modal.setAppElement('#root');
@@ -15,7 +14,7 @@ export const DashboardTables = () => {
   const [getTableList, setTableList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [image, setImage] = useState(false);
+  //const [image, setImage] = useState(false);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);

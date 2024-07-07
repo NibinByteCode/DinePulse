@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import "./LoginRegister.css";
-import { FaUser, FaPhoneAlt } from "react-icons/fa";
+import "../css/AdminDashboardStyles.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import restaurant_logo from "./Assets/restaurant_logo.png";
-import register_image from "./Assets/register_image.png";
+import restaurant_logo from "../assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
