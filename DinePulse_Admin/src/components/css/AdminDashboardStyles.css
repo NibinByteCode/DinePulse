@@ -545,17 +545,17 @@ body {
   vertical-align: middle;
 }
 
-.display_categories {
+.display_categories, .display_menu {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.categories_table {
+.categories_table, .menu_table {
   margin: 15px;
   overflow-x: auto;
 }
 
-.categories_table table {
+.categories_table table, .menu_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -563,44 +563,44 @@ body {
   overflow: hidden;
 }
 
-.categories_table th,
-.categories_table td {
+.categories_table th, .categories_table td, .menu_table th, .menu_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.categories_table th {
+.categories_table th, .menu_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.categories_table tbody tr {
+.categories_table tbody tr, .menu_table tbody tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.categories_table tbody tr:nth-child(odd) {
+.categories_table tbody tr:nth-child(odd), .menu_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.categories_table tbody tr:nth-child(even) {
+.categories_table tbody tr:nth-child(even), .menu_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
-.edit_icon {
+.editcategory_icon, .editmenu_icon, .edittable_icon, .editdevice_icon, .editemployee_icon, .edit_icon {
   font-size: 20px;
   color: green;
   vertical-align: middle;
   margin-left: 30px;
 }
 
-.delete_icon {
+.deletecategory_icon, .deletemenu_icon, .deletetable_icon, .deletedevice_icon, .deleteemployee_icon, .delete_icon {
   font-size: 20px;
   color: red;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 /* === DashboardProducts.jsx CSS contents starts === */
@@ -1077,14 +1077,27 @@ body {
 }
 
 .add-category-img-upload,
+.add-menu-img-upload,
+.add-category-name,
+.add-menu-name,
+.add-category-description,
+.add-menu-description,
+.add-menucategory,
+.add-menuprice,
+.add-table-number,
+.add-table-capacity,
+.add-tablestatus,
+.add-device-name,
+.add-device-imei,
+.add-devicestatus,
+.add-employee-name,
+.add-employee-type,
+.add-employee-status,
 .add-product-img-upload,
 .add-img-upload,
-.add-category-name,
 .add-product-name,
-.add-category-description,
 .add-product-description,
-.add-category,
-.add-price {
+.add-category {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1092,20 +1105,24 @@ body {
 }
 
 .add-category-img-upload,
+.add-menu-img-upload,
 .add-product-img-upload,
 .add-img-upload {
   display: flex;
   align-items: center;
-  gap: 120px;
+  /*gap: 120px;*/
+  gap: 30px;
 }
 
 .add-category-img-upload p,
+.add-menu-img-upload p,
 .add-product-img-upload,
 .add-img-upload p {
   color: #bb521f;
 }
 
 .add-category-img-upload img,
+.add-menu-img-upload img,
 .add-product-img-upload img,
 .add-img-upload img {
   width: 80px;
@@ -1115,30 +1132,66 @@ body {
 }
 
 .add-category-name,
-.add-product-name,
+.add-menu-name,
 .add-category-description,
+.add-menu-description,
+.add-menucategory,
+.add-menuprice,
+.add-table-number,
+.add-table-capacity,
+.add-tablestatus,
+.add-device-name,
+.add-device-imei,
+.add-devicestatus,
+.add-employee-name,
+.add-employee-type,
+.add-employee-status,
+.add-product-name,
 .add-product-description,
-.add-category,
-.add-price {
+.add-category {
   width: 100%;
   color: #bb521f;
 }
 
 .add-category-name p,
-.add-product-name p,
+.add-menu-name p,
 .add-category-description p,
+.add-menu-description p,
+.add-menucategory p,
+.add-menuprice p,
+.add-table-number p,
+.add-table-capacity p,
+.add-tablestatus p,
+.add-device-name p,
+.add-device-imei p,
+.add-devicestatus p,
+.add-employee-name p,
+.add-employee-type p,
+.add-employee-status p,
+.add-product-name p,
 .add-product-description p,
-.add-category p,
-.add-price p {
+.add-category p {
   min-width: 200px;
 }
 
 .add-category-name input,
-.add-product-name input,
+.add-menu-name input,
 .add-category-description textarea,
+.add-menu-description textarea,
+.add-menucategory select,
+.add-menuprice input,
+.add-table-number input,
+.add-table-capacity input,
+.add-tablestatus select,
+.add-device-name input,
+.add-device-imei input,
+.add-devicestatus select,
+.add-employee-name input,
+.add-employee-type select,
+.add-employee-status select,
+.add-product-name input,
 .add-product-description textarea,
-.add-category select,
-.add-price input {
+.add-category select {
   width: 100%;
   max-width: 600px;
   padding: 5px;
@@ -1150,6 +1203,10 @@ body {
 }
 
 .category-buttons,
+.menu-buttons,
+.table-buttons,
+.device-buttons,
+.employee-buttons,
 .section-buttons {
   display: flex;
   flex-direction: row;
