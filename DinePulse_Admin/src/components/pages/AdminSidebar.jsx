@@ -1,12 +1,7 @@
 import React from "react";
 import restaurant_logo from "../assets/restaurant_logo.png";
 import { MdSpaceDashboard, MdTableRestaurant } from "react-icons/md";
-import {
-  IoFastFood,
-  IoRestaurant,
-  IoReceipt,
-  IoSettings,
-} from "react-icons/io5";
+import { IoFastFood, IoRestaurant, IoReceipt, IoSettings } from "react-icons/io5";
 import { RiReservedFill } from "react-icons/ri";
 import { FaShoppingCart, FaChartBar } from "react-icons/fa";
 import { GrRestaurant } from "react-icons/gr";

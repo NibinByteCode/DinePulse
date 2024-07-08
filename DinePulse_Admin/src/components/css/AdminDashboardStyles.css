@@ -67,6 +67,7 @@
   text-align: center;
 }
 
+/* === register, login CSS starts === */
 .section_login {
   position: relative;
   width: 60%;
@@ -192,6 +193,8 @@ form .login_link {
   text-decoration: underline;
 }
 
+/* === register, login CSS ends === */
+
 .side_header {
   display: flex;
   align-items: center;
@@ -272,7 +275,7 @@ body {
 
 #sidebar {
   width: 260px;
-  height: 100%;
+  /*height: 100%;*/
   background-color: #d47b4d;
   overflow-y: auto;
   transition: all 0.5s;
@@ -359,6 +362,7 @@ body {
   color: #fff;
 }
 
+/* === AdminDashboard.jsx CSS contents starts === */
 .main-title {
   display: flex;
   justify-content: space-between;
@@ -472,6 +476,8 @@ body {
   background-color: #ffe5d7;
 }
 
+/* === AdminDashboard.jsx CSS contents ends === */
+/* === DashboardProducts.jsx CSS contents starts === */
 .tab {
   overflow: hidden;
   margin-bottom: 20px;
@@ -596,6 +602,8 @@ body {
   color: red;
   vertical-align: middle;
 }
+
+/* === DashboardProducts.jsx CSS contents starts === */
 
 .display_tables,
 .display_devices {
