@@ -177,6 +177,10 @@ export const DashboardProducts = () => {
       return;
     }
 
+    /*console.log("category name ==> "+categoryName);
+    console.log("category description ==> "+categoryDescription);
+    console.log("category image ==> "+categoryImage);*/
+
     const formData = new FormData();
     formData.append("categoryModel.CategoryName", categoryName);
     formData.append("categoryModel.CategoryDescription", categoryDescription);
@@ -236,13 +240,19 @@ export const DashboardProducts = () => {
 
     const formData = new FormData();
     formData.append("menuModel.itemName", menuName);
-    formData.append("menuModel.itemDescription", menuDescription);
     formData.append("menuModel.itemCategory", menuCategory);
+    formData.append("menuModel.itemDescription", menuDescription);
     formData.append("menuModel.itemPrice", menuPrice);
     formData.append("menuModel.itemImage", menuImage);
     if (selectedMenuItem) {
       formData.append("menuModel.itemId", selectedMenuItem.productId);
     }
+
+    /*console.log("menu category ==> "+menuCategory);
+    console.log("menu name ==> "+menuName);
+    console.log("menu description ==> "+menuDescription);
+    console.log("menu price ==> "+menuPrice);
+    console.log("menu image ==> "+menuImage);*/
 
     try {
       const url = selectedMenuItem
@@ -256,7 +266,7 @@ export const DashboardProducts = () => {
         url,
         data: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
 
@@ -290,7 +300,7 @@ export const DashboardProducts = () => {
     setCategoryDescription(category.categoryDescription);
     //data:image/jpeg;base64,${categorylist.categoryImageBase64}
     //setCategoryImage("test");
-    setCategoryImage(category.categoryImageBase64);
+    setCategoryImage(category.categoryImage);
     setImage(null);
     setErrors({});  
     toggleModalCategory();
@@ -303,7 +313,7 @@ export const DashboardProducts = () => {
     setMenuDescription(menuItem.description);
     setMenuCategory(menuItem.category);
     setMenuPrice(menuItem.price);
-    setMenuImage(menuItem.name);
+    setMenuImage(menuItem.menuimage);
     setImage(null);
     setMenuErrors({});
     toggleModalMenu();
@@ -413,6 +423,7 @@ export const DashboardProducts = () => {
         </button>
       </div>
 
+      {/*displays category table details */}
       <div id="categories" className={`tabcontent ${activeTab === "CATEGORIES" ? "active" : ""}`}>
         <button className="addnew_btn" onClick={toggleModalCategory}>
           <b><span className="addnew_text">ADD NEW CATEGORY</span></b>
@@ -439,7 +450,7 @@ export const DashboardProducts = () => {
                     <td style={{ TextAlign: "center" }}>
                       {categorylist.categoryImageBase64 && (
                         <img
-                          src={`data:image/jpeg;base64,${categorylist.categoryImageBase64}`}
+                          src={`${process.env.REACT_APP_IMAGE_URL}${categorylist.categoryImage}`}
                           className="categoryImage"
                           alt={categorylist.categoryName}
                           style={{ display: "block", margin: "0 auto" }}
@@ -461,7 +472,8 @@ export const DashboardProducts = () => {
           </div>
         </div>
       </div>
-      
+
+      {/*displays menu table details */}
       <div id="menuitems" className={`tabcontent ${activeTab === "MENU" ? "active" : ""}`}>
         <button className="addnew_btn" onClick={toggleModalMenu}>
           <b><span className="addnew_text">ADD NEW MENU</span></b>
@@ -512,7 +524,8 @@ export const DashboardProducts = () => {
           <br />
         </div>
       </div>
-
+      
+      {/*displays Add New Category/Edit Category Popup functionality */}
       <Modal isOpen={isModalOpenCategory} onRequestClose={toggleModalCategory}
         contentLabel="Add New Category" className="modal" overlayClassName="modal-overlay">
         <div className="modal-header">
@@ -526,7 +539,7 @@ export const DashboardProducts = () => {
             <div className="add-category-img-upload flex-col">
               <p>Upload Image</p>
               <label htmlFor="image">
-                <img src={image ? URL.createObjectURL(image) : (categoryImage ? `data:image/jpeg;base64,${categoryImage}` : upload_image)} alt="categoryitem" />
+                <img src={image ? URL.createObjectURL(image) : (categoryImage ? `${process.env.REACT_APP_IMAGE_URL}${categoryImage}` : upload_image)} alt="categoryitem" />
               </label>
               <input onChange={(e) => { setCategoryImage(e.target.files[0]); setImage(e.target.files[0]); }}
                 type="file" id="image" required />
@@ -557,6 +570,7 @@ export const DashboardProducts = () => {
         </div>
       </Modal>
 
+      {/*displays Add New Menu/Edit Menu Popup functionality */}
       <Modal isOpen={isModalOpenMenu} onRequestClose={toggleModalMenu}
         contentLabel="Add New MenuItem" className="modal" overlayClassName="modal-overlay">
         <div className="modal-header">
@@ -568,21 +582,10 @@ export const DashboardProducts = () => {
             <div className="add-menu-img-upload flex-col">
               <p>Upload Image</p>
               <label htmlFor="image">
-                <img
-                  src={image ? URL.createObjectURL(image) : upload_image}
-                  alt="menuitem"
-                />
-              </label>
-              <input
-                onChange={(e) => { setMenuImage(e.target.files[0]); setImage(e.target.files[0]) }}
-                type="file" id="image" />
-
-              {/*<label htmlFor="image">
-                <img src={image ? URL.createObjectURL(image) : (menuImage ? `data:image/jpeg;base64,${menuImage}` : upload_image)} alt="menuitem" />
+                <img src={image ? URL.createObjectURL(image) : (menuImage ? `${process.env.REACT_APP_IMAGE_URL}${menuImage}` : upload_image)} alt="menuitem" />
               </label>
               <input onChange={(e) => { setMenuImage(e.target.files[0]); setImage(e.target.files[0]); }}
-                type="file" id="image"/>*/}
-                
+                type="file" id="image" required />
               {menuerrors.menuImage && <p className="error">{menuerrors.menuImage}</p>}
             </div>
             <div className="add-menu-name flex-col">
@@ -628,6 +631,7 @@ export const DashboardProducts = () => {
         </div>
       </Modal>
 
+      {/*displays Delete Category Popup functionality */}
       <Modal isOpen={isDeleteCategoryModalOpen} onRequestClose={closeDeleteCategoryModal}
         contentLabel="Delete Category" className="modal" overlayClassName="modal-overlay">
         <div className="modal-header">
@@ -645,7 +649,8 @@ export const DashboardProducts = () => {
           </div>
         </div>
       </Modal>
-
+      
+      {/*displays Delete Menu Popup functionality */}
       <Modal isOpen={isDeleteMenuModalOpen} onRequestClose={closeDeleteMenuModal}
         contentLabel="Delete Menu" className="modal" overlayClassName="modal-overlay">
         <div className="modal-header">
