@@ -291,6 +291,45 @@ body {
   color: rgba(255, 255, 255, 0.95);
 }
 
+/* === AdminHeader.jsx buttons Take-Away, Dine-In and On-Hold CSS contents starts ===*/
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+}
+
+.header-buttons button {
+  display: flex;
+  align-items: center;
+  padding: 13px;
+  margin-right: 19px;
+  background-color:#bb521f;
+  color: white;
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.header-buttons button:hover {
+  background-color: #d47b4d;
+}
+
+.button-icon {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+/* === AdminHeader.jsx buttons Take-Away, Dine-In and On-Hold CSS contents ends ===*/
+
+
 .profile_icon {
   vertical-align: middle;
   line-height: 1px;
@@ -1448,8 +1487,14 @@ text-align: center;
 }
 
 .categories {
+  /*display: flex;
+  gap: 20px;*/
+  position: relative;
   display: flex;
   gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .categories button {
@@ -1458,10 +1503,16 @@ text-align: center;
   border-radius: 10px;
   color: black;
   cursor: pointer;
+  width: 175px;
+  padding: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .categories button.active {
-  font-weight: bold;
+  /*font-weight: bold;*/
+  background-color: #bb521f;
+  color: #fff;
 }
 
 /* Content */
@@ -1472,12 +1523,14 @@ text-align: center;
 }
 
 .products {
-  flex: 1;
+  /*flex: 1;*/
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
+  border: 1px solid #bb521f;
   border-radius: 10px;
+  width: 100%;
+  gap: 10px;
 }
 
 /* each product with image, name, price, description in overlay and add to cart button*/
@@ -1485,16 +1538,18 @@ text-align: center;
 .product-row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  /*margin: 0 -15px;*/
+  justify-content: center;
 }
 
 .product {
-  margin-right: 20px;
+ /*margin-right: 20px;
   margin-bottom: 20px;
-  /*border: 1px solid black;
-  border-radius: 10px;*/
   padding: 10px;
   width: 200px;
+  box-sizing: border-box;*/
+  padding: 10px;
+  width: calc(25% - 10px);
   box-sizing: border-box;
 }
 
@@ -1507,7 +1562,12 @@ text-align: center;
   font-family: "Roboto Slab", serif;
 }
 
-.item h3,
+.item h3 {
+  color: #bb521f;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
 .item h4 {
   color: #bb521f;
   font-size: 16px;
@@ -1517,14 +1577,16 @@ text-align: center;
 .cartButton {
   font-family: "Roboto Slab", serif;
   font-size: 14px;
-  margin-top: 0px;
+  /*margin-top: 0px;*/
+  margin-top: 15px;
   background-color: #bb521f;
-  padding: 4px 10px;
+  /*padding: 4px 10px;*/
+  padding: 5px 15px;
   border: none;
   color: white;
   border-radius: 5px;
   border: 1px solid transparent;
-  height: 26px;
+  /*height: 26px;*/
 }
 
 .cartButton:hover {
@@ -1536,20 +1598,30 @@ text-align: center;
 
 .img-container {
   position: relative;
-}
-
-.img-container img {
-  width: 150px;
-  height: 150px;
-  border: 1px solid #000;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
   border-top-left-radius: 20px;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 40px;
 }
 
+.img-container img {
+  /*width: 150px;
+  height: 150px;
+  border: 1px solid #000;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 40px;*/
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
 /* overlay description  */
-.img-container .overlay {
+/*.img-container .overlay {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1582,22 +1654,31 @@ text-align: center;
   opacity: 1;
   cursor: pointer;
 }
+*/
 
+.item:hover .img-container img {
+  transform: scale(1.1);
+}
 /* product showing ends */
 
 /* Cart */
 .cart {
-  width: 200px;
+  /*width: 200px;*/
   padding: 20px;
   background-color: #f4f4f4;
-  border: 2px solid green;
-  border-radius: 10px;
+  /*border: 2px solid green;
+  border-radius: 10px;*/
   color: #000;
 }
 
 .cart h2 {
   margin-bottom: 10px;
   color: #000;
+  text-align: center;
+}
+
+.cart_empty {
+  text-align: center;
 }
 
 .cart ul {
@@ -1609,73 +1690,135 @@ text-align: center;
   margin-bottom: 5px;
 }
 
-/* Take orders contents css ends === */
-/*.reservation-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.cart table,
+th,
+td {
+  border: 1px solid #bb521f;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cart-icon {
+  font-size: 30px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: #bb521f;
+  position: absolute;
+  right: 0;
+}
+
+.slide-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  transform: translateX(100%);
+  animation: slide-in 0.3s forwards;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  max-width: 1000px; 
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.reservation-form {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.left-side,
-.right-side {
-  width: 50%; 
-}
-
-.left-side label,
-.right-side label {
-  display: block;
-  margin-bottom: 15px;
-  color: #bb521f;
-}
-
-.left-side input,
-.right-side textarea {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 2px solid #bb521f;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #bb521f;
-}
-
-.left-side input {
-  height: 28px;
-}
-
-.right-side textarea {
-  height: 250px; 
-}
-
-.reservation-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  width: 220px;
-  height: 33px;
-  padding: 6px;
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
   cursor: pointer;
-  font-family: "Roboto Slab", serif;
-  font-size: 15px;
-  color: #fff;
-  background-color: #bb521f;
-  border: none;
-  border-radius: 8px;
-  text-align: center;
+  color: #bb521f;
 }
 
-.left-side {
-  margin-right: 20px; 
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
-*/
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.slide-panel.slide-out {
+  animation: slide-out 0.3s forwards;
+}
+
+.cart .total {
+  position: absolute;
+  z-index: 1002;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  margin: 0px -20px;
+  box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.84);
+  padding: 20px;
+}
+
+.cart .total button {
+  color: #fff;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
+/* Take orders contents css ends === */
+
+/* TAKEORDERS onhold popup starts*/
+
+/*
+.onhold-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}*/
+.onHoldmodal {
+  background: white;
+  padding: 20px;
+  border: 5px solid brown;
+  border-radius: 8px;
+  max-width: 1300px;
+  width: 100%;
+  position: relative;
+}
+/* TAKEORDERS onhold popup ends*/

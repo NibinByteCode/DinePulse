@@ -8,7 +8,7 @@ import { DashboardProducts } from "./components/pages/DashboardProducts";
 import { DashboardTables } from "./components/pages/DashboardTables";
 import { DashboardReservations } from "./components/pages/DashboardReservations";
 import { DashboardEmployees } from "./components/pages/DashboardEmployees";
-import { DashboardTakeOrders } from "./components/pages/DashboardTakeOrders";
+import { DashboardTakeOrders } from "./components/pages/Takeorders/DashboardTakeOrders";
 import { DashboardOrders } from "./components/pages/DashboardOrders";
 import { DashboardKitchen } from "./components/pages/DashboardKitchen";
 import { DashboardReceipts } from "./components/pages/DashboardReceipts";
@@ -20,9 +20,11 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const showHeaderSidebar = location.pathname !== '/' && location.pathname !== '/adminregister';
 
+  const showHeaderLeft = location.pathname === '/takeorders';
+
   return (
     <div className='flex-container plain-background'>
-      {showHeaderSidebar && <AdminHeader />}
+      {showHeaderSidebar && <AdminHeader showHeaderLeft={showHeaderLeft}  />}
       {showHeaderSidebar && <AdminSidebar />}
       <div className='main-content'>
         {children}

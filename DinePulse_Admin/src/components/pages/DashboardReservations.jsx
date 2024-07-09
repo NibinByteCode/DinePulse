@@ -13,20 +13,6 @@ import { IoClose } from "react-icons/io5";
 Modal.setAppElement('#root');
 
 export const DashboardReservations = () => {
-  /*const [formData, setFormData] = useState({ guests: '', email: '', phone: '', date: '', time: '', suggestions: '' });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Reservation Details:", formData);
-  };*/
 
   //state for reservation list
   const [getReservationList, setReservationList] = useState([]);
@@ -133,12 +119,12 @@ export const DashboardReservations = () => {
       formData.append("userId", selectedReservation.user_id);
     }
 
-    console.log("reservation noofGuests ==> "+noofGuests);
+    /*console.log("reservation noofGuests ==> "+noofGuests);
     console.log("reservation reservationEmail ==> "+reservationEmail);
     console.log("reservation reservationPhone ==> "+reservationPhone);
     console.log("reservation reservationDate ==> "+reservationDate);
     console.log("reservation reservationTime ==> "+reservationTime);
-    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);
+    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);*/
     //console.log("reservation userId ==> "+selectedReservation.user_id);
 
     try {
@@ -358,49 +344,6 @@ export const DashboardReservations = () => {
                     </div>
                 </form>
             </div>
-            {/*<div className='reservetoday'>
-                <form className='reserve-col' onSubmit={handleSubmitReservation}>
-                    <div className="booktable_header">
-                      <BsTable className="booktable_icon"/> <h3> BOOK A TABLE </h3>
-                    </div>
-                    <div className="booktable_subheader"><h5> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</h5></div>
-                    <br />
-                    <div className="reservation-form-container">
-                      <form className="reservation-form" >
-                        <div className="left-side">
-                          <label>Number of Guests:
-                            <input type="number" name="guests" placeholder='Type here' value={noofGuests}
-                          onChange={(e) => setNoofGuests(e.target.value)}/>
-                            {reservationerrors.noofGuests && <p className="error">{reservationerrors.noofGuests}</p>}
-                          </label>
-                          <label>Email:
-                            <input type="email" name="email"/>
-                          </label>
-                          <label>Phone Number:
-                            <input type="tel" name="phone" />
-                          </label>
-                          <label>Date:
-                            <input type="date" name="date"  />
-                          </label>
-                          <label>Time:
-                            <input type="time" name="time"  />
-                          </label>
-                        </div>
-                        
-                        <div className="right-side">
-                          <label>Suggestions:
-                            <textarea name="suggestions" ></textarea>
-                          </label>
-                          {/*<button type="submit" className='reservation-btn'>Make Your Booking</button>*/}
-                          {/*<div className='reservation-buttons'>
-                        <button type="submit" className="reservation-btn">{selectedReservation ? "Update Booking" : "Make Booking"}</button>
-                        <button type='button' className='cancel-btn' onClick={toggleModalReservation}>Cancel</button>
-                    </div>
-                        </div>
-                        </form>
-                    </div>  
-                </form>
-            </div>*/}
       </Modal>
 
       <Modal
@@ -433,41 +376,6 @@ export const DashboardReservations = () => {
           </div>
         </div>
       </Modal>
-
-
-      {/*<div className="booktable_header">
-        <BsTable className="booktable_icon"/> <h2> BOOK A TABLE </h2>
-      </div><br />
-      <div className="booktable_subheader"><h5> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</h5></div>
-      <br />
-      <div className="reservation-form-container">
-        <form className="reservation-form" onSubmit={handleSubmit}>
-          <div className="left-side">
-            <label>Number of Guests:
-              <input type="number" name="guests" value={formData.guests} onChange={handleChange} required/>
-            </label>
-            <label>Email:
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required/>
-            </label>
-            <label>Phone Number:
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
-            </label>
-            <label>Date:
-              <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-            </label>
-            <label>Time:
-              <input type="time" name="time" value={formData.time} onChange={handleChange} required />
-            </label>
-          </div>
-          
-          <div className="right-side">
-            <label>Suggestions:
-              <textarea name="suggestions" value={formData.suggestions} onChange={handleChange}></textarea>
-            </label>
-            <button type="submit" className='reservation-btn'>Make Your Booking</button>
-          </div>
-          </form>
-      </div>*/}
     </main>
   );
 };
