@@ -603,7 +603,8 @@ body {
   cursor: pointer;
 }
 
-/* === DashboardProducts.jsx CSS contents starts === */
+/* === DashboardProducts.jsx CSS contents ends === */
+/* === DashboardTables.jsx CSS contents starts === */
 
 .display_tables,
 .display_devices {
@@ -688,6 +689,8 @@ body {
   height: auto;
   margin-right: 0px;
 }
+/* === DashboardTables.jsx CSS contents ends === */
+/* === DashboardEmployees.jsx CSS contents starts === */
 
 .employees .addnew_btn {
   border: 1px solid #bb521f;
@@ -741,6 +744,7 @@ body {
   background-color: #ffe5d7;
 }
 
+/* === DashboardEmployees.jsx CSS contents ends === */
 .inputbox {
   color: #bb521f;
   text-align: center;

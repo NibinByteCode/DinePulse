@@ -120,7 +120,6 @@ export const DashboardProducts = () => {
     try {
       const response = await axios.request(config);
       const data = response.data.data;
-      console.log("menu dataaaa===>" + JSON.stringify(data));
       setMenuList(data);
     } catch (error) {
       console.error("Caught error while fetching GetMenuItemsAll:", error);
@@ -177,9 +176,9 @@ export const DashboardProducts = () => {
       return;
     }
 
-    /*console.log("category name ==> "+categoryName);
+    console.log("category name ==> "+categoryName);
     console.log("category description ==> "+categoryDescription);
-    console.log("category image ==> "+categoryImage);*/
+    console.log("category image ==> "+categoryImage);
 
     const formData = new FormData();
     formData.append("categoryModel.CategoryName", categoryName);
@@ -542,7 +541,7 @@ export const DashboardProducts = () => {
                 <img src={image ? URL.createObjectURL(image) : (categoryImage ? `${process.env.REACT_APP_IMAGE_URL}${categoryImage}` : upload_image)} alt="categoryitem" />
               </label>
               <input onChange={(e) => { setCategoryImage(e.target.files[0]); setImage(e.target.files[0]); }}
-                type="file" id="image" required />
+                type="file" id="image" />
               {errors.categoryImage && <p className="error">{errors.categoryImage}</p>}
             </div>
             <div className="add-category-name flex-col">
