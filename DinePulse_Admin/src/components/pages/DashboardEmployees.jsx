@@ -21,6 +21,7 @@ export const DashboardEmployees = () => {
   //state for employee input fields
   //const [employeeimage, setEmployeeImage] = useState(null);
   const [employeeName, setEmployeeName] = useState("");
+  const [employeePassword, setEmployeePassword] = useState("");
   const [employeeType, setEmployeeType] = useState("");
   const [employeeStatus, setEmployeeStatus] = useState("");
   const [message, setMessage] = useState("");
@@ -32,6 +33,7 @@ export const DashboardEmployees = () => {
     if (isModalOpenEmployee) {
       setSelectedEmployee(null);
       setEmployeeName("");
+      setEmployeePassword("");
       setEmployeeType("");
       setEmployeeStatus(null);
       //setEmployeeImage(null);
@@ -72,6 +74,9 @@ export const DashboardEmployees = () => {
     if (!employeeName.trim()) {
       employeeerrors.employeeName = "Employee Name is required.";
     }
+    if (!employeePassword.trim()) {
+      employeeerrors.employeePassword = "Employee Password is required.";
+    }
     if (!employeeType.trim()) {
       employeeerrors.employeeType = "Employee Type is required.";
     }
@@ -96,14 +101,21 @@ export const DashboardEmployees = () => {
     }
 
     const formData = new FormData();
-    formData.append("categoryModel.CategoryName", employeeName);
-    formData.append("categoryModel.CategoryDescription", employeeType);
-    formData.append("categoryModel.CategoryDescription", employeeStatus);
-    //formData.append("categoryImage", categoryImage);
+    formData.append("userName", employeeName);
+    formData.append("userPassword", employeePassword);
+    formData.append("userType", employeeType);
+    //formData.append("categoryModel.CategoryDescription", employeeStatus);
     
     if (selectedEmployee) {
-      formData.append("categoryModel.categoryId", selectedEmployee.employeeId);
+      formData.append("userId", selectedEmployee.user_id);
+      formData.append("userStatus", selectedEmployee.user_status);
     }
+
+    console.log("employee userName ==> "+employeeName);
+    console.log("employee userPassword ==> "+employeePassword);
+    console.log("employee userType ==> "+employeeType);
+    console.log("employee userStatus ==> "+selectedEmployee.user_status);
+    console.log("employee userId ==> "+selectedEmployee.user_id);
 
     try {
       const url = selectedEmployee
@@ -117,7 +129,7 @@ export const DashboardEmployees = () => {
         url,
         data: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
 
@@ -129,6 +141,7 @@ export const DashboardEmployees = () => {
         );
         setIsModalOpenEmployee(false);
         setEmployeeName("");
+        setEmployeePassword("");
         setEmployeeType("");
         //setEmployeeImage(null);
         setEmployeeStatus("");
@@ -146,10 +159,11 @@ export const DashboardEmployees = () => {
   //function to handle editing a employee item
   const handleEditEmployee = (employee) => {
     setSelectedEmployee(employee);
-    setEmployeeName(employee.employeeName);
-    setEmployeeType(employee.employeeType);
+    setEmployeeName(employee.user_name);
+    setEmployeePassword(employee.user_password);
+    setEmployeeType(employee.user_type);
     //setCategoryImage(null);
-    setEmployeeStatus(employee.employeeStatus);
+    setEmployeeStatus(employee.user_status);    //user_id  user_name user_type user_status
     setEmployeeErrors({}); //clear errors when opening the modal
     toggleModalEmployee();
   };
@@ -173,12 +187,13 @@ export const DashboardEmployees = () => {
   //modify the handleDeleteEmployee function to directly open the delete modal
   const handleDeleteEmployee = (employeeId) => {
     const employeeToDelete = getEmployeeList.find(
-      (employee) => employee.employeeId === employeeId
+      (employee) => employee.user_id === employeeId
     );
     openDeleteEmployeeModal(employeeToDelete);
   };
 
   const handleConfirmDelete = async (employeeId) => {
+    console.log("delete id : " + employeeId);
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL}Login/DeleteUser/${employeeId}`
@@ -187,7 +202,7 @@ export const DashboardEmployees = () => {
         setMessage("Employee deleted successfully.");
         setEmployeeList(
           getEmployeeList.filter(
-            (employee) => employee.employeeId !== employeeId
+            (employee) => employee.user_id !== employeeId
           )
         );
         setIsDeleteEmployeeModalOpen(false);
@@ -234,14 +249,14 @@ export const DashboardEmployees = () => {
                 {getEmployeeList.map((employeelist) => (
                     <tr key={employeelist.user_id}>
                         <td>{employeelist.user_id}</td>
-                        <td>{employeelist.user_name}</td>
+                        <td>{employeelist.user_name}</td> 
                         <td>{employeelist.user_type}</td>
                         <td>{employeelist.user_registered_date}</td>
                         <td>{employeelist.user_status}</td>
                         <td>
                             <FaEdit className='editemployee_icon' onClick={() => handleEditEmployee(employeelist)} />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <RiDeleteBin5Fill className='deleteemployee_icon' onClick={() => handleDeleteEmployee(employeelist.employeeId)}/>
+                            <RiDeleteBin5Fill className='deleteemployee_icon' onClick={() => handleDeleteEmployee(employeelist.user_id)}/>
                         </td>
                     </tr>
                   ))} 
@@ -266,6 +281,12 @@ export const DashboardEmployees = () => {
                           onChange={(e) => setEmployeeName(e.target.value)}/>
                         {employeeerrors.employeeName && <p className="error">{employeeerrors.employeeName}</p>}
                     </div>
+                    <div className='add-employee-password flex-col'>
+                        <p>Employee Password</p>
+                        <input type='text' name='name' placeholder='Type here' value={employeePassword}
+                          onChange={(e) => setEmployeePassword(e.target.value)}/>
+                        {employeeerrors.employeePassword && <p className="error">{employeeerrors.employeePassword}</p>}
+                    </div>
                     <div className='add-employee-type flex-col'>
                         <p>Employee Type</p>
                         <select name='employeetype' value={employeeType}
@@ -289,7 +310,7 @@ export const DashboardEmployees = () => {
                         {employeeerrors.employeeStatus && <p className="error">{employeeerrors.employeeStatus}</p>}
                     </div>
                     <div className='employee-buttons'>
-                        <button type='submit' className='add-btn'>ADD</button>
+                        <button type="submit" className="add-btn">{selectedEmployee ? "UPDATE" : "ADD"}</button>
                         <button type='button' className='cancel-btn' onClick={toggleModalEmployee}>CANCEL</button>
                     </div>
                 </form>
@@ -315,7 +336,7 @@ export const DashboardEmployees = () => {
             <button
               className="delete-btn"
               onClick={() =>
-                handleConfirmDelete(selectedEmployeeToDelete.employeeId)
+                handleConfirmDelete(selectedEmployeeToDelete.user_id)
               }
             >
               Delete

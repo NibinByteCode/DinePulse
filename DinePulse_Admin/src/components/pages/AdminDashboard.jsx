@@ -23,7 +23,7 @@ export const AdminDashboard = () => {
 
     axios.request(config)
         .then((response) => {
-            console.log('Get received, pending, delivered, and netrevenue values: ', response.data); 
+            //console.log('Get received, pending, delivered, and netrevenue values: ', response.data); 
             const data = response.data.data[0];               
             //update state with converted values
             setOrderRecieved(parseInt(data.OrderReceived, 10));
@@ -50,7 +50,7 @@ export const AdminDashboard = () => {
 
     axios.request(config)
         .then((response) => {
-            console.log('Recent Orders Data : ', response.data); 
+            //console.log('Recent Orders Data : ', response.data); 
             const data = response.data.data;
             setRecentOrders(data);
         })

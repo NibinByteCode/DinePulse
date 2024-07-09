@@ -277,9 +277,9 @@ export const DashboardTables = () => {
     console.log("device token ==> "+deviceToken);
     console.log("device user id ==> "+deviceUserID);
 
-    if (selectedDevice) {
+    /*if (selectedDevice) {
       formData.append("deviceId", selectedDevice.device_id);
-    }
+    }*/
 
     try {
       const url = selectedDevice
