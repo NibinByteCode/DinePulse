@@ -36,9 +36,15 @@ export const DashboardTables = () => {
   const [tableStatus, setTableStatus] = useState("");
 
   //state for device input fields
-  const [deviceName, setDeviceName] = useState("");
   const [deviceImei, setDeviceImei] = useState("");
-  const [deviceStatus, setDeviceStatus] = useState("");
+  const [deviceUserName, setDeviceUserName] = useState("");
+  const [devicePassword, setDevicePassword] = useState("");
+  const [deviceToken, setDeviceToken] = useState("");
+  const [deviceUserID, setDeviceUserID] = useState("");
+  /*const [deviceStatus, setDeviceStatus] = useState("");*/
+
+  //state for users list
+  const [getUsersList, setUsersList] = useState([]);
 
   //state for table inputs validation errors
   const [tableerrors, setTableErrors] = useState({});
@@ -63,9 +69,12 @@ export const DashboardTables = () => {
   const toggleModalDevices = () => {
     if (isModalOpenDevices) {
       setSelectedDevice(null);
-      setDeviceName("");
       setDeviceImei("");
-      setDeviceStatus("");
+      setDeviceUserName("");
+      setDevicePassword("");
+      setDeviceToken("");
+      setDeviceUserID("");
+      /*setDeviceStatus("");*/
       setDeviceErrors({});
     } else {
       setDeviceErrors({}); //clear device errors when opening the modal
@@ -119,6 +128,30 @@ export const DashboardTables = () => {
     fetchDevices();
   }, []);
 
+  //fetch User details to include User ID while adding/editing Device details
+  const fetchUsers = async () => {
+    const API_URL = process.env.REACT_APP_API_URL+'Login/GetUsers'
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: API_URL,
+        headers: {}
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log('Response Data:', response.data);
+      const data = JSON.parse(response.data.data);
+      setUsersList(data);
+    } catch (error) {
+      console.error("Caught error while fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   //function to validate table form inputs
   const validateTableForm = () => {
     const tableerrors = {};
@@ -137,15 +170,24 @@ export const DashboardTables = () => {
   //function to validate Devices form inputs
   const validateDeviceForm = () => {
     const deviceerrors = {};
-    if (!deviceName.trim()) {
-      deviceerrors.deviceName = "Device Name is required.";
-    }
     if (!deviceImei.trim()) {
       deviceerrors.deviceImei = "Device IMEI is required.";
     }
-    if (!deviceStatus.trim()) {
-      deviceerrors.deviceStatus = "Device Status is required.";
+    if (!deviceUserName.trim()) {
+      deviceerrors.deviceUserName = "Device User Name is required.";
     }
+    if (!devicePassword.trim()) {
+      deviceerrors.devicePassword = "Device Password is required.";
+    }
+    if (!deviceToken.trim()) {
+      deviceerrors.deviceToken = "Device Token is required.";
+    }
+    if (!deviceUserID.trim()) {
+      deviceerrors.deviceUserID = "User ID is required.";
+    }
+    /*if (!deviceStatus.trim()) {
+      deviceerrors.deviceStatus = "Device Status is required.";
+    }*/
     return deviceerrors;
   };
 
@@ -222,14 +264,21 @@ export const DashboardTables = () => {
     }
 
     const formData = new FormData();
-    formData.append("device.deviceId", deviceName);
-    formData.append("device.deviceUsername", deviceImei);
-    formData.append("device.devicePassword", deviceStatus);
-    formData.append("device.deviceToken", deviceStatus);
-    formData.append("device.userId", deviceStatus);
+    formData.append("deviceId", deviceImei);
+    formData.append("deviceUsername", deviceUserName);
+    formData.append("devicePassword", devicePassword);
+    formData.append("deviceToken", deviceToken);
+    formData.append("userId", deviceUserID);
+    /*formData.append("device.userId", deviceStatus);*/
+
+    console.log("device id ==> "+deviceImei);
+    console.log("device name ==> "+deviceUserName);
+    console.log("device pass ==> "+devicePassword);
+    console.log("device token ==> "+deviceToken);
+    console.log("device user id ==> "+deviceUserID);
 
     if (selectedDevice) {
-      formData.append("device.itemId", selectedDevice.deviceId);
+      formData.append("deviceId", selectedDevice.device_id);
     }
 
     try {
@@ -244,7 +293,7 @@ export const DashboardTables = () => {
         url,
         data: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
 
@@ -254,9 +303,12 @@ export const DashboardTables = () => {
         );
         
         setIsModalOpenDevices(false);
-        setDeviceName("");
         setDeviceImei("");
-        setDeviceStatus("");
+        setDeviceUserName("");
+        setDevicePassword("");
+        setDeviceToken("");
+        setDeviceUserID("");
+        /*setDeviceStatus("");*/
         setSelectedDevice(null);
         fetchDevices();
       } else {
@@ -281,10 +333,14 @@ export const DashboardTables = () => {
 
   //function to handle editing a device item
   const handleEditDevice = (deviceItem) => {
+    alert("edit device : "+deviceItem.device_id)
     setSelectedDevice(deviceItem);
-    setDeviceName(deviceItem.name);
-    setDeviceImei(deviceItem.description);
-    setDeviceStatus(deviceItem.category);
+    setDeviceImei(deviceItem.device_id);
+    setDeviceUserName(deviceItem.device_username);
+    setDevicePassword(deviceItem.device_password);
+    setDeviceToken(deviceItem.device_token);
+    setDeviceUserID(deviceItem.user_id);
+    /*setDeviceStatus(deviceItem.category);*/
     setDeviceErrors({});
     toggleModalDevices();
   };
@@ -460,10 +516,12 @@ export const DashboardTables = () => {
               <tbody>
                 {getDevicesList.length > 0 ? (
                   getDevicesList.map((devicelist) => (
-                    <tr key={devicelist.id}>
-                      <td>{devicelist.id}</td>
-                      <td>{devicelist.name}</td>
-                      <td>{devicelist.imei}</td>
+                    <tr key={devicelist.device_id}>
+                      <td>{devicelist.device_id}</td>
+                      <td>{devicelist.device_username}</td>
+                      <td>{devicelist.device_password}</td>
+                      <td>{devicelist.device_token}</td>
+                      <td>{devicelist.user_id}</td>
                       <td>
                         <FaEdit className="editdevice_icon" onClick={() => handleEditDevice(devicelist)}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -473,7 +531,7 @@ export const DashboardTables = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No devices added!!!</td>
+                    <td colSpan="6" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No devices added!!!</td>
                   </tr>
                 )}
               </tbody>              
@@ -529,19 +587,44 @@ export const DashboardTables = () => {
             </div>
             <div className='add'>
                 <form className='flex-col' onSubmit={handleSubmitDevices}>
-                    <div className='add-device-name flex-col'>
-                        <p>Device Name</p>
-                        <input type='text' name='name' placeholder='Type here' value={deviceName}
-                        onChange={(e) => setDeviceName(e.target.value)}/>
-                        {deviceerrors.deviceName && <p className="error">{deviceerrors.deviceName}</p>}
-                    </div>
-                    <div className='add-device-imei flex-col'>
+                    <div className='add-device-id flex-col'>
                         <p>Device IMEI</p>
                         <input type='text' name='name' placeholder='Type here' value={deviceImei}
                         onChange={(e) => setDeviceImei(e.target.value)}/>
                         {deviceerrors.deviceImei && <p className="error">{deviceerrors.deviceImei}</p>}
                     </div>
-                    <div className='add-devicestatus flex-col'>
+                    <div className='add-device-username flex-col'>
+                        <p>Device UserName</p>
+                        <input type='text' name='name' placeholder='Type here' value={deviceUserName}
+                        onChange={(e) => setDeviceUserName(e.target.value)}/>
+                        {deviceerrors.deviceUserName && <p className="error">{deviceerrors.deviceUserName}</p>}
+                    </div>
+                    <div className='add-device-password flex-col'>
+                        <p>Device Password</p>
+                        <input type='text' name='name' placeholder='Type here' value={devicePassword}
+                        onChange={(e) => setDevicePassword(e.target.value)}/>
+                        {deviceerrors.devicePassword && <p className="error">{deviceerrors.devicePassword}</p>}
+                    </div>
+                    <div className='add-device-token flex-col'>
+                        <p>Device Token</p>
+                        <input type='text' name='name' placeholder='Type here' value={deviceToken}
+                        onChange={(e) => setDeviceToken(e.target.value)}/>
+                        {deviceerrors.deviceToken && <p className="error">{deviceerrors.deviceToken}</p>}
+                    </div>
+                    <div className='add-user-id flex-col'>
+                        <p>User ID</p>
+                        <select name='user_id' value={deviceUserID}
+                          onChange={(e) => setDeviceUserID(e.target.value)}>
+                          <option value="">Select User ID</option>
+                          {getUsersList.map((users) => (
+                            <option key={users.user_id} value={users.user_id}>
+                              {users.user_name}
+                            </option>
+                          ))}
+                        </select>
+                        {deviceerrors.deviceUserID && <p className="error">{deviceerrors.deviceUserID}</p>}
+                    </div>
+                    {/*<div className='add-devicestatus flex-col'>
                         <p>Device Status</p>
                         <select name='devicestatus' value={deviceStatus}
                           onChange={(e) => setDeviceStatus(e.target.value)}>
@@ -550,7 +633,7 @@ export const DashboardTables = () => {
                           <option value="inactive">Inactive</option>
                         </select>
                         {deviceerrors.deviceStatus && <p className="error">{deviceerrors.deviceStatus}</p>}
-                    </div>
+                    </div>*/}
                     <div className='device-buttons'>
                         <button type='submit' className='add-btn'>{selectedDevice ? "UPDATE" : "ADD"}</button>
                         <button type='button' className='cancel-btn' onClick={toggleModalDevices}>CANCEL</button>

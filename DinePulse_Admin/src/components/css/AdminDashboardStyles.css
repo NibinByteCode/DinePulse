@@ -1091,9 +1091,12 @@ body {
 .add-table-number,
 .add-table-capacity,
 .add-tablestatus,
-.add-device-name,
-.add-device-imei,
-.add-devicestatus,
+.add-device-id,
+.add-device-username,
+.add-device-password,
+.add-device-token,
+.add-user-id,
+/*.add-devicestatus,*/
 .add-employee-name,
 .add-employee-type,
 .add-employee-status,
@@ -1144,9 +1147,12 @@ body {
 .add-table-number,
 .add-table-capacity,
 .add-tablestatus,
-.add-device-name,
-.add-device-imei,
-.add-devicestatus,
+.add-device-id,
+.add-device-username,
+.add-device-password,
+.add-device-token,
+.add-user-id,
+/*.add-devicestatus,*/
 .add-employee-name,
 .add-employee-type,
 .add-employee-status,
@@ -1166,9 +1172,12 @@ body {
 .add-table-number p,
 .add-table-capacity p,
 .add-tablestatus p,
-.add-device-name p,
-.add-device-imei p,
-.add-devicestatus p,
+.add-device-id p,
+.add-device-username p,
+.add-device-password p,
+.add-device-token p,
+.add-user-id p,
+/*.add-devicestatus p,*/
 .add-employee-name p,
 .add-employee-type p,
 .add-employee-status p,
@@ -1187,9 +1196,12 @@ body {
 .add-table-number input,
 .add-table-capacity input,
 .add-tablestatus select,
-.add-device-name input,
-.add-device-imei input,
-.add-devicestatus select,
+.add-device-id input,
+.add-device-username input,
+.add-device-password input,
+.add-device-token input,
+.add-user-id select,
+/*.add-devicestatus select,*/
 .add-employee-name input,
 .add-employee-type select,
 .add-employee-status select,
@@ -1531,3 +1543,90 @@ body {
 }
 
 /* Take orders contents css ends === */
+.reservation-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px; /* Adjust the max-width as needed */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.reservation-form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-side,
+.right-side {
+  width: 50%; /* Adjust the width as needed */
+}
+
+.left-side label,
+.right-side label {
+  display: block;
+  margin-bottom: 15px;
+  color: #bb521f;
+}
+
+.left-side input,
+.right-side textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 2px solid #bb521f;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #bb521f;
+}
+
+.right-side textarea {
+  height: 300px; 
+}
+
+.reservation-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  width: 220px;
+  height: 33px;
+  padding: 6px;
+  cursor: pointer;
+  font-family: "Roboto Slab", serif;
+  font-size: 15px;
+  color: #fff;
+  background-color: #bb521f;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.left-side {
+  margin-right: 20px; /* Add spacing between the left and right sides */
+}
+
+.booktable_header, .booktable_subheader {
+  color: #bb521f;
+}
+
+.booktable_subheader h5{
+text-align: center;
+}
+
+.booktable_icon {
+  color: #bb521f;
+}
+
+.booktable_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Adjust the spacing between the icon and the heading as needed */
+}
+
+.booktable_icon {
+  font-size: 2em; /* Adjust the icon size as needed */
+}
