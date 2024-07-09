@@ -589,14 +589,14 @@ body {
   background-color: #ffe5d7;
 }
 
-.editcategory_icon, .editmenu_icon, .edittable_icon, .editdevice_icon, .editemployee_icon, .edit_icon {
+.editcategory_icon, .editmenu_icon, .edittable_icon, .editdevice_icon, .editemployee_icon, .editreservation_icon, .edit_icon {
   font-size: 20px;
   color: green;
   vertical-align: middle;
   margin-left: 30px;
 }
 
-.deletecategory_icon, .deletemenu_icon, .deletetable_icon, .deletedevice_icon, .deleteemployee_icon, .delete_icon {
+.deletecategory_icon, .deletemenu_icon, .deletetable_icon, .deletedevice_icon, .deleteemployee_icon, .deletereservation_icon, .delete_icon {
   font-size: 20px;
   color: red;
   vertical-align: middle;
@@ -690,26 +690,73 @@ body {
   margin-right: 0px;
 }
 /* === DashboardTables.jsx CSS contents ends === */
-/* === DashboardEmployees.jsx CSS contents starts === */
+/* === DashboardReservation.jsx CSS contents starts === */
+.booktable_header, .booktable_subheader {
+  color: #bb521f;
+}
 
-.employees .addnew_btn {
+.booktable_subheader h5{
+text-align: center;
+}
+
+.booktable_icon {
+  color: #bb521f;
+}
+
+.booktable_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+}
+
+.booktable_icon {
+  font-size: 1em;
+}
+
+.reservation-modal {
+  background: white;
+  padding: 20px;
+  border: 5px solid brown;
+  border-radius: 8px;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+}
+
+
+.add-reservation-details textarea {
+  width: 100%;
+  max-width: 600px;
+  padding: 5px;
+  border: 2px solid #bb521f;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #bb521f;
+  font-family: "Roboto Slab", serif;
+}
+/* === DashboardReservation.jsx CSS contents ends === */
+
+/* === DashboardEmployees.jsx, DashboardReservation.jsx CSS contents starts === */
+
+.employees .addnew_btn, .reservations .addnew_btn {
   border: 1px solid #bb521f;
   background-color: #bb521f;
   border-radius: 4px;
   padding: 10px 15px;
 }
 
-.display_employees {
+.display_employees, .display_reservations {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.employees_table {
+.employees_table, .reservation_table {
   overflow-x: auto;
   margin: 15px;
 }
 
-.employees_table table {
+.employees_table table, .reservation_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -717,34 +764,34 @@ body {
   overflow: hidden;
 }
 
-.employees_table th,
-.employees_table td {
+.employees_table th, .reservation_table th,
+.employees_table td, .reservation_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.employees_table th {
+.employees_table th, .reservation_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.employees_table tbody tr {
+.employees_table tbody tr, .reservation_table tbody tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.employees_table tbody tr:nth-child(odd) {
+.employees_table tbody tr:nth-child(odd), .reservation_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.employees_table tbody tr:nth-child(even) {
+.employees_table tbody tr:nth-child(even), .reservation_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
-/* === DashboardEmployees.jsx CSS contents ends === */
+/* === DashboardEmployees.jsx, DashboardReservation.jsx CSS contents ends === */
 .inputbox {
   color: #bb521f;
   text-align: center;
@@ -1101,6 +1148,7 @@ body {
 .add-employee-password,
 .add-employee-type,
 .add-employee-status,
+.add-reservation-details,
 .add-product-img-upload,
 .add-img-upload,
 .add-product-name,
@@ -1158,6 +1206,7 @@ body {
 .add-employee-password,
 .add-employee-type,
 .add-employee-status,
+.add-reservation-details,
 .add-product-name,
 .add-product-description,
 .add-category {
@@ -1184,6 +1233,7 @@ body {
 .add-employee-password p,
 .add-employee-type p,
 .add-employee-status p,
+.add-reservation-details p,
 .add-product-name p,
 .add-product-description p,
 .add-category p {
@@ -1209,6 +1259,7 @@ body {
 .add-employee-password input,
 .add-employee-type select,
 .add-employee-status select,
+.add-reservation-details input,
 .add-product-name input,
 .add-product-description textarea,
 .add-category select {
@@ -1232,6 +1283,14 @@ body {
   flex-direction: row;
   gap: 10px;
   justify-content: center;
+}
+
+.reservation-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin-right: 120px;
 }
 
 .add-btn,
@@ -1258,6 +1317,10 @@ body {
   border-radius: 10px;
   background-image: linear-gradient(144deg, #0f4f16, #3af26b);
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+
+.reservation-buttons .add-btn{
+  width: 200px;
 }
 
 /* === Popup page contents CSS Ends === */
@@ -1547,13 +1610,13 @@ body {
 }
 
 /* Take orders contents css ends === */
-.reservation-form-container {
+/*.reservation-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  max-width: 1000px; /* Adjust the max-width as needed */
+  max-width: 1000px; 
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
@@ -1567,7 +1630,7 @@ body {
 
 .left-side,
 .right-side {
-  width: 50%; /* Adjust the width as needed */
+  width: 50%; 
 }
 
 .left-side label,
@@ -1588,8 +1651,12 @@ body {
   color: #bb521f;
 }
 
+.left-side input {
+  height: 28px;
+}
+
 .right-side textarea {
-  height: 300px; 
+  height: 250px; 
 }
 
 .reservation-btn {
@@ -1609,28 +1676,6 @@ body {
 }
 
 .left-side {
-  margin-right: 20px; /* Add spacing between the left and right sides */
+  margin-right: 20px; 
 }
-
-.booktable_header, .booktable_subheader {
-  color: #bb521f;
-}
-
-.booktable_subheader h5{
-text-align: center;
-}
-
-.booktable_icon {
-  color: #bb521f;
-}
-
-.booktable_header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px; /* Adjust the spacing between the icon and the heading as needed */
-}
-
-.booktable_icon {
-  font-size: 2em; /* Adjust the icon size as needed */
-}
+*/
