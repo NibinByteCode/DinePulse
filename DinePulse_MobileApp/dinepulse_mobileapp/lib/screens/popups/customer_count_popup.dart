@@ -1,3 +1,4 @@
+import 'package:dinepulse_mobileapp/models/global_state.dart';
 import 'package:flutter/material.dart';
 
 void showCustomerCountPopup(BuildContext context, int tableIndex) {
@@ -6,7 +7,7 @@ void showCustomerCountPopup(BuildContext context, int tableIndex) {
     builder: (context) => AlertDialog(
       title: const Text(
         'Select customer count',
-        style: const TextStyle(
+        style: TextStyle(
           color: Color.fromRGBO(203, 79, 41, 1),
           fontSize: 15,
           fontFamily: 'Calistoga',
@@ -47,9 +48,9 @@ void showCustomerCountPopup(BuildContext context, int tableIndex) {
                     ),
                   )),
           onChanged: (value) {
+            setSelectedTable(tableIndex + 1, value!);
             Navigator.pop(context);
-            Navigator.pushNamed(context, '/menu',
-                arguments: {'table': tableIndex + 1, 'count': value});
+            Navigator.pushNamed(context, '/menu');
           },
         ),
       ),

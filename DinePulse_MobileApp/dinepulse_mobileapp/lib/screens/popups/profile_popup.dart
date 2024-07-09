@@ -1,3 +1,5 @@
+import 'package:dinepulse_mobileapp/models/global_state.dart';
+import 'package:dinepulse_mobileapp/services/cart_service.dart';
 import 'package:flutter/material.dart';
 
 void showProfilePopup(BuildContext context) {
@@ -6,7 +8,7 @@ void showProfilePopup(BuildContext context) {
     builder: (context) => AlertDialog(
       title: const Text(
         'Do you want to Logout?',
-        style: const TextStyle(
+        style: TextStyle(
           color: Color.fromRGBO(203, 79, 41, 1),
           fontSize: 15,
           fontFamily: 'Calistoga',
@@ -16,6 +18,8 @@ void showProfilePopup(BuildContext context) {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
+            clearSelectedTable();
+            cartService.clearCart();
             Navigator.pushReplacementNamed(context, '/login');
           },
           style: TextButton.styleFrom(
