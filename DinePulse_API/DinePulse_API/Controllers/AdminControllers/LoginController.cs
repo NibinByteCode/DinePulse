@@ -149,7 +149,7 @@ namespace DinePulse_API.Controllers.AdminControllers
         }
 
         [HttpDelete]
-        [ActionName("DeleteUser/{userId}")]
+        [ActionName("DeleteUser")]
         public IActionResult DeleteUser(int userId)
         {
             try
