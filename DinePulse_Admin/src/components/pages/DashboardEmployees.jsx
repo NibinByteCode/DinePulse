@@ -5,6 +5,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from 'react-modal';
 import axios from 'axios';
 import { IoClose } from "react-icons/io5";
+import bcrypt from 'bcryptjs';
 
 // Set the app element for accessibility
 Modal.setAppElement('#root');
@@ -90,6 +91,11 @@ export const DashboardEmployees = () => {
     return employeeerrors;
   };
 
+  async function hashPasswod(password) {
+    let encryptpassword = await bcrypt.hash(password, 10);
+    return encryptpassword;
+  }
+  
   //popup insert and update functionality of employees
   const handleSubmitEmployees = async (e) => {
     e.preventDefault();
@@ -100,7 +106,7 @@ export const DashboardEmployees = () => {
       return;
     }
 
-    const formData = new FormData();
+    /*const formData = new FormData();
     formData.append("userName", employeeName);
     formData.append("userPassword", employeePassword);
     formData.append("userType", employeeType);
@@ -115,7 +121,7 @@ export const DashboardEmployees = () => {
     console.log("employee userPassword ==> "+employeePassword);
     console.log("employee userType ==> "+employeeType);
     console.log("employee userStatus ==> "+selectedEmployee.user_status);
-    console.log("employee userId ==> "+selectedEmployee.user_id);
+    console.log("employee userId ==> "+selectedEmployee.user_id);*/
 
     try {
       const url = selectedEmployee
@@ -124,10 +130,30 @@ export const DashboardEmployees = () => {
 
       const method = selectedEmployee ? "put" : "post";
 
+      let data = "";
+
+      if (!selectedEmployee) {
+        data = JSON.stringify({
+          "userName": employeeName,
+          "userPassword": await hashPasswod(employeePassword),
+          "userType":employeeType,
+        });
+      }
+      else {
+        data = JSON.stringify({
+          "userName": employeeName,
+          "userPassword": await hashPasswod(employeePassword),
+          "userType":employeeType,
+          "userId": selectedEmployee.user_id,
+          "userStatus": selectedEmployee.user_status
+        });
+      }
+      
+
       const response = await axios({
         method,
         url,
-        data: formData,
+        data: data,
         headers: {
           "Content-Type": "application/json",
         },
@@ -283,7 +309,7 @@ export const DashboardEmployees = () => {
                     </div>
                     <div className='add-employee-password flex-col'>
                         <p>Employee Password</p>
-                        <input type='text' name='name' placeholder='Type here' value={employeePassword}
+                        <input type='text' name='name' placeholder='Type here'
                           onChange={(e) => setEmployeePassword(e.target.value)}/>
                         {employeeerrors.employeePassword && <p className="error">{employeeerrors.employeePassword}</p>}
                     </div>

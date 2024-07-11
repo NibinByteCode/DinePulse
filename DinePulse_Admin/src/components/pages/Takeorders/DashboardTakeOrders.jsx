@@ -5,7 +5,13 @@ import CategoryButton from "./TakeOrdersCategoryButton";
 import Product from "./TakeOrdersProduct";
 import Cart from "./TakeOrdersCart";
 import Modal from "./TakeOrdersOnHoldModal"; // Import the modal component
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation
+import availableImage from '../../assets/free_table.png'; 
+import unavailableImage from '../../assets/reserved_table.png'; 
+
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import Receipt from "../OrderReceipt"; // Import the Receipt component
 
 export const DashboardTakeOrders = () => {
   const [getCategoryList, setCategoryList] = useState([]);
@@ -26,14 +32,24 @@ export const DashboardTakeOrders = () => {
   const location = useLocation(); // Get the current location
 
   const [getOnHoldList, setOnHoldList] = useState([]);
+  const [getTablesList, setTablesList] = useState([]);
+  const [isModalOpenDinein, setIsModalOpenDinein] = useState(false); // State for menu modal visibility
+  const navigate = useNavigate();
+  const [selectedTableName, setSelectedTableName] = useState(""); // State to hold selected table name
+  const [isContinueOrdering, setIsContinueOrdering] = useState(false); // State to handle "Continue Ordering" button click
+
   useEffect(() => {
     if (location.state && location.state.action === "On-Hold") {
       setIsModalOpenMenu(true); // Show the modal if action is "On-Hold"
       fetchOnHoldList();
+      setSelectedTableName("");
     } else if (location.state && location.state.action === "Take-Away") {
-       // Show the modal if action is "On-Hold"  Dine-In
-    } else {
-      
+      setSelectedTableName("");
+      setIsContinueOrdering(false);
+    } else if (location.state && location.state.action === "Dine-In"){
+      setIsModalOpenDinein(true); // Show the modal if action is "On-Hold"
+      fetchTablesList();
+      setIsContinueOrdering(false);
     }
   }, [location.state]);
 
@@ -84,6 +100,25 @@ export const DashboardTakeOrders = () => {
     fetchMenus(1);
   }, []);
 
+  //fetch tables details from table
+  const fetchTablesList = async () => {
+    const API_URL = `${process.env.REACT_APP_API_URL}Table/GetTables`;
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      const data = JSON.parse(response.data.data);
+      setTablesList(data);
+    } catch (error) {
+      console.error("Caught error while fetching GetTables :", error);
+    }
+  };
+
   const addToCart = (product) => {
     const existingIndex = cartItems.findIndex((item) => item.item_id === product.item_id);
     if (existingIndex !== -1) {
@@ -123,8 +158,16 @@ export const DashboardTakeOrders = () => {
 
   const [message, setMessage] = useState("");
 
+  const receiptRef = useRef(); // Reference for the receipt component
+  const staffName = "Aimy Shaju";
+  // Print handler
+  const handlePrint = useReactToPrint({
+    content: () => receiptRef.current,
+  });
+
   const handleInsertOrders = async () => {
-    const formData = new FormData();
+    handlePrint(); // Print the receipt after placing the order
+    /*const formData = new FormData();
     formData.append("menuModel.itemName", "aaaaaaa");
     formData.append("menuModel.itemDescription", "bbbbbbb");
     formData.append("menuModel.itemCategory", "ccccccccc");
@@ -151,17 +194,27 @@ export const DashboardTakeOrders = () => {
     } catch (error) {
       console.error("Error saving orders", error);
       setMessage("An error occurred while processing your request.");
-    }
-  };
-
-  const handleSubmitMenu = async (event) => {
-    event.preventDefault();
-    // Handle form submission for adding/editing menu items
-    // Add your logic here...
+    }*/
   };
 
   const toggleModalMenu = () => {
     setIsModalOpenMenu(!isModalOpenMenu);
+  };
+
+  const handleContinueOrdering = () => {
+    setIsContinueOrdering(true);
+    setIsModalOpenMenu(false); // Close the on-hold modal
+  };
+
+  const toggleModalDinein = () => {
+    setIsModalOpenDinein(!isModalOpenDinein);
+  };
+
+  // Function to handle table selection
+  const handleTableSelection = (tableName) => {
+    setSelectedTableName(tableName);
+    setIsModalOpenDinein(false); // Close the dine-in modal
+    //navigate("/takeorders", { table: tableName, selectedTableName : selectedTableName }); // Navigate to TakeOrders screen with table name
   };
 
   return (
@@ -185,6 +238,11 @@ export const DashboardTakeOrders = () => {
               className="cart-icon"
               onClick={() => setIsCartOpen(true)}
             />
+            {selectedTableName && (
+              <span style={{ marginLeft: "70px", fontSize: "17px", color: "#000" }}>
+                Table: {selectedTableName}
+              </span>
+            )}
           </div>
         </div>
         <div className="content">
@@ -195,6 +253,9 @@ export const DashboardTakeOrders = () => {
                   key={product.item_id}
                   product={product}
                   addToCart={addToCart}
+                  showAddToCart={(location.state && location.state.action === "Take-Away") || 
+                    (location.state && location.state.action === "Dine-In" && selectedTableName) ||
+                    (location.state && location.state.action === "On-Hold" && isContinueOrdering)}
                 />
               ))
             ) : (
@@ -212,6 +273,7 @@ export const DashboardTakeOrders = () => {
             removeFromCart={removeFromCart}
             calculateTotalAmount={calculateTotalAmount}
             handleInsertOrders={handleInsertOrders}
+            /*handleHoldOrders={handleHoldOrders}*/
           />
         </div>
       </div>
@@ -224,8 +286,8 @@ export const DashboardTakeOrders = () => {
       >
         <div className="add">
           <form className="flex-col">
-          <div className="display_categories">
-            <div className="categories_table">
+          <div className="display_onholdorders">
+            <div className="onholdorders_table">
               <table>
                 <thead>
                   <tr>
@@ -245,7 +307,7 @@ export const DashboardTakeOrders = () => {
                         <td>{categorylist.categoryName}</td>
                         <td>{categorylist.categoryDescription}</td>
                         <td>
-                          <button className="onhold_continue">Continiue Ordering</button>
+                          <button className="onhold_continue" onClick={handleContinueOrdering}>Continue Ordering</button>
                         </td>
                       </tr>
                     ))) : (
@@ -260,6 +322,53 @@ export const DashboardTakeOrders = () => {
           </form>
         </div>
       </Modal>
+
+      {/* Modal for showing Dinein table list details */}
+      <Modal
+        isOpen={isModalOpenDinein}
+        onRequestClose={toggleModalDinein}
+        contentLabel="Choose from these tables"
+      >
+        <div className="add">
+          <form className="flex-col">
+          <div className="display_onholdorders">
+            <div className="onholdorders_table">
+            <div className="tables-grid">
+                  {getTablesList.length > 0 ? (
+                    getTablesList.map((table) => (
+                      <div key={table.table_id} className="table-box"  onClick={() => handleTableSelection(table.table_number)}>
+                        <img
+                          src={table.table_status === "Available" ? availableImage : unavailableImage}
+                          alt={table.table_status === "Available" ? "Ready to occupy" : "Occupied"}
+                          className="table-status-image"
+                        />
+                        <h4>Table: {table.table_number}</h4>
+                        <p>Capacity: {table.table_capacity}</p>
+                        <p>Status: {table.table_status}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", padding: "10px", textAlign: "center" }}>
+                      No tables available!!!
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Modal>
+
+       {/* Hidden Receipt Component */}
+      <div>
+        <Receipt
+          ref={receiptRef}
+          cartItems={cartItems}
+          calculateTotalAmount={calculateTotalAmount}
+          selectedTableName={selectedTableName}
+          staffName={staffName}
+        />
+      </div>
     </main>
   );
 };

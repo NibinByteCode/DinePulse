@@ -1,7 +1,7 @@
 // Product.js
 import React from "react";
 
-const Product = ({ product, addToCart }) => (
+const Product = ({ product, addToCart, showAddToCart }) => (
   <div key={product.item_id} className="product">
     <div className="product-row">
       <div className="item">
@@ -13,9 +13,11 @@ const Product = ({ product, addToCart }) => (
         </div>
         <h3>{product.item_name}</h3>
         <h4>${product.item_price}</h4>
-        <button onClick={() => addToCart(product)} className="cartButton" hidden>
-          Add to Cart
-        </button>
+        {showAddToCart && (
+          <button onClick={() => addToCart(product)} className="cartButton">
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   </div>

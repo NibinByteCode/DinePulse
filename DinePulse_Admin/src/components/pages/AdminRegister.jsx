@@ -4,6 +4,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import restaurant_logo from "../assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 
 export const AdminRegister = () => {
   const [regusername, setRegUsername] = useState("");
@@ -57,34 +58,38 @@ export const AdminRegister = () => {
     e.preventDefault();
     if (validateForm()) {
       // Form is valid, proceed with submission (e.g., API call)
-      let data = JSON.stringify({
-        "userName": regusername,
-        "userPassword": regpassword,
-        "userType":regstafftype
-      });
-      
-      const API_URL = process.env.REACT_APP_API_URL+'Login/AddUser'
+      bcrypt.hash(regpassword, 10, (err, encryptPassword) => { 
 
-      let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: API_URL,
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data
-      };
-      
-      axios.request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-          alert('Registered successfully!!!');
-          navigate("/");
-        })
-        .catch((error) => {
-          alert('Invalid Login Credentials!!!');
-          console.log(error);
+        console.log("encrypted data : " +encryptPassword);
+        let data = JSON.stringify({
+          "userName": regusername,
+          "userPassword": encryptPassword,
+          "userType":regstafftype
         });
+        
+        const API_URL = process.env.REACT_APP_API_URL+'Login/AddUser'
+
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: API_URL,
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          data : data
+        };
+        
+        axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            alert('Registered successfully!!!');
+            navigate("/");
+          })
+          .catch((error) => {
+            alert('Caught error while registering user');
+            console.log(error);
+          });
+      });
     }
   };
 

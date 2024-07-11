@@ -46,7 +46,9 @@ const Cart = ({ cartItems, isCartOpen, isClosing, closeCart, removeFromCart, cal
               </table>
               <div className="total">
                 <p>Total Amount: ${calculateTotalAmount()}</p>
-                <button onClick={() => handleInsertOrders()}>Confirm</button>
+                {/*<button onClick={() => handleHoldOrders()}>Hold Order</button>*/}
+                <button className="hold-button">Hold Order</button>
+                <button className="confirmorder-button" onClick={() => handleInsertOrders()}>Confirm</button>
               </div>
             </>
           )}

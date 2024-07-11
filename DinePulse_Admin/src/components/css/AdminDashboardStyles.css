@@ -589,12 +589,12 @@ body {
   border-radius: 8px;
 }
 
-.categories_table, .menu_table {
+.categories_table, .menu_table, .onholdorders_table {
   margin: 15px;
   overflow-x: auto;
 }
 
-.categories_table table, .menu_table table {
+.categories_table table, .menu_table table, .onholdorders_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -602,29 +602,29 @@ body {
   overflow: hidden;
 }
 
-.categories_table th, .categories_table td, .menu_table th, .menu_table td {
+.categories_table th, .categories_table td, .menu_table th, .menu_table td, .onholdorders_table th, .onholdorders_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.categories_table th, .menu_table th {
+.categories_table th, .menu_table th, .onholdorders_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.categories_table tbody tr, .menu_table tbody tr {
+.categories_table tbody tr, .menu_table tbody tr, .onholdorders_table tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.categories_table tbody tr:nth-child(odd), .menu_table tbody tr:nth-child(odd) {
+.categories_table tbody tr:nth-child(odd), .menu_table tbody tr:nth-child(odd), .onholdorders_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.categories_table tbody tr:nth-child(even), .menu_table tbody tr:nth-child(even) {
+.categories_table tbody tr:nth-child(even), .menu_table tbody tr:nth-child(even), .onholdorders_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
@@ -1787,9 +1787,21 @@ table {
   padding: 20px;
 }
 
-.cart .total button {
+.cart .total .confirmorder-button {
   color: #fff;
   background-color: #5cb85c;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
+
+.cart .total .hold-button {
+  color: #fff;
+  background-color: #f47124;
   cursor: pointer;
   border: none;
   padding: 10px 20px;
@@ -1821,4 +1833,56 @@ table {
   width: 100%;
   position: relative;
 }
+
+.onhold_continue{
+  margin-right: 100px;
+  font-size: 13px;
+  width: 150px;
+  border: 2px solid #ff914d;
+  border-radius: 10px;
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
 /* TAKEORDERS onhold popup ends*/
+
+/* TAKEORDERS Dine-In popup starts*/
+.display_onholdorders {
+  border: 2px solid #fff;
+  border-radius: 8px;
+}
+
+.tables-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.table-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  /*width: calc(33.33% - 20px);*/
+  width: 200px;
+}
+
+.table-box h4 {
+  margin-bottom: 10px;
+}
+
+.table-box p {
+  margin: 5px 0;
+}
+
+.table-status-image {
+  width: 100px; 
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* TAKEORDERS Dine-In popup ends*/

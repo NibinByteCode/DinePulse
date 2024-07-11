@@ -566,8 +566,8 @@ export const DashboardTables = () => {
                         <select name='tablestatus' value={tableStatus}
                           onChange={(e) => setTableStatus(e.target.value)}>
                             <option value="">Select Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="Available">Available</option>
+                            <option value="Unavailable">Unavailable</option>
                         </select>
                         {tableerrors.tableStatus && <p className="error">{tableerrors.tableStatus}</p>}
                     </div>
