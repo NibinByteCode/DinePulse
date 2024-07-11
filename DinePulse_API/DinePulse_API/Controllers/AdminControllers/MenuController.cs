@@ -161,12 +161,12 @@ namespace DinePulse_API.Controllers.AdminControllers
                     }
                     else
                     {
-                        return NotFound(); // No data found
+                        return Ok("No items available"); // No data found
                     }
                 }
                 else
                 {
-                    return NotFound(); // No data found
+                     return Ok("No items available"); // No data found
                 }
             }
             catch (Exception ex)
