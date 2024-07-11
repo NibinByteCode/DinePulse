@@ -92,20 +92,20 @@ namespace DinePulse_API.Controllers.AdminControllers
 
         [HttpPut]
         [ActionName("EditUser")]
-        public IActionResult EditUser(int userId, string userName, string userPassword, string userType, string userStatus)
+        public IActionResult EditUser([FromBody] EditUserModel editUserModel)
         {
             try
             {
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@user_id", SqlDbType.Int) { Value = userId },
-                    new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = userName },
-                    new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = userPassword },
-                    new SqlParameter("@user_type", SqlDbType.VarChar, 50) { Value = userType },
-                    new SqlParameter("@user_status", SqlDbType.VarChar, 50) { Value = userStatus }
+                    new SqlParameter("@user_id", SqlDbType.Int) { Value = editUserModel.userId },
+                    new SqlParameter("@user_name", SqlDbType.VarChar, 255) { Value = editUserModel.userName },
+                    new SqlParameter("@user_password", SqlDbType.VarChar,255) { Value = editUserModel.userPassword },
+                    new SqlParameter("@user_type", SqlDbType.VarChar, 50) { Value = editUserModel.userType },
+                    new SqlParameter("@user_status", SqlDbType.VarChar, 50) { Value = editUserModel.userStatus }
                 };
 
-                int rowsAffected = dataLayer.ExecuteSp_transaction("UpdateUser", parameters);
+                int rowsAffected = dataLayer.ExecuteSp_transaction("User_UpdateUser", parameters);
 
                 if (rowsAffected > 0)
                 {
