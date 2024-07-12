@@ -1,3 +1,4 @@
+import 'package:dinepulse_mobileapp/services/global_variables.dart';
 import 'package:dinepulse_mobileapp/widgets/list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -78,19 +79,19 @@ class HomePage extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, '/login');
                 }),
-            Spacer(),
-            const Padding(
+            const Spacer(),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.account_circle,
                     color: Color.fromRGBO(203, 79, 41, 1),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
-                    'Staff 1',
-                    style: TextStyle(
+                    GlobalVariables().username,
+                    style: const TextStyle(
                       color: Color.fromRGBO(203, 79, 41, 1),
                       fontSize: 16,
                       fontFamily: 'Calistoga',
