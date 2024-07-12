@@ -28,15 +28,27 @@ namespace DinePulse_API.Controllers.MobileControllers
             {
                 List<SqlParameter> parameters = new List<SqlParameter>
         {
-            new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = loginRequest.userName },
-            new SqlParameter("@user_password", SqlDbType.VarChar, 50) { Value = loginRequest.userPassword }
+            new SqlParameter("@user_name", SqlDbType.VarChar, 50) { Value = loginRequest.userName }
         };
-
-                DataTable table = dataLayer.Getbulkfromdb("ValidateUser", parameters);
-
+                DataTable table = dataLayer.Getbulkfromdb("GetHashPassword", parameters);
                 if (table.Rows.Count > 0)
                 {
-                    return Ok("Login successful.");
+                    string storedHashedPassword = table.Rows[0]["user_password"].ToString();
+                    if (BCrypt.Net.BCrypt.Verify(loginRequest.userPassword, storedHashedPassword))
+                    {
+                        var response = new
+                        {
+                            UserId = table.Rows[0]["user_id"],
+                            UserName = table.Rows[0]["user_name"],
+                            Message = "Login successful."
+                        };
+                        return Ok(response);
+                      
+                    }
+                    else
+                    {
+                        return Unauthorized("Invalid username or password.");
+                    }
                 }
                 else
                 {
