@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
+import '../services/cart_service.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -28,8 +29,8 @@ class CheckoutPage extends StatelessWidget {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/menu',
-                      arguments: {'table': 1, 'count': 1});
+                  cartService.clearCart();
+                  Navigator.pushNamed(context, '/choose_table');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -56,7 +57,7 @@ class CheckoutPage extends StatelessWidget {
                         const BoxConstraints(minWidth: 60.0, minHeight: 36.0),
                     alignment: Alignment.center,
                     child: const Text(
-                      'CONTINUE SHOPPING',
+                      'TAKE NEXT ORDER',
                       style: TextStyle(
                         fontSize: 12,
                         fontFamily: 'Calistoga',

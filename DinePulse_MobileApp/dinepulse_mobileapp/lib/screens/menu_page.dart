@@ -1,3 +1,4 @@
+import 'package:dinepulse_mobileapp/models/global_state.dart';
 import 'package:dinepulse_mobileapp/screens/popups/item_add_popup.dart';
 import 'package:dinepulse_mobileapp/services/menu_fetch.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,6 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final int tableNumber = args['table'];
-    final int customerCount = args['count'];
-
     OutlineInputBorder borderColor(Color input) {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(9.0),
@@ -58,7 +54,7 @@ class _MenuPageState extends State<MenuPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Table: $tableNumber',
+                  'Table: $selectedTable',
                   style: const TextStyle(
                     color: Color.fromRGBO(203, 79, 41, 1),
                     fontSize: 15,
@@ -149,7 +145,6 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ),
           Expanded(
-            //Ref : https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html
             child: FutureBuilder<List<CartItem>>(
               future: futureMenuItems,
               builder: (context, snapshot) {
