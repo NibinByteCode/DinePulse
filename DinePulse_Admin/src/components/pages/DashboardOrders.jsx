@@ -59,7 +59,8 @@ export const DashboardOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {getOrderlist.map((orderlist) => (
+            {getOrderlist.length > 0 ? (
+              getOrderlist.map((orderlist) => (
                   <tr key={orderlist.orderId}>
                       <td>{orderlist.orderId}</td>
                       <td>{orderlist.customerName}</td>
@@ -75,7 +76,13 @@ export const DashboardOrders = () => {
                             <RiDeleteBin5Fill className='delete_icon'/>
                         </td>
                   </tr>
-              ))}
+              ))
+              ) : (
+                <tr>
+                  <td colSpan="9" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No orders to retrieve for this day!!!</td>
+                </tr>
+              )
+            }
             </tbody>
           </table>
         </div>

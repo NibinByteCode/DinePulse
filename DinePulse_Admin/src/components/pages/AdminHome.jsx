@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./LoginRegister.css";
+import "../css/AdminDashboardStyles.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import restaurant_logo from "./Assets/restaurant_logo.png";
+import restaurant_logo from "../assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -53,8 +53,7 @@ export const AdminHome = () => {
       axios
         .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
-
+          //console.log(JSON.stringify(response.data));
           navigate("/dashboard");
         })
         .catch((error) => {

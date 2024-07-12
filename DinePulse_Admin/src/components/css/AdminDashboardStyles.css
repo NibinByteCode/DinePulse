@@ -67,6 +67,7 @@
   text-align: center;
 }
 
+/* === register, login CSS starts === */
 .section_login {
   position: relative;
   width: 60%;
@@ -192,6 +193,8 @@ form .login_link {
   text-decoration: underline;
 }
 
+/* === register, login CSS ends === */
+
 .side_header {
   display: flex;
   align-items: center;
@@ -272,7 +275,7 @@ body {
 
 #sidebar {
   width: 260px;
-  height: 100%;
+  /*height: 100%;*/
   background-color: #d47b4d;
   overflow-y: auto;
   transition: all 0.5s;
@@ -287,6 +290,45 @@ body {
   margin-left: 275px;
   color: rgba(255, 255, 255, 0.95);
 }
+
+/* === AdminHeader.jsx buttons Take-Away, Dine-In and On-Hold CSS contents starts ===*/
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+}
+
+.header-buttons button {
+  display: flex;
+  align-items: center;
+  padding: 13px;
+  margin-right: 19px;
+  background-color:#bb521f;
+  color: white;
+  border: 1px solid white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.header-buttons button:hover {
+  background-color: #d47b4d;
+}
+
+.button-icon {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+/* === AdminHeader.jsx buttons Take-Away, Dine-In and On-Hold CSS contents ends ===*/
+
 
 .profile_icon {
   vertical-align: middle;
@@ -359,6 +401,7 @@ body {
   color: #fff;
 }
 
+/* === AdminDashboard.jsx CSS contents starts === */
 .main-title {
   display: flex;
   justify-content: space-between;
@@ -472,6 +515,8 @@ body {
   background-color: #ffe5d7;
 }
 
+/* === AdminDashboard.jsx CSS contents ends === */
+/* === DashboardProducts.jsx CSS contents starts === */
 .tab {
   overflow: hidden;
   margin-bottom: 20px;
@@ -539,17 +584,17 @@ body {
   vertical-align: middle;
 }
 
-.display_categories {
+.display_categories, .display_menu {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.categories_table {
+.categories_table, .menu_table, .onholdorders_table {
   margin: 15px;
   overflow-x: auto;
 }
 
-.categories_table table {
+.categories_table table, .menu_table table, .onholdorders_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -557,45 +602,48 @@ body {
   overflow: hidden;
 }
 
-.categories_table th,
-.categories_table td {
+.categories_table th, .categories_table td, .menu_table th, .menu_table td, .onholdorders_table th, .onholdorders_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.categories_table th {
+.categories_table th, .menu_table th, .onholdorders_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.categories_table tbody tr {
+.categories_table tbody tr, .menu_table tbody tr, .onholdorders_table tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.categories_table tbody tr:nth-child(odd) {
+.categories_table tbody tr:nth-child(odd), .menu_table tbody tr:nth-child(odd), .onholdorders_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.categories_table tbody tr:nth-child(even) {
+.categories_table tbody tr:nth-child(even), .menu_table tbody tr:nth-child(even), .onholdorders_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
-.edit_icon {
+.editcategory_icon, .editmenu_icon, .edittable_icon, .editdevice_icon, .editemployee_icon, .editreservation_icon, .edit_icon {
   font-size: 20px;
   color: green;
   vertical-align: middle;
   margin-left: 30px;
 }
 
-.delete_icon {
+.deletecategory_icon, .deletemenu_icon, .deletetable_icon, .deletedevice_icon, .deleteemployee_icon, .deletereservation_icon, .delete_icon {
   font-size: 20px;
   color: red;
   vertical-align: middle;
+  cursor: pointer;
 }
+
+/* === DashboardProducts.jsx CSS contents ends === */
+/* === DashboardTables.jsx CSS contents starts === */
 
 .display_tables,
 .display_devices {
@@ -680,25 +728,74 @@ body {
   height: auto;
   margin-right: 0px;
 }
+/* === DashboardTables.jsx CSS contents ends === */
+/* === DashboardReservation.jsx CSS contents starts === */
+.booktable_header, .booktable_subheader {
+  color: #bb521f;
+}
 
-.employees .addnew_btn {
+.booktable_subheader h5{
+text-align: center;
+}
+
+.booktable_icon {
+  color: #bb521f;
+}
+
+.booktable_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+}
+
+.booktable_icon {
+  font-size: 1em;
+}
+
+.reservation-modal {
+  background: white;
+  padding: 20px;
+  border: 5px solid brown;
+  border-radius: 8px;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+}
+
+
+.add-reservation-details textarea {
+  width: 100%;
+  max-width: 600px;
+  padding: 5px;
+  border: 2px solid #bb521f;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #bb521f;
+  font-family: "Roboto Slab", serif;
+}
+/* === DashboardReservation.jsx CSS contents ends === */
+
+/* === DashboardEmployees.jsx, DashboardReservation.jsx CSS contents starts === */
+
+.employees .addnew_btn, .reservations .addnew_btn {
   border: 1px solid #bb521f;
   background-color: #bb521f;
   border-radius: 4px;
   padding: 10px 15px;
 }
 
-.display_employees {
+.display_employees, .display_reservations {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.employees_table {
+.employees_table, .reservation_table {
   overflow-x: auto;
   margin: 15px;
 }
 
-.employees_table table {
+.employees_table table, .reservation_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -706,33 +803,34 @@ body {
   overflow: hidden;
 }
 
-.employees_table th,
-.employees_table td {
+.employees_table th, .reservation_table th,
+.employees_table td, .reservation_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.employees_table th {
+.employees_table th, .reservation_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.employees_table tbody tr {
+.employees_table tbody tr, .reservation_table tbody tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.employees_table tbody tr:nth-child(odd) {
+.employees_table tbody tr:nth-child(odd), .reservation_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.employees_table tbody tr:nth-child(even) {
+.employees_table tbody tr:nth-child(even), .reservation_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
+/* === DashboardEmployees.jsx, DashboardReservation.jsx CSS contents ends === */
 .inputbox {
   color: #bb521f;
   text-align: center;
@@ -988,13 +1086,13 @@ body {
 }
 
 .admin-background {
-  background: url("./Assets/admin_background.png");
+  background: url("../assets/admin_background.png");
   background-size: cover;
   min-height: 100vh;
 }
 
 .plain-background {
-  background: url("./Assets/plain_background.png");
+  background: url("../assets/plain_background.png");
   background-size: cover;
   min-height: 100vh;
 }
@@ -1069,14 +1167,32 @@ body {
 }
 
 .add-category-img-upload,
+.add-menu-img-upload,
+.add-category-name,
+.add-menu-name,
+.add-category-description,
+.add-menu-description,
+.add-menucategory,
+.add-menuprice,
+.add-table-number,
+.add-table-capacity,
+.add-tablestatus,
+.add-device-id,
+.add-device-username,
+.add-device-password,
+.add-device-token,
+.add-user-id,
+/*.add-devicestatus,*/
+.add-employee-name,
+.add-employee-password,
+.add-employee-type,
+.add-employee-status,
+.add-reservation-details,
 .add-product-img-upload,
 .add-img-upload,
-.add-category-name,
 .add-product-name,
-.add-category-description,
 .add-product-description,
-.add-category,
-.add-price {
+.add-category {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1084,20 +1200,24 @@ body {
 }
 
 .add-category-img-upload,
+.add-menu-img-upload,
 .add-product-img-upload,
 .add-img-upload {
   display: flex;
   align-items: center;
-  gap: 120px;
+  /*gap: 120px;*/
+  gap: 30px;
 }
 
 .add-category-img-upload p,
+.add-menu-img-upload p,
 .add-product-img-upload,
 .add-img-upload p {
   color: #bb521f;
 }
 
 .add-category-img-upload img,
+.add-menu-img-upload img,
 .add-product-img-upload img,
 .add-img-upload img {
   width: 80px;
@@ -1107,30 +1227,81 @@ body {
 }
 
 .add-category-name,
-.add-product-name,
+.add-menu-name,
 .add-category-description,
+.add-menu-description,
+.add-menucategory,
+.add-menuprice,
+.add-table-number,
+.add-table-capacity,
+.add-tablestatus,
+.add-device-id,
+.add-device-username,
+.add-device-password,
+.add-device-token,
+.add-user-id,
+/*.add-devicestatus,*/
+.add-employee-name,
+.add-employee-password,
+.add-employee-type,
+.add-employee-status,
+.add-reservation-details,
+.add-product-name,
 .add-product-description,
-.add-category,
-.add-price {
+.add-category {
   width: 100%;
   color: #bb521f;
 }
 
 .add-category-name p,
-.add-product-name p,
+.add-menu-name p,
 .add-category-description p,
+.add-menu-description p,
+.add-menucategory p,
+.add-menuprice p,
+.add-table-number p,
+.add-table-capacity p,
+.add-tablestatus p,
+.add-device-id p,
+.add-device-username p,
+.add-device-password p,
+.add-device-token p,
+.add-user-id p,
+/*.add-devicestatus p,*/
+.add-employee-name p,
+.add-employee-password p,
+.add-employee-type p,
+.add-employee-status p,
+.add-reservation-details p,
+.add-product-name p,
 .add-product-description p,
-.add-category p,
-.add-price p {
+.add-category p {
   min-width: 200px;
 }
 
 .add-category-name input,
-.add-product-name input,
+.add-menu-name input,
 .add-category-description textarea,
+.add-menu-description textarea,
+.add-menucategory select,
+.add-menuprice input,
+.add-table-number input,
+.add-table-capacity input,
+.add-tablestatus select,
+.add-device-id input,
+.add-device-username input,
+.add-device-password input,
+.add-device-token input,
+.add-user-id select,
+/*.add-devicestatus select,*/
+.add-employee-name input,
+.add-employee-password input,
+.add-employee-type select,
+.add-employee-status select,
+.add-reservation-details input,
+.add-product-name input,
 .add-product-description textarea,
-.add-category select,
-.add-price input {
+.add-category select {
   width: 100%;
   max-width: 600px;
   padding: 5px;
@@ -1142,11 +1313,23 @@ body {
 }
 
 .category-buttons,
+.menu-buttons,
+.table-buttons,
+.device-buttons,
+.employee-buttons,
 .section-buttons {
   display: flex;
   flex-direction: row;
   gap: 10px;
   justify-content: center;
+}
+
+.reservation-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin-right: 120px;
 }
 
 .add-btn,
@@ -1173,6 +1356,10 @@ body {
   border-radius: 10px;
   background-image: linear-gradient(144deg, #0f4f16, #3af26b);
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+
+.reservation-buttons .add-btn{
+  width: 200px;
 }
 
 /* === Popup page contents CSS Ends === */
@@ -1300,8 +1487,14 @@ body {
 }
 
 .categories {
+  /*display: flex;
+  gap: 20px;*/
+  position: relative;
   display: flex;
   gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .categories button {
@@ -1310,10 +1503,16 @@ body {
   border-radius: 10px;
   color: black;
   cursor: pointer;
+  width: 175px;
+  padding: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .categories button.active {
-  font-weight: bold;
+  /*font-weight: bold;*/
+  background-color: #bb521f;
+  color: #fff;
 }
 
 /* Content */
@@ -1324,12 +1523,14 @@ body {
 }
 
 .products {
-  flex: 1;
+  /*flex: 1;*/
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
+  border: 1px solid #bb521f;
   border-radius: 10px;
+  width: 100%;
+  gap: 10px;
 }
 
 /* each product with image, name, price, description in overlay and add to cart button*/
@@ -1337,16 +1538,18 @@ body {
 .product-row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  /*margin: 0 -15px;*/
+  justify-content: center;
 }
 
 .product {
-  margin-right: 20px;
+ /*margin-right: 20px;
   margin-bottom: 20px;
-  /*border: 1px solid black;
-  border-radius: 10px;*/
   padding: 10px;
   width: 200px;
+  box-sizing: border-box;*/
+  padding: 10px;
+  width: calc(25% - 10px);
   box-sizing: border-box;
 }
 
@@ -1359,7 +1562,12 @@ body {
   font-family: "Roboto Slab", serif;
 }
 
-.item h3,
+.item h3 {
+  color: #bb521f;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
 .item h4 {
   color: #bb521f;
   font-size: 16px;
@@ -1369,14 +1577,16 @@ body {
 .cartButton {
   font-family: "Roboto Slab", serif;
   font-size: 14px;
-  margin-top: 0px;
+  /*margin-top: 0px;*/
+  margin-top: 15px;
   background-color: #bb521f;
-  padding: 4px 10px;
+  /*padding: 4px 10px;*/
+  padding: 5px 15px;
   border: none;
   color: white;
   border-radius: 5px;
   border: 1px solid transparent;
-  height: 26px;
+  /*height: 26px;*/
 }
 
 .cartButton:hover {
@@ -1388,20 +1598,30 @@ body {
 
 .img-container {
   position: relative;
-}
-
-.img-container img {
-  width: 150px;
-  height: 150px;
-  border: 1px solid #000;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
   border-top-left-radius: 20px;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 40px;
 }
 
+.img-container img {
+  /*width: 150px;
+  height: 150px;
+  border: 1px solid #000;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 40px;*/
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
 /* overlay description  */
-.img-container .overlay {
+/*.img-container .overlay {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1434,22 +1654,31 @@ body {
   opacity: 1;
   cursor: pointer;
 }
+*/
 
+.item:hover .img-container img {
+  transform: scale(1.1);
+}
 /* product showing ends */
 
 /* Cart */
 .cart {
-  width: 200px;
+  /*width: 200px;*/
   padding: 20px;
   background-color: #f4f4f4;
-  border: 2px solid green;
-  border-radius: 10px;
+  /*border: 2px solid green;
+  border-radius: 10px;*/
   color: #000;
 }
 
 .cart h2 {
   margin-bottom: 10px;
   color: #000;
+  text-align: center;
+}
+
+.cart_empty {
+  text-align: center;
 }
 
 .cart ul {
@@ -1461,4 +1690,199 @@ body {
   margin-bottom: 5px;
 }
 
+.cart table,
+th,
+td {
+  border: 1px solid #bb521f;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cart-icon {
+  font-size: 30px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: #bb521f;
+  position: absolute;
+  right: 0;
+}
+
+.slide-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  transform: translateX(100%);
+  animation: slide-in 0.3s forwards;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #bb521f;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.slide-panel.slide-out {
+  animation: slide-out 0.3s forwards;
+}
+
+.cart .total {
+  position: absolute;
+  z-index: 1002;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  margin: 0px -20px;
+  box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.84);
+  padding: 20px;
+}
+
+.cart .total .confirmorder-button {
+  color: #fff;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
+
+.cart .total .hold-button {
+  color: #fff;
+  background-color: #f47124;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
 /* Take orders contents css ends === */
+
+/* TAKEORDERS onhold popup starts*/
+
+/*
+.onhold-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}*/
+.onHoldmodal {
+  background: white;
+  padding: 20px;
+  border: 5px solid brown;
+  border-radius: 8px;
+  max-width: 1300px;
+  width: 100%;
+  position: relative;
+}
+
+.onhold_continue{
+  margin-right: 100px;
+  font-size: 13px;
+  width: 150px;
+  border: 2px solid #ff914d;
+  border-radius: 10px;
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+/* TAKEORDERS onhold popup ends*/
+
+/* TAKEORDERS Dine-In popup starts*/
+.display_onholdorders {
+  border: 2px solid #fff;
+  border-radius: 8px;
+}
+
+.tables-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.table-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  /*width: calc(33.33% - 20px);*/
+  width: 200px;
+}
+
+.table-box h4 {
+  margin-bottom: 10px;
+}
+
+.table-box p {
+  margin: 5px 0;
+}
+
+.table-status-image {
+  width: 100px; 
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* TAKEORDERS Dine-In popup ends*/
