@@ -6,8 +6,8 @@ import Product from "./TakeOrdersProduct";
 import Cart from "./TakeOrdersCart";
 import Modal from "./TakeOrdersOnHoldModal"; // Import the modal component
 import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation
-import availableImage from '../../assets/free_table.png'; 
-import unavailableImage from '../../assets/reserved_table.png'; 
+import availableImage from "../../Assets/free_table.png";
+import unavailableImage from "../../Assets/reserved_table.png";
 
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
@@ -46,7 +46,7 @@ export const DashboardTakeOrders = () => {
     } else if (location.state && location.state.action === "Take-Away") {
       setSelectedTableName("");
       setIsContinueOrdering(false);
-    } else if (location.state && location.state.action === "Dine-In"){
+    } else if (location.state && location.state.action === "Dine-In") {
       setIsModalOpenDinein(true); // Show the modal if action is "On-Hold"
       fetchTablesList();
       setIsContinueOrdering(false);
@@ -68,7 +68,10 @@ export const DashboardTakeOrders = () => {
       const data = response.data;
       setOnHoldList(data);
     } catch (error) {
-      console.error("Caught error while fetching GetAllMenuCategories :", error);
+      console.error(
+        "Caught error while fetching GetAllMenuCategories :",
+        error
+      );
     }
   };
 
@@ -78,7 +81,10 @@ export const DashboardTakeOrders = () => {
       const response = await axios.get(API_URL);
       setCategoryList(response.data);
     } catch (error) {
-      console.error("Caught error while fetching GetAllMenuCategories :", error);
+      console.error(
+        "Caught error while fetching GetAllMenuCategories :",
+        error
+      );
     }
   };
 
@@ -120,7 +126,9 @@ export const DashboardTakeOrders = () => {
   };
 
   const addToCart = (product) => {
-    const existingIndex = cartItems.findIndex((item) => item.item_id === product.item_id);
+    const existingIndex = cartItems.findIndex(
+      (item) => item.item_id === product.item_id
+    );
     if (existingIndex !== -1) {
       const updatedCartItems = [...cartItems];
       updatedCartItems[existingIndex].count++;
@@ -138,7 +146,9 @@ export const DashboardTakeOrders = () => {
   };
 
   const removeFromCart = (productId) => {
-    const updatedCartItems = cartItems.filter((item) => item.item_id !== productId);
+    const updatedCartItems = cartItems.filter(
+      (item) => item.item_id !== productId
+    );
     setCartItems(updatedCartItems);
   };
 
@@ -149,11 +159,11 @@ export const DashboardTakeOrders = () => {
   };
 
   const closeCart = () => {
-    setIsClosing(true); 
+    setIsClosing(true);
     setTimeout(() => {
       setIsCartOpen(false);
       setIsClosing(false);
-    }, 300); 
+    }, 300);
   };
 
   const [message, setMessage] = useState("");
@@ -227,7 +237,7 @@ export const DashboardTakeOrders = () => {
         <div className="categoryvalues">
           <div className="categories">
             {getCategoryList.map((category) => (
-              <CategoryButton 
+              <CategoryButton
                 key={category.categoryId}
                 category={category}
                 selectedCategory={selectedCategory}
@@ -239,7 +249,9 @@ export const DashboardTakeOrders = () => {
               onClick={() => setIsCartOpen(true)}
             />
             {selectedTableName && (
-              <span style={{ marginLeft: "70px", fontSize: "17px", color: "#000" }}>
+              <span
+                style={{ marginLeft: "70px", fontSize: "17px", color: "#000" }}
+              >
                 Table: {selectedTableName}
               </span>
             )}
@@ -249,23 +261,37 @@ export const DashboardTakeOrders = () => {
           <div className="products">
             {getMenuByCategoryList && getMenuByCategoryList.length > 0 ? (
               getMenuByCategoryList.map((product) => (
-                <Product 
+                <Product
                   key={product.item_id}
                   product={product}
                   addToCart={addToCart}
-                  showAddToCart={(location.state && location.state.action === "Take-Away") || 
-                    (location.state && location.state.action === "Dine-In" && selectedTableName) ||
-                    (location.state && location.state.action === "On-Hold" && isContinueOrdering)}
+                  showAddToCart={
+                    (location.state && location.state.action === "Take-Away") ||
+                    (location.state &&
+                      location.state.action === "Dine-In" &&
+                      selectedTableName) ||
+                    (location.state &&
+                      location.state.action === "On-Hold" &&
+                      isContinueOrdering)
+                  }
                 />
               ))
             ) : (
-              <div style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", padding: "10px", textAlign: "center" }}>
+              <div
+                style={{
+                  fontSize: "17px",
+                  color: "#bb521f",
+                  backgroundColor: "#ffe5d7",
+                  padding: "10px",
+                  textAlign: "center",
+                }}
+              >
                 No items available!!!
               </div>
             )}
           </div>
 
-          <Cart 
+          <Cart
             cartItems={cartItems}
             isCartOpen={isCartOpen}
             isClosing={isClosing}
@@ -286,37 +312,52 @@ export const DashboardTakeOrders = () => {
       >
         <div className="add">
           <form className="flex-col">
-          <div className="display_onholdorders">
-            <div className="onholdorders_table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Order Details</th>
-                    <th>Category</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
+            <div className="display_onholdorders">
+              <div className="onholdorders_table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Order Details</th>
+                      <th>Category</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     {getOnHoldList.length > 0 ? (
                       getOnHoldList.map((categorylist) => (
-                      <tr key={categorylist.categoryId}>
-                        <td>{categorylist.categoryId}</td>
-                        <td>{categorylist.categoryName}</td>
-                        <td>{categorylist.categoryName}</td>
-                        <td>{categorylist.categoryDescription}</td>
-                        <td>
-                          <button className="onhold_continue" onClick={handleContinueOrdering}>Continue Ordering</button>
+                        <tr key={categorylist.categoryId}>
+                          <td>{categorylist.categoryId}</td>
+                          <td>{categorylist.categoryName}</td>
+                          <td>{categorylist.categoryName}</td>
+                          <td>{categorylist.categoryDescription}</td>
+                          <td>
+                            <button
+                              className="onhold_continue"
+                              onClick={handleContinueOrdering}
+                            >
+                              Continue Ordering
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="5"
+                          style={{
+                            fontSize: "17px",
+                            color: "#bb521f",
+                            backgroundColor: "#ffe5d7",
+                          }}
+                        >
+                          No on-hold orders for the day!!!
                         </td>
                       </tr>
-                    ))) : (
-                      <tr>
-                        <td colSpan="5" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7" }}>No on-hold orders for the day!!!</td>
-                      </tr>
                     )}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
               </div>
             </div>
           </form>
@@ -331,15 +372,27 @@ export const DashboardTakeOrders = () => {
       >
         <div className="add">
           <form className="flex-col">
-          <div className="display_onholdorders">
-            <div className="onholdorders_table">
-            <div className="tables-grid">
+            <div className="display_onholdorders">
+              <div className="onholdorders_table">
+                <div className="tables-grid">
                   {getTablesList.length > 0 ? (
                     getTablesList.map((table) => (
-                      <div key={table.table_id} className="table-box"  onClick={() => handleTableSelection(table.table_number)}>
+                      <div
+                        key={table.table_id}
+                        className="table-box"
+                        onClick={() => handleTableSelection(table.table_number)}
+                      >
                         <img
-                          src={table.table_status === "Available" ? availableImage : unavailableImage}
-                          alt={table.table_status === "Available" ? "Ready to occupy" : "Occupied"}
+                          src={
+                            table.table_status === "Available"
+                              ? availableImage
+                              : unavailableImage
+                          }
+                          alt={
+                            table.table_status === "Available"
+                              ? "Ready to occupy"
+                              : "Occupied"
+                          }
                           className="table-status-image"
                         />
                         <h4>Table: {table.table_number}</h4>
@@ -348,7 +401,15 @@ export const DashboardTakeOrders = () => {
                       </div>
                     ))
                   ) : (
-                    <div style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", padding: "10px", textAlign: "center" }}>
+                    <div
+                      style={{
+                        fontSize: "17px",
+                        color: "#bb521f",
+                        backgroundColor: "#ffe5d7",
+                        padding: "10px",
+                        textAlign: "center",
+                      }}
+                    >
                       No tables available!!!
                     </div>
                   )}
@@ -359,7 +420,7 @@ export const DashboardTakeOrders = () => {
         </div>
       </Modal>
 
-       {/* Hidden Receipt Component */}
+      {/* Hidden Receipt Component */}
       <div>
         <Receipt
           ref={receiptRef}

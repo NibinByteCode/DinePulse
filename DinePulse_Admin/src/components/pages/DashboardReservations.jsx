@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import free_table from "../assets/free_table.png";
-import reserved_table from "../assets/reserved_table.png";
+import free_table from "../Assets/free_table.png";
+import reserved_table from "../Assets/reserved_table.png";
 import { BsTable } from "react-icons/bs";
 import { MdAddToPhotos } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import Modal from 'react-modal';
-import axios from 'axios';
+import Modal from "react-modal";
+import axios from "axios";
 import { IoClose } from "react-icons/io5";
 
 // Set the app element for accessibility
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 export const DashboardReservations = () => {
-
   //state for reservation list
   const [getReservationList, setReservationList] = useState([]);
   const [isModalOpenReservation, setIsModalOpenReservation] = useState(false);
@@ -51,17 +50,18 @@ export const DashboardReservations = () => {
 
   //fetch Reservation details from table
   const fetchReservation = async () => {
-    const API_URL = process.env.REACT_APP_API_URL+'TableReservation/GetReservations'
+    const API_URL =
+      process.env.REACT_APP_API_URL + "TableReservation/GetReservations";
     let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: API_URL,
-        headers: {}
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
     };
 
     try {
       const response = await axios.request(config);
-      console.log('Response Data:', response.data);
+      console.log("Response Data:", response.data);
       const data = JSON.parse(response.data.data);
       setReservationList(data);
     } catch (error) {
@@ -114,7 +114,7 @@ export const DashboardReservations = () => {
     formData.append("userName", reservationDate);
     formData.append("userPassword", reservationTime);
     formData.append("userType", reservationSuggestions);
-    
+
     if (selectedReservation) {
       formData.append("userId", selectedReservation.user_id);
     }
@@ -181,11 +181,13 @@ export const DashboardReservations = () => {
   };
 
   //handle the reservation delete functionality
-  const [selectedReservationToDelete, setSelectedReservationToDelete] = useState(null);
-  const [isDeleteReservationModalOpen, setIsDeleteReservationModalOpen] = useState(false);
+  const [selectedReservationToDelete, setSelectedReservationToDelete] =
+    useState(null);
+  const [isDeleteReservationModalOpen, setIsDeleteReservationModalOpen] =
+    useState(false);
 
-   //function to open the reservation delete modal
-   const openDeleteReservationModal = (reservation) => {
+  //function to open the reservation delete modal
+  const openDeleteReservationModal = (reservation) => {
     setSelectedReservationToDelete(reservation);
     setIsDeleteReservationModalOpen(true);
   };
@@ -232,7 +234,8 @@ export const DashboardReservations = () => {
       <div className="main-title">
         <h3>RESERVATIONS</h3>
       </div>
-      <br /><br />
+      <br />
+      <br />
 
       <div id="reservations" className="reservations">
         <button className="addnew_btn" onClick={toggleModalReservation}>
@@ -262,88 +265,170 @@ export const DashboardReservations = () => {
                 {getReservationList.length > 0 ? (
                   getReservationList.map((reservationlist) => (
                     <tr key={reservationlist.user_id}>
-                        <td>{reservationlist.user_id}</td>
-                        <td>{reservationlist.noofGuests}</td>
-                        <td>{reservationlist.reservationEmail}</td>
-                        <td>{reservationlist.reservationPhone}</td>
-                        <td>{reservationlist.reservationDate}</td>
-                        <td>{reservationlist.reservationTime}</td>
-                        <td>{reservationlist.reservationSuggestions}</td>
-                        <td>
-                            <FaEdit className='editreservation_icon' onClick={() => handleEditReservation(reservationlist)} />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <RiDeleteBin5Fill className='deletereservation_icon' onClick={() => handleDeleteReservation(reservationlist.user_id)}/>
-                        </td>
+                      <td>{reservationlist.user_id}</td>
+                      <td>{reservationlist.noofGuests}</td>
+                      <td>{reservationlist.reservationEmail}</td>
+                      <td>{reservationlist.reservationPhone}</td>
+                      <td>{reservationlist.reservationDate}</td>
+                      <td>{reservationlist.reservationTime}</td>
+                      <td>{reservationlist.reservationSuggestions}</td>
+                      <td>
+                        <FaEdit
+                          className="editreservation_icon"
+                          onClick={() => handleEditReservation(reservationlist)}
+                        />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <RiDeleteBin5Fill
+                          className="deletereservation_icon"
+                          onClick={() =>
+                            handleDeleteReservation(reservationlist.user_id)
+                          }
+                        />
+                      </td>
                     </tr>
                   ))
-                  ) : (
-                    <tr>
-                      <td colSpan="9" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No reservations to retrieve!!!</td>
-                    </tr>
-                  )} 
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="9"
+                      style={{
+                        fontSize: "17px",
+                        color: "#bb521f",
+                        backgroundColor: "#ffe5d7",
+                        textAlign: "center",
+                      }}
+                    >
+                      No reservations to retrieve!!!
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpenReservation} onRequestClose={toggleModalReservation} contentLabel="Add New Reservation"
-        className="reservation-modal" overlayClassName="modal-overlay">
-            <div className="modal-header">
-                <h2 className='modal-title'> {selectedReservation ? "Edit Reservation" : "Add New Reservation"}</h2>
-                <button className="modal-close-button" onClick={toggleModalReservation}>
-                    <IoClose />
-                </button>
+      <Modal
+        isOpen={isModalOpenReservation}
+        onRequestClose={toggleModalReservation}
+        contentLabel="Add New Reservation"
+        className="reservation-modal"
+        overlayClassName="modal-overlay"
+      >
+        <div className="modal-header">
+          <h2 className="modal-title">
+            {" "}
+            {selectedReservation ? "Edit Reservation" : "Add New Reservation"}
+          </h2>
+          <button
+            className="modal-close-button"
+            onClick={toggleModalReservation}
+          >
+            <IoClose />
+          </button>
+        </div>
+        <div className="add">
+          <div className="booktable_header">
+            <BsTable className="booktable_icon" /> <h3> BOOK A TABLE </h3>
+          </div>
+          <div className="booktable_subheader">
+            <h5> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</h5>
+          </div>
+          <br />
+          <form className="flex-col" onSubmit={handleSubmitReservation}>
+            <div className="add-reservation-details flex-col">
+              <p>No.of Guests</p>
+              <input
+                type="number"
+                name="name"
+                placeholder="Type here"
+                value={noofGuests}
+                onChange={(e) => setNoofGuests(e.target.value)}
+              />
+              {reservationerrors.noofGuests && (
+                <p className="error">{reservationerrors.noofGuests}</p>
+              )}
             </div>
-            <div className='add'>
-              <div className="booktable_header">
-                  <BsTable className="booktable_icon"/> <h3> BOOK A TABLE </h3>
-                </div>
-                <div className="booktable_subheader"><h5> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</h5></div>
-                <br />
-                <form className='flex-col' onSubmit={handleSubmitReservation}>
-                    <div className='add-reservation-details flex-col'>
-                        <p>No.of Guests</p>
-                        <input type='number' name='name' placeholder='Type here' value={noofGuests}
-                          onChange={(e) => setNoofGuests(e.target.value)}/>
-                        {reservationerrors.noofGuests && <p className="error">{reservationerrors.noofGuests}</p>}
-                    </div>
-                    <div className='add-reservation-details flex-col'>
-                        <p>Email ID</p>
-                        <input type='email' name='name' placeholder='Type here' value={reservationEmail}
-                          onChange={(e) => setReservationEmail(e.target.value)}/>
-                        {reservationerrors.reservationEmail && <p className="error">{reservationerrors.reservationEmail}</p>}
-                    </div>
-                    <div className='add-reservation-details flex-col'>
-                        <p>Contact number</p>
-                        <input type='tel' name='name' placeholder='Type here' value={reservationPhone}
-                          onChange={(e) => setReservationPhone(e.target.value)}/>
-                        {reservationerrors.reservationPhone && <p className="error">{reservationerrors.reservationPhone}</p>}
-                    </div>
-                    <div className='add-reservation-details flex-col'>
-                        <p>Reservation Date</p>
-                        <input type='date' name='name' placeholder='Type here' value={reservationDate}
-                          onChange={(e) => setReservationDate(e.target.value)}/>
-                        {reservationerrors.reservationDate && <p className="error">{reservationerrors.reservationDate}</p>}
-                    </div>
-                    <div className='add-reservation-details flex-col'>
-                        <p>Reservation Time</p>
-                        <input type='time' name='name' placeholder='Type here' value={reservationTime}
-                          onChange={(e) => setReservationTime(e.target.value)}/>
-                        {reservationerrors.reservationTime && <p className="error">{reservationerrors.reservationTime}</p>}
-                    </div>
-                    <div className='add-reservation-details flex-col'>
-                        <p>Suggestions</p>
-                        <textarea name="suggestions" placeholder='If no suggestions, enter NIL' value={reservationSuggestions}
-                          onChange={(e) => setReservationSuggestions(e.target.value)}></textarea>
-                        {reservationerrors.reservationSuggestions && <p className="error">{reservationerrors.reservationSuggestions}</p>}
-                    </div>
-                    
-                    <div className='reservation-buttons'>
-                        <button type="submit" className="add-btn">{selectedReservation ? "UPDATE BOOKING" : "MAKE BOOKING"}</button>
-                        <button type='button' className='cancel-btn' onClick={toggleModalReservation}>CANCEL</button>
-                    </div>
-                </form>
+            <div className="add-reservation-details flex-col">
+              <p>Email ID</p>
+              <input
+                type="email"
+                name="name"
+                placeholder="Type here"
+                value={reservationEmail}
+                onChange={(e) => setReservationEmail(e.target.value)}
+              />
+              {reservationerrors.reservationEmail && (
+                <p className="error">{reservationerrors.reservationEmail}</p>
+              )}
             </div>
+            <div className="add-reservation-details flex-col">
+              <p>Contact number</p>
+              <input
+                type="tel"
+                name="name"
+                placeholder="Type here"
+                value={reservationPhone}
+                onChange={(e) => setReservationPhone(e.target.value)}
+              />
+              {reservationerrors.reservationPhone && (
+                <p className="error">{reservationerrors.reservationPhone}</p>
+              )}
+            </div>
+            <div className="add-reservation-details flex-col">
+              <p>Reservation Date</p>
+              <input
+                type="date"
+                name="name"
+                placeholder="Type here"
+                value={reservationDate}
+                onChange={(e) => setReservationDate(e.target.value)}
+              />
+              {reservationerrors.reservationDate && (
+                <p className="error">{reservationerrors.reservationDate}</p>
+              )}
+            </div>
+            <div className="add-reservation-details flex-col">
+              <p>Reservation Time</p>
+              <input
+                type="time"
+                name="name"
+                placeholder="Type here"
+                value={reservationTime}
+                onChange={(e) => setReservationTime(e.target.value)}
+              />
+              {reservationerrors.reservationTime && (
+                <p className="error">{reservationerrors.reservationTime}</p>
+              )}
+            </div>
+            <div className="add-reservation-details flex-col">
+              <p>Suggestions</p>
+              <textarea
+                name="suggestions"
+                placeholder="If no suggestions, enter NIL"
+                value={reservationSuggestions}
+                onChange={(e) => setReservationSuggestions(e.target.value)}
+              ></textarea>
+              {reservationerrors.reservationSuggestions && (
+                <p className="error">
+                  {reservationerrors.reservationSuggestions}
+                </p>
+              )}
+            </div>
+
+            <div className="reservation-buttons">
+              <button type="submit" className="add-btn">
+                {selectedReservation ? "UPDATE BOOKING" : "MAKE BOOKING"}
+              </button>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={toggleModalReservation}
+              >
+                CANCEL
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
 
       <Modal
@@ -355,7 +440,10 @@ export const DashboardReservations = () => {
       >
         <div className="modal-header">
           <h2 className="modal-title">Delete Reservation</h2>
-          <button className="modal-close-button" onClick={closeDeleteReservationModal}>
+          <button
+            className="modal-close-button"
+            onClick={closeDeleteReservationModal}
+          >
             <IoClose />
           </button>
         </div>
@@ -370,7 +458,10 @@ export const DashboardReservations = () => {
             >
               Delete
             </button>
-            <button className="cancel-btn" onClick={closeDeleteReservationModal}>
+            <button
+              className="cancel-btn"
+              onClick={closeDeleteReservationModal}
+            >
               Cancel
             </button>
           </div>

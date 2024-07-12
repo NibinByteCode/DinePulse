@@ -307,7 +307,7 @@ body {
   align-items: center;
   padding: 13px;
   margin-right: 19px;
-  background-color:#bb521f;
+  background-color: #bb521f;
   color: white;
   border: 1px solid white;
   border-top-left-radius: 4px;
@@ -328,7 +328,6 @@ body {
 }
 
 /* === AdminHeader.jsx buttons Take-Away, Dine-In and On-Hold CSS contents ends ===*/
-
 
 .profile_icon {
   vertical-align: middle;
@@ -396,7 +395,7 @@ body {
   cursor: pointer;
 }
 
-.sidebar-list>a {
+.sidebar-list > a {
   text-decoration: none;
   color: #fff;
 }
@@ -584,17 +583,22 @@ body {
   vertical-align: middle;
 }
 
-.display_categories, .display_menu {
+.display_categories,
+.display_menu {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.categories_table, .menu_table, .onholdorders_table {
+.categories_table,
+.menu_table,
+.onholdorders_table {
   margin: 15px;
   overflow-x: auto;
 }
 
-.categories_table table, .menu_table table, .onholdorders_table table {
+.categories_table table,
+.menu_table table,
+.onholdorders_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -602,40 +606,65 @@ body {
   overflow: hidden;
 }
 
-.categories_table th, .categories_table td, .menu_table th, .menu_table td, .onholdorders_table th, .onholdorders_table td {
+.categories_table th,
+.categories_table td,
+.menu_table th,
+.menu_table td,
+.onholdorders_table th,
+.onholdorders_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.categories_table th, .menu_table th, .onholdorders_table th {
+.categories_table th,
+.menu_table th,
+.onholdorders_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.categories_table tbody tr, .menu_table tbody tr, .onholdorders_table tr {
+.categories_table tbody tr,
+.menu_table tbody tr,
+.onholdorders_table tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.categories_table tbody tr:nth-child(odd), .menu_table tbody tr:nth-child(odd), .onholdorders_table tbody tr:nth-child(odd) {
+.categories_table tbody tr:nth-child(odd),
+.menu_table tbody tr:nth-child(odd),
+.onholdorders_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.categories_table tbody tr:nth-child(even), .menu_table tbody tr:nth-child(even), .onholdorders_table tbody tr:nth-child(even) {
+.categories_table tbody tr:nth-child(even),
+.menu_table tbody tr:nth-child(even),
+.onholdorders_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
-.editcategory_icon, .editmenu_icon, .edittable_icon, .editdevice_icon, .editemployee_icon, .editreservation_icon, .edit_icon {
+.editcategory_icon,
+.editmenu_icon,
+.edittable_icon,
+.editdevice_icon,
+.editemployee_icon,
+.editreservation_icon,
+.edit_icon {
   font-size: 20px;
   color: green;
   vertical-align: middle;
   margin-left: 30px;
 }
 
-.deletecategory_icon, .deletemenu_icon, .deletetable_icon, .deletedevice_icon, .deleteemployee_icon, .deletereservation_icon, .delete_icon {
+.deletecategory_icon,
+.deletemenu_icon,
+.deletetable_icon,
+.deletedevice_icon,
+.deleteemployee_icon,
+.deletereservation_icon,
+.delete_icon {
   font-size: 20px;
   color: red;
   vertical-align: middle;
@@ -730,12 +759,13 @@ body {
 }
 /* === DashboardTables.jsx CSS contents ends === */
 /* === DashboardReservation.jsx CSS contents starts === */
-.booktable_header, .booktable_subheader {
+.booktable_header,
+.booktable_subheader {
   color: #bb521f;
 }
 
-.booktable_subheader h5{
-text-align: center;
+.booktable_subheader h5 {
+  text-align: center;
 }
 
 .booktable_icon {
@@ -746,7 +776,7 @@ text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .booktable_icon {
@@ -763,7 +793,6 @@ text-align: center;
   position: relative;
 }
 
-
 .add-reservation-details textarea {
   width: 100%;
   max-width: 600px;
@@ -778,24 +807,28 @@ text-align: center;
 
 /* === DashboardEmployees.jsx, DashboardReservation.jsx CSS contents starts === */
 
-.employees .addnew_btn, .reservations .addnew_btn {
+.employees .addnew_btn,
+.reservations .addnew_btn {
   border: 1px solid #bb521f;
   background-color: #bb521f;
   border-radius: 4px;
   padding: 10px 15px;
 }
 
-.display_employees, .display_reservations {
+.display_employees,
+.display_reservations {
   border: 2px solid #bb521f;
   border-radius: 8px;
 }
 
-.employees_table, .reservation_table {
+.employees_table,
+.reservation_table {
   overflow-x: auto;
   margin: 15px;
 }
 
-.employees_table table, .reservation_table table {
+.employees_table table,
+.reservation_table table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ffe5d7;
@@ -803,30 +836,36 @@ text-align: center;
   overflow: hidden;
 }
 
-.employees_table th, .reservation_table th,
-.employees_table td, .reservation_table td {
+.employees_table th,
+.reservation_table th,
+.employees_table td,
+.reservation_table td {
   padding: 8px;
   border: 1px solid #ddd;
 }
 
-.employees_table th, .reservation_table th {
+.employees_table th,
+.reservation_table th {
   background-color: #d47b4d;
   text-align: left;
   font-size: 17px;
   color: #eee;
 }
 
-.employees_table tbody tr, .reservation_table tbody tr {
+.employees_table tbody tr,
+.reservation_table tbody tr {
   color: #65686d;
   font-size: 17px;
   font-weight: bold;
 }
 
-.employees_table tbody tr:nth-child(odd), .reservation_table tbody tr:nth-child(odd) {
+.employees_table tbody tr:nth-child(odd),
+.reservation_table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-.employees_table tbody tr:nth-child(even), .reservation_table tbody tr:nth-child(even) {
+.employees_table tbody tr:nth-child(even),
+.reservation_table tbody tr:nth-child(even) {
   background-color: #ffe5d7;
 }
 
@@ -1086,13 +1125,13 @@ text-align: center;
 }
 
 .admin-background {
-  background: url("../assets/admin_background.png");
+  background: url("../Assets/admin_background.png");
   background-size: cover;
   min-height: 100vh;
 }
 
 .plain-background {
-  background: url("../assets/plain_background.png");
+  background: url("../Assets/plain_background.png");
   background-size: cover;
   min-height: 100vh;
 }
@@ -1358,7 +1397,7 @@ text-align: center;
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
 }
 
-.reservation-buttons .add-btn{
+.reservation-buttons .add-btn {
   width: 200px;
 }
 
@@ -1543,7 +1582,7 @@ text-align: center;
 }
 
 .product {
- /*margin-right: 20px;
+  /*margin-right: 20px;
   margin-bottom: 20px;
   padding: 10px;
   width: 200px;
@@ -1798,7 +1837,6 @@ table {
   border-radius: 4px;
 }
 
-
 .cart .total .hold-button {
   color: #fff;
   background-color: #f47124;
@@ -1834,7 +1872,7 @@ table {
   position: relative;
 }
 
-.onhold_continue{
+.onhold_continue {
   margin-right: 100px;
   font-size: 13px;
   width: 150px;
@@ -1880,7 +1918,7 @@ table {
 }
 
 .table-status-image {
-  width: 100px; 
+  width: 100px;
   height: 50px;
   margin-bottom: 10px;
 }

@@ -1,15 +1,11 @@
 // Receipt.js
 
 import React from "react";
-import restaurant_logo from "../assets/restaurant_logo.png";
+import restaurant_logo from "../Assets/restaurant_logo.png";
 
 const Receipt = React.forwardRef((props, ref) => {
-  const { 
-    cartItems, 
-    calculateTotalAmount, 
-    selectedTableName, 
-    staffName 
-  } = props;
+  const { cartItems, calculateTotalAmount, selectedTableName, staffName } =
+    props;
 
   const currentDate = new Date().toLocaleDateString();
   const currentTime = new Date().toLocaleTimeString();
@@ -17,7 +13,11 @@ const Receipt = React.forwardRef((props, ref) => {
   return (
     <div ref={ref}>
       <div className="receipt-header">
-        <img src={restaurant_logo} alt="Restaurant Logo" className="restaurant-logo" />
+        <img
+          src={restaurant_logo}
+          alt="Restaurant Logo"
+          className="restaurant-logo"
+        />
         <h2>Dine-pulse</h2>
         <p>299 Doon South, Kitchener</p>
         <p>Contact: 111-222-3333</p>

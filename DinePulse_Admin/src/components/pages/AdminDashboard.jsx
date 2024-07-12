@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import orderrecieved_icon from "../assets/orderrecieved_icon.png";
-import orderdelivered_icon from "../assets/orderdelivered_icon.png";
-import orderpending_icon from "../assets/orderpending_icon.png";
-import netrevenue_icon from "../assets/netrevenue_icon.png";
-import axios from 'axios';
+import orderrecieved_icon from "../Assets/orderrecieved_icon.png";
+import orderdelivered_icon from "../Assets/orderdelivered_icon.png";
+import orderpending_icon from "../Assets/orderpending_icon.png";
+import netrevenue_icon from "../Assets/netrevenue_icon.png";
+import axios from "axios";
 
 export const AdminDashboard = () => {
   const [orderRecieved, setOrderRecieved] = useState(0);
@@ -13,50 +13,53 @@ export const AdminDashboard = () => {
   const [recentOrders, setRecentOrders] = useState([]);
 
   useEffect(() => {
-    const API_URL = process.env.REACT_APP_API_URL + 'Dashboard/GetDashboardData'
+    const API_URL =
+      process.env.REACT_APP_API_URL + "Dashboard/GetDashboardData";
     let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: API_URL,
-        headers: {}
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
     };
 
-    axios.request(config)
-        .then((response) => {
-            //console.log('Get received, pending, delivered, and netrevenue values: ', response.data); 
-            const data = response.data.data[0];               
-            //update state with converted values
-            setOrderRecieved(parseInt(data.OrderReceived, 10));
-            setOrderPending(parseInt(data.OrderPending, 10));
-            setOrderDelivered(parseInt(data.OrderDelivered, 10));
-            setNetRevenue(parseFloat(data.NetRevenue));
-        })
-        .catch((error) => {
-            console.error('Caught error while fetching GetDashboardData: ', error); 
-        });
+    axios
+      .request(config)
+      .then((response) => {
+        //console.log('Get received, pending, delivered, and netrevenue values: ', response.data);
+        const data = response.data.data[0];
+        //update state with converted values
+        setOrderRecieved(parseInt(data.OrderReceived, 10));
+        setOrderPending(parseInt(data.OrderPending, 10));
+        setOrderDelivered(parseInt(data.OrderDelivered, 10));
+        setNetRevenue(parseFloat(data.NetRevenue));
+      })
+      .catch((error) => {
+        console.error("Caught error while fetching GetDashboardData: ", error);
+      });
 
-        //fetching recent orders
-        getRecentOrders();
+    //fetching recent orders
+    getRecentOrders();
   }, []);
 
   const getRecentOrders = () => {
-    const API_URL = process.env.REACT_APP_API_URL+'Dashboard/GetRecentOrders' 
+    const API_URL = process.env.REACT_APP_API_URL + "Dashboard/GetRecentOrders";
     let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: API_URL,
-        headers: {}
+      method: "get",
+      maxBodyLength: Infinity,
+      url: API_URL,
+      headers: {},
     };
 
-    axios.request(config)
-        .then((response) => {
-            //console.log('Recent Orders Data : ', response.data); 
-            const data = response.data.data;
-            setRecentOrders(data);
-        })
-        .catch((error) => {
-            console.error('Caught error while fetching GetRecentOrders: ', error); 
-        });
+    axios
+      .request(config)
+      .then((response) => {
+        //console.log('Recent Orders Data : ', response.data);
+        const data = response.data.data;
+        setRecentOrders(data);
+      })
+      .catch((error) => {
+        console.error("Caught error while fetching GetRecentOrders: ", error);
+      });
   };
 
   return (
@@ -127,24 +130,34 @@ export const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody>
-                {recentOrders.length > 0 ? (
-                  recentOrders.map((order) => (
-                    <tr key={order.orderId}>
-                      <td>{order.orderId}</td>
-                      <td>{order.customerName}</td>
-                      <td>{order.orderItems}</td>
-                      <td>{order.orderDate}</td>
-                      <td>{order.quantities}</td>
-                      <td>${order.totalPrice}</td>
-                      <td>{order.orderStatus}</td>
-                      <td>{order.orderType}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="8" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No orders to retrieve for this day!!!</td>
+              {recentOrders.length > 0 ? (
+                recentOrders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td>{order.orderId}</td>
+                    <td>{order.customerName}</td>
+                    <td>{order.orderItems}</td>
+                    <td>{order.orderDate}</td>
+                    <td>{order.quantities}</td>
+                    <td>${order.totalPrice}</td>
+                    <td>{order.orderStatus}</td>
+                    <td>{order.orderType}</td>
                   </tr>
-                )}
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="8"
+                    style={{
+                      fontSize: "17px",
+                      color: "#bb521f",
+                      backgroundColor: "#ffe5d7",
+                      textAlign: "center",
+                    }}
+                  >
+                    No orders to retrieve for this day!!!
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

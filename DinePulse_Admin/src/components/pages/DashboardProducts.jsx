@@ -5,13 +5,12 @@ import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
-import upload_image from "../assets/upload_image.png";
+import upload_image from "../Assets/upload_image.png";
 
 //set the app element for accessibility
 Modal.setAppElement("#root");
 
 export const DashboardProducts = () => {
-
   const [activeTab, setActiveTab] = useState("CATEGORIES");
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -33,13 +32,13 @@ export const DashboardProducts = () => {
   const [message, setMessage] = useState("");
 
   //state for both category and menu image name storage
-  const [image, setImage] = useState(null); 
+  const [image, setImage] = useState(null);
 
   //state for category input fields
-  const [categoryImage, setCategoryImage] = useState(null);  
+  const [categoryImage, setCategoryImage] = useState(null);
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
-  
+
   //state for menu input fields
   const [menuImage, setMenuImage] = useState(null);
   const [menuName, setMenuName] = useState("");
@@ -51,7 +50,7 @@ export const DashboardProducts = () => {
   const [errors, setErrors] = useState({});
   //state for menu inputs validation errors
   const [menuerrors, setMenuErrors] = useState({});
-  
+
   //open category popup
   const toggleModalCategory = () => {
     if (isModalOpenCategory) {
@@ -60,9 +59,9 @@ export const DashboardProducts = () => {
       setCategoryDescription("");
       setCategoryImage(null);
       setImage(null);
-      setErrors({});  //clear category validation errors when closing the modal
+      setErrors({}); //clear category validation errors when closing the modal
     } else {
-      setErrors({}); 
+      setErrors({});
     }
     setIsModalOpenCategory(!isModalOpenCategory);
   };
@@ -77,9 +76,9 @@ export const DashboardProducts = () => {
       setMenuPrice("");
       setMenuImage(null);
       setImage(null);
-      setMenuErrors({});  //clear menu validation errors when opening the modal
+      setMenuErrors({}); //clear menu validation errors when opening the modal
     } else {
-      setMenuErrors({}); 
+      setMenuErrors({});
     }
     setIsModalOpenMenu(!isModalOpenMenu);
   };
@@ -99,7 +98,10 @@ export const DashboardProducts = () => {
       const data = response.data;
       setCategoryList(data);
     } catch (error) {
-      console.error("Caught error while fetching GetAllMenuCategories :", error);
+      console.error(
+        "Caught error while fetching GetAllMenuCategories :",
+        error
+      );
     }
   };
 
@@ -107,7 +109,7 @@ export const DashboardProducts = () => {
     fetchCategories();
   }, []);
 
-  //fetch menu details from table 
+  //fetch menu details from table
   const fetchMenus = async () => {
     const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuItemsAll`;
     let config = {
@@ -176,15 +178,15 @@ export const DashboardProducts = () => {
       return;
     }
 
-    console.log("category name ==> "+categoryName);
-    console.log("category description ==> "+categoryDescription);
-    console.log("category image ==> "+categoryImage);
+    console.log("category name ==> " + categoryName);
+    console.log("category description ==> " + categoryDescription);
+    console.log("category image ==> " + categoryImage);
 
     const formData = new FormData();
     formData.append("categoryModel.CategoryName", categoryName);
     formData.append("categoryModel.CategoryDescription", categoryDescription);
     formData.append("categoryImage", categoryImage);
-    
+
     if (selectedCategory) {
       formData.append("categoryModel.categoryId", selectedCategory.categoryId);
     }
@@ -223,7 +225,9 @@ export const DashboardProducts = () => {
       }
     } catch (error) {
       console.error("Error saving category", error);
-      setMessage("An error occurred while processing your Add/Edit Category request.");
+      setMessage(
+        "An error occurred while processing your Add/Edit Category request."
+      );
     }
   };
 
@@ -271,9 +275,11 @@ export const DashboardProducts = () => {
 
       if (response.status === 200) {
         setMessage(
-          setSelectedMenuItem ? "Menu updated successfully." : "Menu inserted successfully."
+          setSelectedMenuItem
+            ? "Menu updated successfully."
+            : "Menu inserted successfully."
         );
-        
+
         setIsModalOpenMenu(false);
         setMenuName("");
         setMenuDescription("");
@@ -288,7 +294,9 @@ export const DashboardProducts = () => {
       }
     } catch (error) {
       console.error("Error saving menu", error);
-      setMessage("An error occurred while processing your Add/Edit Menuitem request.");
+      setMessage(
+        "An error occurred while processing your Add/Edit Menuitem request."
+      );
     }
   };
 
@@ -301,7 +309,7 @@ export const DashboardProducts = () => {
     //setCategoryImage("test");
     setCategoryImage(category.categoryImage);
     setImage(null);
-    setErrors({});  
+    setErrors({});
     toggleModalCategory();
   };
 
@@ -319,8 +327,10 @@ export const DashboardProducts = () => {
   };
 
   //handle the popup category delete functionality
-  const [selectedCategoryToDelete, setSelectedCategoryToDelete] = useState(null);
-  const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] = useState(false);
+  const [selectedCategoryToDelete, setSelectedCategoryToDelete] =
+    useState(null);
+  const [isDeleteCategoryModalOpen, setIsDeleteCategoryModalOpen] =
+    useState(false);
 
   //handle the popup menu delete functionality
   const [selectedMenuToDelete, setSelectedMenuToDelete] = useState(null);
@@ -406,26 +416,36 @@ export const DashboardProducts = () => {
 
   return (
     <main className="main-container">
-
       <div className="main-title">
         <h3>CATEGORIES AND MENU</h3>
       </div>
-      <br /><br />
+      <br />
+      <br />
 
       <div className="tab">
-        <button className={`tablinks ${activeTab === "CATEGORIES" ? "active" : ""}`}
-          onClick={() => openTab("CATEGORIES")}>
+        <button
+          className={`tablinks ${activeTab === "CATEGORIES" ? "active" : ""}`}
+          onClick={() => openTab("CATEGORIES")}
+        >
           CATEGORIES
         </button>
-        <button className={`tablinks ${activeTab === "MENU" ? "active" : ""}`} onClick={() => openTab("MENU")}>
+        <button
+          className={`tablinks ${activeTab === "MENU" ? "active" : ""}`}
+          onClick={() => openTab("MENU")}
+        >
           MENU
         </button>
       </div>
 
       {/*displays category table details */}
-      <div id="categories" className={`tabcontent ${activeTab === "CATEGORIES" ? "active" : ""}`}>
+      <div
+        id="categories"
+        className={`tabcontent ${activeTab === "CATEGORIES" ? "active" : ""}`}
+      >
         <button className="addnew_btn" onClick={toggleModalCategory}>
-          <b><span className="addnew_text">ADD NEW CATEGORY</span></b>
+          <b>
+            <span className="addnew_text">ADD NEW CATEGORY</span>
+          </b>
           &nbsp;&nbsp;&nbsp;
           <MdAddToPhotos className="add_icon" />
         </button>
@@ -459,9 +479,16 @@ export const DashboardProducts = () => {
                     <td>{categorylist.categoryName}</td>
                     <td>{categorylist.categoryDescription}</td>
                     <td>
-                      <FaEdit className="editcategory_icon" onClick={() => handleEditCategory(categorylist)} />
+                      <FaEdit
+                        className="editcategory_icon"
+                        onClick={() => handleEditCategory(categorylist)}
+                      />
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <RiDeleteBin5Fill className="deletecategory_icon" onClick={() => handleDeleteCategory(categorylist.categoryId)}
+                      <RiDeleteBin5Fill
+                        className="deletecategory_icon"
+                        onClick={() =>
+                          handleDeleteCategory(categorylist.categoryId)
+                        }
                       />
                     </td>
                   </tr>
@@ -473,9 +500,14 @@ export const DashboardProducts = () => {
       </div>
 
       {/*displays menu table details */}
-      <div id="menuitems" className={`tabcontent ${activeTab === "MENU" ? "active" : ""}`}>
+      <div
+        id="menuitems"
+        className={`tabcontent ${activeTab === "MENU" ? "active" : ""}`}
+      >
         <button className="addnew_btn" onClick={toggleModalMenu}>
-          <b><span className="addnew_text">ADD NEW MENU</span></b>
+          <b>
+            <span className="addnew_text">ADD NEW MENU</span>
+          </b>
           &nbsp;&nbsp;&nbsp;
           <MdAddToPhotos className="add_icon" />
         </button>
@@ -497,23 +529,29 @@ export const DashboardProducts = () => {
               <tbody>
                 {getMenuList.map((menulist) => (
                   <tr key={menulist.id}>
-                    <td>{menulist.id}</td>                  
+                    <td>{menulist.id}</td>
                     <td style={{ TextAlign: "center" }}>
-                        <img
-                          src={`${process.env.REACT_APP_IMAGE_URL}${menulist.menuimage}`}
-                          className="categoryImage"
-                          alt={menulist.name}
-                          style={{ display: "block", margin: "0 auto" }}
-                        />                      
+                      <img
+                        src={`${process.env.REACT_APP_IMAGE_URL}${menulist.menuimage}`}
+                        className="categoryImage"
+                        alt={menulist.name}
+                        style={{ display: "block", margin: "0 auto" }}
+                      />
                     </td>
                     <td>{menulist.name}</td>
                     <td>{menulist.category}</td>
                     <td>{menulist.description}</td>
                     <td>${menulist.price}</td>
                     <td>
-                      <FaEdit className="editmenu_icon" onClick={() => handleEditMenuItem(menulist)}/>
+                      <FaEdit
+                        className="editmenu_icon"
+                        onClick={() => handleEditMenuItem(menulist)}
+                      />
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <RiDeleteBin5Fill className="deletemenu_icon" onClick={() => handleDeleteMenu(menulist.item_id)}/>
+                      <RiDeleteBin5Fill
+                        className="deletemenu_icon"
+                        onClick={() => handleDeleteMenu(menulist.item_id)}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -523,88 +561,169 @@ export const DashboardProducts = () => {
           <br />
         </div>
       </div>
-      
+
       {/*displays Add New Category/Edit Category Popup functionality */}
-      <Modal isOpen={isModalOpenCategory} onRequestClose={toggleModalCategory}
-        contentLabel="Add New Category" className="modal" overlayClassName="modal-overlay">
+      <Modal
+        isOpen={isModalOpenCategory}
+        onRequestClose={toggleModalCategory}
+        contentLabel="Add New Category"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-header">
           <h2 className="modal-title">
             {selectedCategory ? "Edit Category" : "Add New Category"}
           </h2>
-          <button className="modal-close-button" onClick={toggleModalCategory}><IoClose /></button>
+          <button className="modal-close-button" onClick={toggleModalCategory}>
+            <IoClose />
+          </button>
         </div>
         <div className="add">
           <form className="flex-col" onSubmit={handleSubmitCategory}>
             <div className="add-category-img-upload flex-col">
               <p>Upload Image</p>
               <label htmlFor="image">
-                <img src={image ? URL.createObjectURL(image) : (categoryImage ? `${process.env.REACT_APP_IMAGE_URL}${categoryImage}` : upload_image)} alt="categoryitem" />
+                <img
+                  src={
+                    image
+                      ? URL.createObjectURL(image)
+                      : categoryImage
+                      ? `${process.env.REACT_APP_IMAGE_URL}${categoryImage}`
+                      : upload_image
+                  }
+                  alt="categoryitem"
+                />
               </label>
-              <input onChange={(e) => { setCategoryImage(e.target.files[0]); setImage(e.target.files[0]); }}
-                type="file" id="image" />
-              {errors.categoryImage && <p className="error">{errors.categoryImage}</p>}
+              <input
+                onChange={(e) => {
+                  setCategoryImage(e.target.files[0]);
+                  setImage(e.target.files[0]);
+                }}
+                type="file"
+                id="image"
+              />
+              {errors.categoryImage && (
+                <p className="error">{errors.categoryImage}</p>
+              )}
             </div>
             <div className="add-category-name flex-col">
               <p>Category Name</p>
-              <input type="text" name="name" placeholder="Type here" value={categoryName}
+              <input
+                type="text"
+                name="name"
+                placeholder="Type here"
+                value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
               />
-              {errors.categoryName && <p className="error">{errors.categoryName}</p>}
+              {errors.categoryName && (
+                <p className="error">{errors.categoryName}</p>
+              )}
             </div>
             <div className="add-category-description flex-col">
               <p>Category Description</p>
               <textarea
-                name="description" placeholder="Write content here"
-                value={categoryDescription} onChange={(e) => setCategoryDescription(e.target.value)}
+                name="description"
+                placeholder="Write content here"
+                value={categoryDescription}
+                onChange={(e) => setCategoryDescription(e.target.value)}
               />
-              {errors.categoryDescription && <p className="error">{errors.categoryDescription}</p>}
+              {errors.categoryDescription && (
+                <p className="error">{errors.categoryDescription}</p>
+              )}
             </div>
             <div className="category-buttons">
               <button type="submit" className="add-btn">
                 {selectedCategory ? "UPDATE" : "ADD"}
               </button>
-              <button type="button" className="cancel-btn" onClick={toggleModalCategory}>CANCEL</button>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={toggleModalCategory}
+              >
+                CANCEL
+              </button>
             </div>
           </form>
         </div>
       </Modal>
 
       {/*displays Add New Menu/Edit Menu Popup functionality */}
-      <Modal isOpen={isModalOpenMenu} onRequestClose={toggleModalMenu}
-        contentLabel="Add New MenuItem" className="modal" overlayClassName="modal-overlay">
+      <Modal
+        isOpen={isModalOpenMenu}
+        onRequestClose={toggleModalMenu}
+        contentLabel="Add New MenuItem"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-header">
-          <h2 className="modal-title">{selectedMenuItem ? "Edit Menu" : "Add New Menu"}</h2>
-          <button className="modal-close-button" onClick={toggleModalMenu}><IoClose /></button>
+          <h2 className="modal-title">
+            {selectedMenuItem ? "Edit Menu" : "Add New Menu"}
+          </h2>
+          <button className="modal-close-button" onClick={toggleModalMenu}>
+            <IoClose />
+          </button>
         </div>
         <div className="add">
           <form className="flex-col" onSubmit={handleSubmitMenu}>
             <div className="add-menu-img-upload flex-col">
               <p>Upload Image</p>
               <label htmlFor="image">
-                <img src={image ? URL.createObjectURL(image) : (menuImage ? `${process.env.REACT_APP_IMAGE_URL}${menuImage}` : upload_image)} alt="menuitem" />
+                <img
+                  src={
+                    image
+                      ? URL.createObjectURL(image)
+                      : menuImage
+                      ? `${process.env.REACT_APP_IMAGE_URL}${menuImage}`
+                      : upload_image
+                  }
+                  alt="menuitem"
+                />
               </label>
-              <input onChange={(e) => { setMenuImage(e.target.files[0]); setImage(e.target.files[0]); }}
-                type="file" id="image" required />
-              {menuerrors.menuImage && <p className="error">{menuerrors.menuImage}</p>}
+              <input
+                onChange={(e) => {
+                  setMenuImage(e.target.files[0]);
+                  setImage(e.target.files[0]);
+                }}
+                type="file"
+                id="image"
+                required
+              />
+              {menuerrors.menuImage && (
+                <p className="error">{menuerrors.menuImage}</p>
+              )}
             </div>
             <div className="add-menu-name flex-col">
               <p>Product Name</p>
-              <input type="text" name="name" placeholder="Type here"  value={menuName}
-                onChange={(e) => setMenuName(e.target.value)}/>
-                {menuerrors.menuName && <p className="error">{menuerrors.menuName}</p>}
+              <input
+                type="text"
+                name="name"
+                placeholder="Type here"
+                value={menuName}
+                onChange={(e) => setMenuName(e.target.value)}
+              />
+              {menuerrors.menuName && (
+                <p className="error">{menuerrors.menuName}</p>
+              )}
             </div>
             <div className="add-menu-description flex-col">
               <p>Product Description</p>
               <textarea
-                name="description" placeholder="Write content here"
-                value={menuDescription} onChange={(e) => setMenuDescription(e.target.value)}
+                name="description"
+                placeholder="Write content here"
+                value={menuDescription}
+                onChange={(e) => setMenuDescription(e.target.value)}
               />
-              {menuerrors.menuDescription && <p className="error">{menuerrors.menuDescription}</p>}
+              {menuerrors.menuDescription && (
+                <p className="error">{menuerrors.menuDescription}</p>
+              )}
             </div>
             <div className="add-menucategory flex-col">
               <p>Product Category</p>
-              <select name="category" value={menuCategory}
-                onChange={(e) => setMenuCategory(e.target.value)}>
+              <select
+                name="category"
+                value={menuCategory}
+                onChange={(e) => setMenuCategory(e.target.value)}
+              >
                 <option value="">Select Category</option>
                 {getCategoryList.map((category) => (
                   <option key={category.categoryId} value={category.categoryId}>
@@ -612,61 +731,105 @@ export const DashboardProducts = () => {
                   </option>
                 ))}
               </select>
-              {menuerrors.menuCategory && <p className="error">{menuerrors.menuCategory}</p>}
+              {menuerrors.menuCategory && (
+                <p className="error">{menuerrors.menuCategory}</p>
+              )}
             </div>
             <div className="add-menuprice flex-col">
               <p>Product Price</p>
-              <input type="number" name="price" placeholder="$20" value={menuPrice}
-                onChange={(e) => setMenuPrice(e.target.value)} />
-                {menuerrors.menuPrice && <p className="error">{menuerrors.menuPrice}</p>}
+              <input
+                type="number"
+                name="price"
+                placeholder="$20"
+                value={menuPrice}
+                onChange={(e) => setMenuPrice(e.target.value)}
+              />
+              {menuerrors.menuPrice && (
+                <p className="error">{menuerrors.menuPrice}</p>
+              )}
             </div>
             <div className="menu-buttons">
               <button type="submit" className="add-btn">
                 {selectedMenuItem ? "UPDATE" : "ADD"}
               </button>
-              <button type="button" className="cancel-btn" onClick={toggleModalMenu}>CANCEL</button>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={toggleModalMenu}
+              >
+                CANCEL
+              </button>
             </div>
           </form>
         </div>
       </Modal>
 
       {/*displays Delete Category Popup functionality */}
-      <Modal isOpen={isDeleteCategoryModalOpen} onRequestClose={closeDeleteCategoryModal}
-        contentLabel="Delete Category" className="modal" overlayClassName="modal-overlay">
+      <Modal
+        isOpen={isDeleteCategoryModalOpen}
+        onRequestClose={closeDeleteCategoryModal}
+        contentLabel="Delete Category"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-header">
           <h2 className="modal-title">Delete Category</h2>
-          <button className="modal-close-button" onClick={closeDeleteCategoryModal}><IoClose /></button>
+          <button
+            className="modal-close-button"
+            onClick={closeDeleteCategoryModal}
+          >
+            <IoClose />
+          </button>
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this category?</p>
           <div className="delete-buttons">
-            <button className="delete-btn"
-              onClick={() => handleConfirmDelete(selectedCategoryToDelete.categoryId) } >
+            <button
+              className="delete-btn"
+              onClick={() =>
+                handleConfirmDelete(selectedCategoryToDelete.categoryId)
+              }
+            >
               Delete
             </button>
-            <button className="cancel-btn" onClick={closeDeleteCategoryModal}>Cancel</button>
+            <button className="cancel-btn" onClick={closeDeleteCategoryModal}>
+              Cancel
+            </button>
           </div>
         </div>
       </Modal>
-      
+
       {/*displays Delete Menu Popup functionality */}
-      <Modal isOpen={isDeleteMenuModalOpen} onRequestClose={closeDeleteMenuModal}
-        contentLabel="Delete Menu" className="modal" overlayClassName="modal-overlay">
+      <Modal
+        isOpen={isDeleteMenuModalOpen}
+        onRequestClose={closeDeleteMenuModal}
+        contentLabel="Delete Menu"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-header">
           <h2 className="modal-title">Delete Menu</h2>
-          <button className="modal-close-button" onClick={closeDeleteMenuModal}><IoClose /></button>
+          <button className="modal-close-button" onClick={closeDeleteMenuModal}>
+            <IoClose />
+          </button>
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this menu?</p>
           <div className="delete-buttons">
-            <button className="delete-btn" onClick={() => handleConfirmDeleteMenu(selectedMenuToDelete.item_id)}>
+            <button
+              className="delete-btn"
+              onClick={() =>
+                handleConfirmDeleteMenu(selectedMenuToDelete.item_id)
+              }
+            >
               Delete
             </button>
-            <button className="cancel-btn" onClick={closeDeleteMenuModal}>Cancel</button>
+            <button className="cancel-btn" onClick={closeDeleteMenuModal}>
+              Cancel
+            </button>
           </div>
         </div>
       </Modal>
     </main>
   );
 };
-
