@@ -10,7 +10,6 @@ export const AdminRegister = () => {
   const [regusername, setRegUsername] = useState("");
   const [regpassword, setRegPassword] = useState("");
   const [confirmpass, setConfirmPass] = useState("");
-  //const [regphone, setRegphone] = useState("");
   const [regstafftype, setStaffType] = useState("");
   const [regerrors, setRegErrors] = useState({
     regusername: "",
@@ -39,12 +38,6 @@ export const AdminRegister = () => {
       errors.confirmpass = "Passwords do not match!!";
     }
 
-    /*const regphoneRegex = /^\d{10}$/;
-    if (!regphone.match(regphoneRegex)) {
-      formIsValid = false;
-      errors.regphone = "Please enter a valid 10-digit contact number!!";
-    }*/
-
     if (regstafftype === "") {
       formIsValid = false;
       errors.regstafftype = "Please select a staff type!!";
@@ -57,9 +50,8 @@ export const AdminRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Form is valid, proceed with submission (e.g., API call)
-      bcrypt.hash(regpassword, 10, (err, encryptPassword) => {
-        console.log("encrypted data : " + encryptPassword);
+      // Form is valid, proceed with API call
+        bcrypt.hash(regpassword, 10, (err, encryptPassword) => {
         let data = JSON.stringify({
           userName: regusername,
           userPassword: encryptPassword,
@@ -81,13 +73,13 @@ export const AdminRegister = () => {
         axios
           .request(config)
           .then((response) => {
-            console.log(JSON.stringify(response.data));
+            //console.log(JSON.stringify(response.data));
             alert("Registered successfully!!!");
             navigate("/");
           })
           .catch((error) => {
-            alert("Caught error while registering user");
-            console.log(error);
+            alert("Caught error while registering user!!!");
+            console.log("Caught error while sign in: ", error);
           });
       });
     }
@@ -144,19 +136,6 @@ export const AdminRegister = () => {
               {regerrors.confirmpass && (
                 <span className="error">{regerrors.confirmpass}</span>
               )}
-              {/*<div className="inputitems">
-                <input
-                  type="text"
-                  placeholder="Contact Number"
-                  id="staff_contact"
-                  value={regphone}
-                  onChange={(e) => setRegphone(e.target.value)}
-                />
-                <FaPhoneAlt className="icons" />
-              </div>
-              {regerrors.regphone && (
-                <span className="error">{regerrors.regphone}</span>
-              )}*/}
               <div className="inputitems">
                 <select
                   id="staff_type"

@@ -374,7 +374,8 @@ export const DashboardProducts = () => {
         `${process.env.REACT_APP_API_URL}MenuCategory/DeleteMenuCategory/${categoryId}`
       );
       if (response.status === 200) {
-        setMessage("Category deleted successfully.");
+        //setMessage("Category deleted successfully.");
+        alert("Category deleted successfully.");
         setCategoryList(
           getCategoryList.filter(
             (category) => category.categoryId !== categoryId
@@ -402,7 +403,8 @@ export const DashboardProducts = () => {
         `${process.env.REACT_APP_API_URL}Menu/DeleteMenuItem/${menuId}`
       );
       if (response.status === 200) {
-        setMessage("Menu deleted successfully.");
+        //setMessage("Menu deleted successfully.");
+        alert("Menu deleted successfully.");
         setMenuList(getMenuList.filter((menu) => menu.item_id !== menuId));
         setIsDeleteMenuModalOpen(false);
       } else {

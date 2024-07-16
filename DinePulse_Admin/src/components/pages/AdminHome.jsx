@@ -34,7 +34,7 @@ export const AdminHome = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Form is valid, proceed with submission (e.g., API call)
+      // If form is valid, proceed with API call
       let data = JSON.stringify({
         userName: username,
         userPassword: password,
@@ -58,7 +58,7 @@ export const AdminHome = () => {
         })
         .catch((error) => {
           alert("Invalid Login Credentials!!!");
-          console.log(error);
+          console.log("Caught error while logging in: ", error);
         });
     }
   };

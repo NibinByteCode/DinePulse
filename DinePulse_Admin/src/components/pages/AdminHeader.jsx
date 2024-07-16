@@ -10,9 +10,9 @@ export const AdminHeader = ({showHeaderLeft}) => {
     navigate("/");
   };
 
-  // Handle Dine-In/Take-Away, On-Hold actions button click
+  // Handle Dine-In/Take-Away/On-Hold actions button click
   const handleAction = (action) => {
-    console.log(`${action} button clicked`);
+    console.log(`${action} button clicked:AdminHeader.jsx`);
     navigate("/takeorders", { state: { action } });
   };
 
@@ -37,7 +37,7 @@ export const AdminHeader = ({showHeaderLeft}) => {
       <div className="header-right">
         <BsPersonCircle className="profile_icon" />
         <b>
-          <span class="profile_text">STAFF NAME</span>
+          <span className="profile_text">STAFF NAME</span>
         </b>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <FaSignOutAlt className="icon_logout" onClick={handleLogout} />
