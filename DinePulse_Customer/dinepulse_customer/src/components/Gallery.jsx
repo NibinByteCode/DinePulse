@@ -1,20 +1,20 @@
 import React from "react";
 import "../styles/Gallary.css";
-import galleryimage1 from "../assets//galleryimages/SmoothieAcai.jpg";
-import galleryimage2 from "../assets//galleryimages/Vegan-Sushi-005.jpg";
-import galleryimage3 from "../assets//galleryimages/Chicken-and-Rice-008.jpg";
-import galleryimage4 from "../assets//galleryimages/Latteiced-brown-sugar-oat-milk-espresso.jpg";
-import galleryimage5 from "../assets//galleryimages/Lemon-Salmon-004.jpg";
-import galleryimage6 from "../assets//galleryimages/SmoothieKiwi.jpg";
-import galleryimage7 from "../assets//galleryimages/SmoothieGrape.jpg";
-import galleryimage8 from "../assets//galleryimages/MojitoCoconut.jpg";
-import galleryimage9 from "../assets//galleryimages/MojitoPineapple.jpg";
-import galleryimage10 from "../assets//galleryimages/Cottage-Cheese-Recipes-060.jpg";
-import galleryimage11 from "../assets//galleryimages/restaurant1.jpg";
-import galleryimage12 from "../assets//galleryimages/restaurant2.jpg";
-import galleryimage13 from "../assets//galleryimages/restaurant3.jpg";
-import galleryimage14 from "../assets//galleryimages/restaurant4.jpg";
-import galleryimage15 from "../assets//galleryimages/restaurant5.jpg";
+import galleryimage1 from "../assets/galleryimages/SmoothieAcai.jpg";
+import galleryimage2 from "../assets/galleryimages/Vegan-Sushi-005.jpg";
+import galleryimage3 from "../assets/galleryimages/Chicken-and-Rice-008.jpg";
+import galleryimage4 from "../assets/galleryimages/Latteiced-brown-sugar-oat-milk-espresso.jpg";
+import galleryimage5 from "../assets/galleryimages/Lemon-Salmon-004.jpg";
+import galleryimage6 from "../assets/galleryimages/SmoothieKiwi.jpg";
+import galleryimage7 from "../assets/galleryimages/SmoothieGrape.jpg";
+import galleryimage8 from "../assets/galleryimages/MojitoCoconut.jpg";
+import galleryimage9 from "../assets/galleryimages/MojitoPineapple.jpg";
+import galleryimage10 from "../assets/galleryimages/Cottage-Cheese-Recipes-060.jpg";
+import galleryimage11 from "../assets/galleryimages/restaurant1.jpg";
+import galleryimage12 from "../assets/galleryimages/restaurant2.jpg";
+import galleryimage13 from "../assets/galleryimages/restaurant3.jpg";
+import galleryimage14 from "../assets/galleryimages/restaurant4.jpg";
+import galleryimage15 from "../assets/galleryimages/restaurant5.jpg";
       
 const Gallery = () => {
   return (
