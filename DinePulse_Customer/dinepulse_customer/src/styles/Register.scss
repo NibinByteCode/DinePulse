@@ -1,0 +1,102 @@
+.register-page {
+    display: flex;
+    background: url('../assets/plain_background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin-top: 80px;
+
+    .left-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    .right-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #8B4513;
+        }
+
+        form {
+            .input-group {
+                position: relative;
+                margin-bottom: 15px;
+
+                input {
+                    width: 100%;
+                    padding: 10px 35px;
+                    font-size: 1em;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                }
+
+                .icon-user,
+                .icon-email,
+                .icon-password,
+                .icon-phone {
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #8B4513;
+                }
+            }
+
+            .btn-register {
+                width: 100%;
+                padding: 10px;
+                background-color: #FF4500;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                font-size: 1em;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                &:hover {
+                    background-color: #e03d00;
+                }
+            }
+        }
+
+        .login-link {
+            margin-top: 10px;
+            color: #8B4513;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+
+        .left-section {
+            display: none;
+        }
+
+        .right-section {
+            flex: none;
+            padding: 20px;
+        }
+    }
+}
