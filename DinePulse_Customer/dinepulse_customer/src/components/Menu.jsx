@@ -39,9 +39,35 @@ const Menu = () => {
     }
   };
 
-  //popup Filter functionality of menu using category
-  const handleAddToCart = async (e) => {
-    e.preventDefault();
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddToCart = (product) => {
+    /*const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems.push(product);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    console.log("Product added to cart: ", product);*/
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const existingIndex = cartItems.findIndex(
+      (item) => item.item_id === product.item_id
+    );
+    if (existingIndex !== -1) {
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingIndex].count++;
+      updatedCartItems[existingIndex].total = (
+        parseFloat(updatedCartItems[existingIndex].total) +
+        parseFloat(updatedCartItems[existingIndex].item_price)
+      ).toFixed(2);
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+      setCartItems(updatedCartItems);
+    } else {
+      const newCartItems = [
+        ...cartItems,
+        { ...product, count: 1, total: product.item_price },
+      ];
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+      setCartItems(newCartItems);
+    }
+    alert("Product added to cart");
   };
 
 
@@ -98,13 +124,11 @@ const Menu = () => {
                             </div>
                             <h3>{product.item_name}</h3> 
                             <p>{product.item_price}</p> 
-                            <form className='addtocart-col' onSubmit={handleAddToCart}>                                               
                               <input type="hidden" name="product_id" value={product.item_id}/>
-                              <input type="hidden" name="product_name" value={product.item_name}/>
-                              <input type="hidden" name="product_price" value={product.item_price}/>
-                              <input type="hidden" name="product_image" value={product.item_name}/>
-                              <button type="submit" className="cartButton" name="add_to_cart">Add to Cart</button>
-                            </form>                          
+                              <input type="hidden" name="product_name" value={product.item_name}/> 
+                              <input type="hidden" name="product_price" value={product.item_price}/> 
+                              <input type="hidden" name="product_image" value={product.item_image}/> 
+                              <button type="submit" className="cartButton" name="add_to_cart"  onClick={() => handleAddToCart(product)}>Add to Cart</button>
                         </div>
                       ))
                       ) : (
