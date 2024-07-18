@@ -8,7 +8,7 @@ const Menu = () => {
   const [getMenuByCategoryList, setMenuByCategoryList] = useState([]);
 
   const fetchCategories = async () => {
-    const API_URL = process.env.REACT_APP_API_URL + 'MenuCategory/GetAllMenuCategories';
+    const API_URL = `${process.env.REACT_APP_API_URL}MenuCategory/GetAllMenuCategories`;
     try {
       const response = await axios.get(API_URL);
       setCategoryList(response.data);
@@ -24,8 +24,13 @@ const Menu = () => {
     fetchCategories();
   }, []);
 
-  const fetchMenus = async (categoryId) => {
-    const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${categoryId}`;
+  //popup Filter functionality of menu using category
+  const handleSubmitFilter = async (e) => {
+    e.preventDefault();
+    const selectedCategoryId = e.target.category.value;
+    console.log(selectedCategoryId); 
+
+    const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${selectedCategoryId}`;
     try {
       const response = await axios.get(API_URL);
       setMenuByCategoryList(response.data.data);
@@ -34,9 +39,11 @@ const Menu = () => {
     }
   };
 
-  useEffect(() => {
-    fetchMenus(1);
-  }, []);
+  //popup Filter functionality of menu using category
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+  };
+
 
   return (
     <div className="menu">
@@ -61,20 +68,16 @@ const Menu = () => {
       <section className="food-items">
             <div className="food">
                 <h1>Explore Drinks and Food Options</h1>
-                <form method="post" action="">
+                <form className='filter-col' onSubmit={handleSubmitFilter}>
                     <div className="divContents">                           
                         <label className="label">Filter by Category:</label>
                         <select name="category" id="category" className="textContent">
-                            <option value="all">All</option>
+                            <option key="all" value="all">All</option>
                             {getCategoryList.map((category) => (
                               <option key={category.categoryId} value={category.categoryId}>
                                 {category.categoryName}
                               </option>
                             ))}
-                            <option value="Mojito">Mojitoss</option>
-                            <option value="Smoothie">Smoothiesss</option>
-                            <option value="Starters">Starterssss</option>
-                            <option value="Main course">Main Coursesss</option>
                         </select>
                         <button type="submit" className="filterButton" name="filter">Apply Filter</button>
                     </div>
@@ -82,24 +85,26 @@ const Menu = () => {
                 <br/>
               
                 <main>
-                    <div class="product-row">
+                    <div className="product-row">
                     {getMenuByCategoryList && getMenuByCategoryList.length > 0 ? (
                       getMenuByCategoryList.map((product) => (
-                        <div class="item">
-                            <div class="img-container">
+                        <div className="item">
+                            <div className="img-container">
                                 <img src={`${process.env.REACT_APP_IMAGE_URL}${product.item_image}`}
                                 alt={product.item_name}/>
-                                <div class="overlay">
-                                  <p>{product.item_name}</p>
+                                <div className="overlay">
+                                  <p>{product.item_description}</p>
                                 </div>
                             </div>
                             <h3>{product.item_name}</h3> 
-                            <p>{product.item_price}</p>                                                
-                            <input type="hidden" name="product_id" value={product.item_id}/>
-                            <input type="hidden" name="product_name" value={product.item_name}/>
-                            <input type="hidden" name="product_price" value={product.item_price}/>
-                            <input type="hidden" name="product_image" value={product.item_name}/>
-                            <button type="submit" class="cartButton" name="add_to_cart">Add to Cart</button>                          
+                            <p>{product.item_price}</p> 
+                            <form className='addtocart-col' onSubmit={handleAddToCart}>                                               
+                              <input type="hidden" name="product_id" value={product.item_id}/>
+                              <input type="hidden" name="product_name" value={product.item_name}/>
+                              <input type="hidden" name="product_price" value={product.item_price}/>
+                              <input type="hidden" name="product_image" value={product.item_name}/>
+                              <button type="submit" className="cartButton" name="add_to_cart">Add to Cart</button>
+                            </form>                          
                         </div>
                       ))
                       ) : (
