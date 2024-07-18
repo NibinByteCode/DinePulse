@@ -97,6 +97,8 @@ const Reserve = () => {
   };
 
   const resetAll = () => {
+
+    alert("aaaaaaaaaa")
       setNoofGuests("");
       setReservationEmail("");
       setReservationPhone("");
