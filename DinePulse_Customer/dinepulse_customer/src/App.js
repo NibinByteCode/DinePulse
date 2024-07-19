@@ -10,7 +10,8 @@ import Register from './components/Register';
 import Reserve from './components/Reserve';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
-
+import OrderSuccess from './components/OrderSuccess';
+import InvoiceDownload from './components/InvoiceDownload';
 import './App.css';
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
           <Route path="/reserve" element={<Reserve />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/ordersuccess" element={<OrderSuccess />} />
+          <Route path="/invoicedownload" element={<InvoiceDownload />} />
         </Routes>
       </div>
     </Router>
