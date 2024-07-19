@@ -148,6 +148,44 @@ namespace DinePulse_API.Controllers.AdminControllers
             }
         }
 
+        [HttpPost]
+        [ActionName("GetUserType")]
+        public IActionResult GetUserType([FromForm] string userName)
+        {
+            try
+            {
+               
+                List<SqlParameter> parameters = new List<SqlParameter>
+                {
+                    
+                    new SqlParameter("@user_name", SqlDbType.VarChar, 255) { Value = userName },
+                   
+                };
+                DataTable table = dataLayer.Getbulkfromdb("Sp_GetUserType",parameters);
+                if (table.Rows.Count > 0)
+                {
+                    string JSONresult = JsonHelper.DataTableToJsonObj(table);
+                    return Ok(new { data = JSONresult });
+                }
+                else
+                {
+                    return NotFound("No users found.");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+               
+                new LogHelper().LogError("Custom error: " + ex.Message);
+                return BadRequest("Error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+               
+                new LogHelper().LogError("Error getting users: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
         [HttpDelete]
         [ActionName("DeleteUser")]
         public IActionResult DeleteUser(int userId)
