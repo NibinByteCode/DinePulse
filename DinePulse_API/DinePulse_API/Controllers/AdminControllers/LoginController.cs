@@ -176,7 +176,7 @@ namespace DinePulse_API.Controllers.AdminControllers
             {
                
                 new LogHelper().LogError("Custom error: " + ex.Message);
-                return Ok("Error: " + ex.Message);
+                return NotFound("Error: " + ex.Message);
             }
             catch (Exception ex)
             {
