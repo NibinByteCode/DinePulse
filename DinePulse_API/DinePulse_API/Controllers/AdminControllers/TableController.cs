@@ -51,14 +51,20 @@ namespace DinePulse_API.Controllers.AdminControllers
             try
             {
                 List<SqlParameter> sp = new List<SqlParameter>()
-        {
-            new SqlParameter() { ParameterName = "@table_number", SqlDbType = SqlDbType.Int, Value = table.TableNumber },
-            new SqlParameter() { ParameterName = "@table_capacity", SqlDbType = SqlDbType.Int, Value = table.TableCapacity },
-            new SqlParameter() { ParameterName = "@table_status", SqlDbType = SqlDbType.VarChar, Value = table.TableStatus }
-        };
-
-                dataLayer.ExecuteSp_transaction("Table_AddTable", sp);
-                return Ok("Table added successfully");
+                {
+                    new SqlParameter() { ParameterName = "@table_number", SqlDbType = SqlDbType.Int, Value = table.TableNumber },
+                    new SqlParameter() { ParameterName = "@table_capacity", SqlDbType = SqlDbType.Int, Value = table.TableCapacity },
+                    new SqlParameter() { ParameterName = "@table_status", SqlDbType = SqlDbType.VarChar, Value = table.TableStatus }
+                };
+                try
+                {
+                    dataLayer.ExecuteSp_transaction("Table_AddTable", sp);
+                    return Ok("Table added successfully");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest("Error: " + ex.Message);
+                }
             }
             catch (Exception ex)
             {
