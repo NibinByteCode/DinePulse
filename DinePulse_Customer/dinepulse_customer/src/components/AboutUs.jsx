@@ -5,7 +5,7 @@ import lady_icon from "../assets/lady_icon.png";
 import employee_icon from "../assets/employee_icon.png";
 const AboutUs = () => {
   return (
-    <div classNameName="aboutus">
+    <div className="aboutus">
       <h1>About Us</h1>
       <p>About Page</p>
 
@@ -13,8 +13,8 @@ const AboutUs = () => {
             <aside className="sidebar">
                 <div className="aside_stores">
                     <h2>Our Stores</h2>
-                    <h3>Kitchener Store</h3>
                     <div className="store_card">
+                        <h3>Kitchener Store</h3>
                         <hr />
                         <p><b>Location : </b> Fairway</p>
                         <p><b>Address : </b> 195 Fairway South</p>
@@ -23,8 +23,9 @@ const AboutUs = () => {
                         <p><b>E-mail : </b> info@fwydinepulse.com</p>
                         <hr />
                     </div>
-                    <h3>Cambridge Store</h3>
+                    <br/>
                     <div className="store_card">
+                        <h3>Cambridge Store</h3>
                         <hr />
                         <p><b>Location : </b> Cambridge</p>
                         <p><b>Address : </b> 286 Elgin North</p>
@@ -33,8 +34,9 @@ const AboutUs = () => {
                         <p><b>E-mail : </b> info@cmdinepulse.com</p>
                         <hr />
                     </div>
-                    <h3>Waterloo Store</h3>
+                    <br/>
                     <div className="store_card">
+                        <h3>Waterloo Store</h3>
                         <hr />
                         <p><b>Location : </b> Waterloo</p>
                         <p><b>Address : </b> 52 King Street, East</p>

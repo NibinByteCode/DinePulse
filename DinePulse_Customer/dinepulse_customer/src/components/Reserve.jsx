@@ -110,8 +110,7 @@ const Reserve = () => {
 
   return (
     <div className="reserve">
-      <h1>Reserve a Table</h1>
-      <p>Reserve your table</p>
+      <br/><br/><br/><br/><br/><br/>
       <div className="add">
           <div className='reservetoday'>
                 <form className='reserve-col' onSubmit={handleSubmitReservation}>
