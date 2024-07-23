@@ -37,7 +37,7 @@ namespace DinePulse_API.Controllers.AdminControllers
                         CategoryId = Convert.ToInt32(row["category_id"]),
                         CategoryName = row["category_name"].ToString(),
                         CategoryDescription = row["category_description"].ToString(),
-                        CategoryImageBase64 = Convert.ToBase64String(row["category_image"] as byte[]),
+                        //CategoryImageBase64 = Convert.ToBase64String(row["category_image"] as byte[]),
                         CategoryImage = row["category_image_file"].ToString()
                     };
 
@@ -59,25 +59,27 @@ namespace DinePulse_API.Controllers.AdminControllers
         {
             try
             {
-                byte[] imageBytes = null;
+                string imageName = null;
                 if (categoryImage != null && categoryImage.Length > 0)
                 {
-                    using (var ms = new MemoryStream())
+                    imageName = Guid.NewGuid().ToString() + Path.GetExtension(categoryImage.FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
-                        await categoryImage.CopyToAsync(ms);
-                        imageBytes = ms.ToArray();
+                        await categoryImage.CopyToAsync(stream);
                     }
                 }
 
+              
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
                     new SqlParameter("@category_name", SqlDbType.VarChar, 100) { Value = categoryModel.CategoryName },
                     new SqlParameter("@category_description", SqlDbType.VarChar, 255) { Value = categoryModel.CategoryDescription },
-                    new SqlParameter("@category_image", SqlDbType.VarBinary) { Value = (object)imageBytes ?? DBNull.Value }
+                    new SqlParameter("@category_image", SqlDbType.VarBinary) { Value = DBNull.Value }, 
+                    new SqlParameter("@category_image_file", SqlDbType.VarChar, -1) { Value = (object)imageName ?? DBNull.Value }
                 };
 
                 int rowsAffected = dataLayer.ExecuteSp_transaction("MenuCategory_InsertCategory", parameters);
-
                 if (rowsAffected > 0)
                 {
                     return Ok("Category inserted successfully.");
