@@ -51,9 +51,11 @@
             li {
                 a {
                     text-decoration: none;
-                    color: #8B4513;
+                    color: #bb521f;
                     font-weight: bold;
                     transition: color 0.3s;
+                    font-family: "Roboto Slab", serif;
+                    font-size: 16px;
 
                     &:hover {
                         color: #FF4500;
