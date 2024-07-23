@@ -1,3 +1,4 @@
+using DinePulse_API.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 // Add CORS policy
 builder.Services.AddCors(options =>
@@ -45,6 +47,6 @@ app.UseAuthorization();
 app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.MapControllers();
-
+app.MapHub<OrderHub>("/orderHub");
 app.Run();
 
