@@ -99,7 +99,7 @@ namespace DinePulse_API.Controllers.AdminControllers
 
         [HttpPut]
         [ActionName("UpdateMenuCategory")]
-        public async Task<IActionResult> UpdateMenuCategory([FromForm] CategoryModel categoryModel, [FromForm] IFormFile categoryImage)
+        public async Task<IActionResult> UpdateMenuCategory([FromForm] CategoryModel categoryModel, [FromForm] IFormFile? categoryImage =null)
         {
             try
             {
