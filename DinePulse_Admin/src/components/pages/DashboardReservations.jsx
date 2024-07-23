@@ -240,7 +240,7 @@ export const DashboardReservations = () => {
       <div id="reservations" className="reservations">
         <button className="addnew_btn" onClick={toggleModalReservation}>
           <b>
-            <span class="addnew_text">ADD NEW RESERVATION</span>
+            <span className="addnew_text">ADD NEW RESERVATION</span>
           </b>
           &nbsp;&nbsp;&nbsp;
           <MdAddToPhotos className="add_icon" />
