@@ -243,7 +243,7 @@ namespace DinePulse_API.Controllers.AdminControllers
                 }
                 else
                 {
-                    imageName = itemImage.FileName;
+                    imageName = menuModel.ItemImage;
                 }
 
                 List<SqlParameter> parameters = new List<SqlParameter>
