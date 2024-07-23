@@ -244,13 +244,14 @@ export const DashboardProducts = () => {
     }
 
     const formData = new FormData();
-    formData.append("menuModel.itemName", menuName);
-    formData.append("menuModel.itemCategory", menuCategory);
-    formData.append("menuModel.itemDescription", menuDescription);
-    formData.append("menuModel.itemPrice", menuPrice);
-    formData.append("menuModel.itemImage", menuImage);
+    formData.append("menuModel.ItemName", menuName);
+    formData.append("menuModel.ItemCategory", menuCategory);
+    formData.append("menuModel.ItemDescription", menuDescription);
+    formData.append("menuModel.ItemPrice", menuPrice);
+    formData.append("ItemImage", menuImage);
     if (selectedMenuItem) {
-      formData.append("menuModel.itemId", selectedMenuItem.productId);
+      formData.append("menuModel.ItemId", selectedMenuItem.id);
+      formData.append("menuModel.ItemImage", menuImage);
     }
 
     /*console.log("menu category ==> "+menuCategory);
@@ -271,7 +272,7 @@ export const DashboardProducts = () => {
         url,
         data: formData,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -307,8 +308,6 @@ export const DashboardProducts = () => {
     setSelectedCategory(category);
     setCategoryName(category.categoryName);
     setCategoryDescription(category.categoryDescription);
-    //data:image/jpeg;base64,${categorylist.categoryImageBase64}
-    //setCategoryImage("test");
     setCategoryImage(category.categoryImage);
     setImage(null);
     setErrors({});
@@ -394,7 +393,7 @@ export const DashboardProducts = () => {
 
   //modify the handleDeleteMenu function to directly open the delete modal
   const handleDeleteMenu = (menuId) => {
-    const menuToDelete = getMenuList.find((menu) => menu.item_id === menuId);
+    const menuToDelete = getMenuList.find((menu) => menu.id === menuId);
     openDeleteMenuModal(menuToDelete);
   };
 
@@ -405,7 +404,7 @@ export const DashboardProducts = () => {
       );
       if (response.status === 200) {
         setMessage("Menu deleted successfully.");
-        setMenuList(getMenuList.filter((menu) => menu.item_id !== menuId));
+        setMenuList(getMenuList.filter((menu) => menu.id !== menuId));
         setIsDeleteMenuModalOpen(false);
       } else {
         setMessage("Failed to delete menu.");
@@ -550,7 +549,7 @@ export const DashboardProducts = () => {
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <RiDeleteBin5Fill
                         className="deletemenu_icon"
-                        onClick={() => handleDeleteMenu(menulist.item_id)}
+                        onClick={() => handleDeleteMenu(menulist.id)}
                       />
                     </td>
                   </tr>
@@ -686,7 +685,6 @@ export const DashboardProducts = () => {
                 }}
                 type="file"
                 id="image"
-                required
               />
               {menuerrors.menuImage && (
                 <p className="error">{menuerrors.menuImage}</p>
@@ -819,7 +817,7 @@ export const DashboardProducts = () => {
             <button
               className="delete-btn"
               onClick={() =>
-                handleConfirmDeleteMenu(selectedMenuToDelete.item_id)
+                handleConfirmDeleteMenu(selectedMenuToDelete.id)
               }
             >
               Delete

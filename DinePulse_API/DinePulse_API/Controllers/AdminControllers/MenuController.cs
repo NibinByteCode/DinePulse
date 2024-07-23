@@ -286,7 +286,7 @@ namespace DinePulse_API.Controllers.AdminControllers
             new SqlParameter() { ParameterName = "@item_id", SqlDbType = SqlDbType.Int, Value = itemId }
         };
 
-                dataLayer.ExecuteSp_transaction("DeleteMenuItem", sp);
+                dataLayer.ExecuteSp_transaction("Menu_DeleteMenu", sp);
                 return Ok("Menu item deleted successfully");
             }
             catch (Exception ex)
