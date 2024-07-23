@@ -114,8 +114,14 @@ namespace DinePulse_API.Controllers.AdminControllers
                         await categoryImage.CopyToAsync(stream);
                     }
                 }
-               
-                
+                else
+                {
+
+                   
+                    imageName = categoryModel.CategoryImage;
+                }
+
+
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
                     new SqlParameter("@category_id", SqlDbType.Int) { Value = categoryModel.CategoryId },
