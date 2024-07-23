@@ -1,1 +1,45 @@
 /*# sourceMappingURL=Gallary.css.map */
+
+.gallery-specials {
+    font-family: Cambria, Century Gothic, serif;
+    padding-top: 20px;
+    margin-left: 0px;
+}
+
+.gallery-specials h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #eee;
+    text-shadow: 2px 2px 5px #000;
+}
+
+.gallery-specials-subheading {
+    width: 1000px;
+    margin-left: 400px;
+    text-align: center;
+    line-height: 29px;
+    font-size: 20px;
+    color: #ffd700;
+    text-shadow: 2px 2px 5px #000;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery {
+    text-align: center;
+    position: relative;
+    padding: 20px 10px;
+}
+
+.gallery img {
+    width: 250px;
+    height: 280px;
+    border: 1px solid #eee;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 60px;
+}
