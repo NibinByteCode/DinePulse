@@ -103,30 +103,28 @@ namespace DinePulse_API.Controllers.AdminControllers
         {
             try
             {
-                byte[] imageBytes = null;
+                string imageName = null;
                 if (categoryImage != null && categoryImage.Length > 0)
                 {
-                    using (var ms = new MemoryStream())
+                    
+                    imageName = Guid.NewGuid().ToString() + Path.GetExtension(categoryImage.FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
-                        await categoryImage.CopyToAsync(ms);
-                        imageBytes = ms.ToArray();
+                        await categoryImage.CopyToAsync(stream);
                     }
                 }
-                else if (!string.IsNullOrEmpty(categoryModel.CategoryImageBase64))
-                {
-                    imageBytes = Convert.FromBase64String(categoryModel.CategoryImageBase64);
-                }
-
+               
+                
                 List<SqlParameter> parameters = new List<SqlParameter>
-        {
-            new SqlParameter("@category_id", SqlDbType.Int) { Value = categoryModel.CategoryId },
-            new SqlParameter("@category_name", SqlDbType.VarChar, 50) { Value = categoryModel.CategoryName },
-            new SqlParameter("@category_description", SqlDbType.VarChar, 255) { Value = categoryModel.CategoryDescription },
-            new SqlParameter("@category_image", SqlDbType.VarBinary, -1) { Value = (object)imageBytes ?? DBNull.Value }
-        };
-
+                {
+                    new SqlParameter("@category_id", SqlDbType.Int) { Value = categoryModel.CategoryId },
+                    new SqlParameter("@category_name", SqlDbType.VarChar, 50) { Value = categoryModel.CategoryName },
+                    new SqlParameter("@category_description", SqlDbType.VarChar, 255) { Value = categoryModel.CategoryDescription },
+                    new SqlParameter("@category_image_file", SqlDbType.VarChar, -1) { Value = (object)imageName ?? DBNull.Value }
+                };
+               
                 int rowsAffected = dataLayer.ExecuteSp_transaction("MenuCategory_UpdateCategory", parameters);
-
                 if (rowsAffected > 0)
                 {
                     return Ok("Menu category updated successfully.");
@@ -143,6 +141,7 @@ namespace DinePulse_API.Controllers.AdminControllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+
 
 
         [HttpDelete("{categoryId}")]
