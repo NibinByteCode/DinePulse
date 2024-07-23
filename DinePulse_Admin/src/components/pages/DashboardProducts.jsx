@@ -180,6 +180,7 @@ export const DashboardProducts = () => {
 
     console.log("category name ==> " + categoryName);
     console.log("category description ==> " + categoryDescription);
+    console.log("category imagename ==> " + image);
     console.log("category image ==> " + categoryImage);
 
     const formData = new FormData();
@@ -189,6 +190,7 @@ export const DashboardProducts = () => {
 
     if (selectedCategory) {
       formData.append("categoryModel.categoryId", selectedCategory.categoryId);
+      formData.append("categoryModel.categoryImage", categoryImage);
     }
 
     try {
@@ -374,8 +376,7 @@ export const DashboardProducts = () => {
         `${process.env.REACT_APP_API_URL}MenuCategory/DeleteMenuCategory/${categoryId}`
       );
       if (response.status === 200) {
-        //setMessage("Category deleted successfully.");
-        alert("Category deleted successfully.");
+        setMessage("Category deleted successfully.");
         setCategoryList(
           getCategoryList.filter(
             (category) => category.categoryId !== categoryId
@@ -403,8 +404,7 @@ export const DashboardProducts = () => {
         `${process.env.REACT_APP_API_URL}Menu/DeleteMenuItem/${menuId}`
       );
       if (response.status === 200) {
-        //setMessage("Menu deleted successfully.");
-        alert("Menu deleted successfully.");
+        setMessage("Menu deleted successfully.");
         setMenuList(getMenuList.filter((menu) => menu.item_id !== menuId));
         setIsDeleteMenuModalOpen(false);
       } else {
@@ -469,14 +469,12 @@ export const DashboardProducts = () => {
                   <tr key={categorylist.categoryId}>
                     <td>{categorylist.categoryId}</td>
                     <td style={{ TextAlign: "center" }}>
-                      {categorylist.categoryImageBase64 && (
                         <img
                           src={`${process.env.REACT_APP_IMAGE_URL}${categorylist.categoryImage}`}
                           className="categoryImage"
                           alt={categorylist.categoryName}
                           style={{ display: "block", margin: "0 auto" }}
                         />
-                      )}
                     </td>
                     <td>{categorylist.categoryName}</td>
                     <td>{categorylist.categoryDescription}</td>

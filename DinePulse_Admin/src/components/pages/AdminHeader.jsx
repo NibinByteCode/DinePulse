@@ -10,9 +10,9 @@ export const AdminHeader = ({showHeaderLeft}) => {
     navigate("/");
   };
 
-  // Handle Dine-In/Take-Away/On-Hold actions button click
+  // Handle Dine-In/Take-Away, On-Hold actions button click
   const handleAction = (action) => {
-    console.log(`${action} button clicked:AdminHeader.jsx`);
+    console.log(`${action} button clicked`);
     navigate("/takeorders", { state: { action } });
   };
 
