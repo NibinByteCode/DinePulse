@@ -15,82 +15,80 @@ import galleryimage12 from "../assets/galleryimages/restaurant2.jpg";
 import galleryimage13 from "../assets/galleryimages/restaurant3.jpg";
 import galleryimage14 from "../assets/galleryimages/restaurant4.jpg";
 import galleryimage15 from "../assets/galleryimages/restaurant5.jpg";
-      
+
 const Gallery = () => {
   return (
-    <div className="gallery">
-      <h1>Gallery</h1>
-      <p>Galary Page</p>
-
+    <div className="gallery_outer">
       <section className="gallery-specials">
-          <h1>Welcome to our culinary journey captured in pixels...</h1>
-          <p className="gallery-specials-subheading">
-              Take a virtual stroll through our gallery, and let your imagination wander. Imagine 
-              the aromas wafting from the kitchen, the clink of glasses, and the laughter of fellow 
-              diners. And when you're ready to make new memories of your own, we'll be here to welcome 
-              you with open arms and a table set just for you!!!
-          </p>
-          <section className="gallery-container">
-              <div className="gallery">
-                  <img src={galleryimage1} alt="SmoothieAcai" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage2} alt="Vegan-Sushi" />
-              </div>
-      
-              <div className="gallery">
-                  <img src={galleryimage3} alt="Chicken-and-Rice" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage4} alt="oat-milk-espresso" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage5} alt="Lemon-Salmon" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage6} alt="SmoothieKiwi" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage7} alt="SmoothieGrape" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage8} alt="MojitoCoconut" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage9} alt="MojitoPineapple" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage10} alt="Cottage-Cheese" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage11} alt="restaurant1" />
-              </div>
-  
-              <div className="gallery">
-                  <img src={galleryimage12} alt="restaurant2" />
-              </div> 
-              
-              <div className="gallery">
-                  <img src={galleryimage13} alt="restaurant3" />
-              </div> 
+        <h1>Welcome to our culinary journey captured in pixels...</h1>
+        <p className="gallery-specials-subheading">
+          Take a virtual stroll through our gallery, and let your imagination
+          wander. Imagine the aromas wafting from the kitchen, the clink of
+          glasses, and the laughter of fellow diners. And when you're ready to
+          make new memories of your own, we'll be here to welcome you with open
+          arms and a table set just for you!!!
+        </p>
+        <section className="gallery-container">
+          <div className="gallery">
+            <img src={galleryimage1} alt="SmoothieAcai" />
+          </div>
 
-              <div className="gallery">
-                  <img src={galleryimage14} alt="restaurant4" />
-              </div> 
+          <div className="gallery">
+            <img src={galleryimage2} alt="Vegan-Sushi" />
+          </div>
 
-              <div className="gallery">
-                  <img src={galleryimage15} alt="restaurant5" />
-              </div> 
-          </section>
+          <div className="gallery">
+            <img src={galleryimage3} alt="Chicken-and-Rice" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage4} alt="oat-milk-espresso" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage5} alt="Lemon-Salmon" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage6} alt="SmoothieKiwi" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage7} alt="SmoothieGrape" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage8} alt="MojitoCoconut" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage9} alt="MojitoPineapple" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage10} alt="Cottage-Cheese" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage11} alt="restaurant1" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage12} alt="restaurant2" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage13} alt="restaurant3" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage14} alt="restaurant4" />
+          </div>
+
+          <div className="gallery">
+            <img src={galleryimage15} alt="restaurant5" />
+          </div>
+        </section>
       </section>
     </div>
   );

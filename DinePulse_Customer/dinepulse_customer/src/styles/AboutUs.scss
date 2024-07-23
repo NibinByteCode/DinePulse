@@ -1,0 +1,143 @@
+.grid-container {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    padding: 0px;
+}
+
+.sidebar {
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 35px;
+
+    h2 {
+        text-align: center;
+        color: #eee;
+        text-shadow: 2px 2px 5px #000;
+        font-size: 30px;
+    }
+
+    h3 {
+        text-align: center;
+        color: #ffd700;
+        text-shadow: 2px 2px 5px #000;
+        font-size: 21px;
+    }
+}
+
+.store_card {
+    box-shadow: 0 4px 8px 0 #ffd700;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 16vw;
+    background-color: white;
+    margin: auto;
+    text-align: center;
+    padding: 7px 14px;
+
+    p {
+        color: #067422;
+        font-size: 16px;
+    }
+}
+
+.main-content {
+    padding: 10px;
+    margin-top: 35px;
+    border-radius: 10px;
+}
+
+.about-section {
+    text-align: left;
+    color: #eee;
+    text-shadow: 2px 2px 5px #000;
+    line-height: 29px;
+    font-size: 18px;
+
+    p {
+        padding-top: 30px;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+        color: #eee;
+        text-shadow: 2px 2px 5px #000;
+        font-size: 30px;
+    }
+
+    li {
+        margin-left: 115px;
+    }
+}
+
+.teamInfo {
+    padding: 10px;
+    margin-top: 35px;
+    text-align: center;
+
+    h2 {
+        text-align: center;
+        color: #eee;
+        text-shadow: 2px 2px 5px #000;
+        font-size: 30px;
+    }
+}
+
+.team_card {
+    box-shadow: 0 4px 8px 0 #ffd700;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    max-width: 260px;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+
+    img {
+        width: 100px;
+        height: 100px;
+        margin-top: 8px;
+    }
+}
+
+.teamsDetails {
+    width: 99%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.personalInfo {
+    h4 {
+        color: #067422;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    p {
+        color: #067422;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+    }
+}
+
+.contact-button {
+    font-size: 14px;
+    margin-top: 0px;
+    box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px, rgba(179, 132, 201, 0.4) 0 8px 12px;
+    background-image: linear-gradient(135deg, #da2d97 40%, #fc894d);
+    padding: 6px 12px;
+    border: none;
+    color: #ffffff;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid transparent;
+
+    &:hover {
+        color: #333;
+        border: 1px #ea6d27 solid;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+}
