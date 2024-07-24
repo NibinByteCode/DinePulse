@@ -16,16 +16,25 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
 // Add CORS policy
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", builder =>
+//    {
+//        builder.AllowAnyOrigin()
+//               .AllowAnyMethod()
+//               .AllowAnyHeader();
+//    });
+//});
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+        policy.WithOrigins("http://localhost:3000") 
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

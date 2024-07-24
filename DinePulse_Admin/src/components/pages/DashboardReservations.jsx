@@ -75,7 +75,7 @@ export const DashboardReservations = () => {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.REACT_APP_API_URL}/CustomerTableReservationHub`)
+      .withUrl(`${process.env.REACT_APP_API_URL}CustomerTableReservationHub`)
       .build();
 
     setConnection(newConnection);
