@@ -265,13 +265,13 @@ export const DashboardReservations = () => {
                 {getReservationList.length > 0 ? (
                   getReservationList.map((reservationlist) => (
                     <tr key={reservationlist.user_id}>
-                      <td>{reservationlist.user_id}</td>
-                      <td>{reservationlist.noofGuests}</td>
-                      <td>{reservationlist.reservationEmail}</td>
-                      <td>{reservationlist.reservationPhone}</td>
-                      <td>{reservationlist.reservationDate}</td>
-                      <td>{reservationlist.reservationTime}</td>
-                      <td>{reservationlist.reservationSuggestions}</td>
+                      <td>{reservationlist.reservation_id}</td>
+                      <td>{reservationlist.guest_count}</td>
+                      <td>{reservationlist.customer_email}</td>
+                      <td>{reservationlist.customer_phone}</td>
+                      <td>{reservationlist.reservation_date}</td>
+                      <td>{reservationlist.reservation_time}</td>
+                      <td>{reservationlist.customer_suggestion}</td>
                       <td>
                         <FaEdit
                           className="editreservation_icon"
