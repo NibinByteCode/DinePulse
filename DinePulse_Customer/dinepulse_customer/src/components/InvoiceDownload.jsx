@@ -1,16 +1,70 @@
 import React from "react";
-import "../styles/Gallary.css";
-import galleryimage1 from "../assets/galleryimages/SmoothieAcai.jpg";
-import galleryimage2 from "../assets/galleryimages/Vegan-Sushi-005.jpg";
+import restaurant_logo from "../assets/restaurant_logo.png";
+import "../styles/InvoiceDownload.css";
 
-      
-const InvoiceDownload = () => {
+
+const Receipt = React.forwardRef((props, ref) => {
+  const { cartItems, calculateTotalAmount, staffName } =
+    props;
+
+  const currentDate = new Date().toLocaleDateString();
+  const currentTime = new Date().toLocaleTimeString();
+
   return (
-    <div classNameName="invoicedownload">
-      <h1>InvoiceDownload</h1>
-      <p>InvoiceDownload</p>
+    <div ref={ref}>
+      <div className="receipt-header">
+        <img
+          src={restaurant_logo}
+          alt="Restaurant Logo"
+          className="restaurant-logo"
+        />
+        <h2>Dine-pulse</h2>
+        <p>299 Doon South, Kitchener</p>
+        <p>Contact: 111-222-3333</p>
+        <p>Email: doonsouth@gmail.com</p>
       </div>
-  );
-};
+      <hr />
+      <div className="receipt-details">
+        <p>Staff: {staffName}</p>
+        <p>Date: {currentDate}</p>
+        <p>Time: {currentTime}</p>
+      </div>
+      <hr />
+      <h3>Order Summary</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{cartItems}</td>
+          </tr>
+          {/*{cartItems.map((item) => (
+            <tr key={item.item_id}>
+              <td>{item.item_name}</td>
+              <td>${item.item_price}</td>
+              <td>{item.count}</td>
+              <td>${item.total}</td>
+            </tr>
+          ))}*/}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="3">Total Amount</td>
+            <td>${calculateTotalAmount}</td>
+            <td>${calculateTotalAmount}</td>
+            <td>${calculateTotalAmount}</td>
 
-export default InvoiceDownload;
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+});
+
+export default Receipt;
