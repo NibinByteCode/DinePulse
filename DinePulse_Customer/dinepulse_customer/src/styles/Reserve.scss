@@ -1,3 +1,9 @@
+.reserve {
+    font-family: "Roboto Slab", serif;
+    background: url('../assets/plain_background.png') no-repeat center center;
+    background-size: cover;
+}
+
 .booktable_header {
     color: #bb521f;
     display: flex;
@@ -6,17 +12,22 @@
     gap: 10px;
 }
 
+.booktable_header h3 {
+    font-size: 25px;
+}
+
 .booktable_subheader {
     color: #bb521f;
 
     h5 {
+        font-size: 17px;
         text-align: center;
     }
 }
 
 .booktable_icon {
     color: #bb521f;
-    font-size: 1em;
+    font-size: 1.5em;
 }
 
 .reservation-form-container {
@@ -55,9 +66,15 @@
         border: 2px solid #bb521f;
         border-radius: 8px;
         font-size: 16px;
-        color: #bb521f;
+        font-family: "Roboto Slab", serif;
+        color: #4d4c4c;
         height: 20px;
     }
+
+    input::placeholder {
+        color: #737373;
+    }
+    
 }
 
 .right-side {
@@ -79,6 +96,11 @@
         font-size: 16px;
         color: #bb521f;
         height: 250px;
+        font-family: "Roboto Slab", serif;
+    }
+
+    textarea::placeholder {
+        color: #737373;
     }
 }
 

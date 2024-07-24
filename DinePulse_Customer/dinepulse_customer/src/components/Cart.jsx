@@ -54,10 +54,10 @@ const Cart = () => {
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
+                                    <th>PRODUCT</th>
+                                    <th>PRICE</th>
+                                    <th>QUANTITY</th>
+                                    <th>ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +82,7 @@ const Cart = () => {
                                             <span id={`quantity-${item.item_id}`}>
                                                 &nbsp;{item.count}&nbsp;
                                             </span>
+                                            &nbsp;
                                             <button 
                                                 className='quantity-btn' 
                                                 onClick={() => handleIncrement(index)}
@@ -117,10 +118,10 @@ const Cart = () => {
                     </aside>
                 </main>
             ) : (
-                <div>
+                <div className="emptycart">
                     <img src={empty_cart} alt="Empty cart" className="header-logo" />
                     <br />
-                    <h4>Your cart is empty!!!</h4>
+                    <h4>OOPS !!! YOUR CART IS EMPTY !!!</h4>
                 </div>
             )}
         </div>

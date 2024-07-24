@@ -25,9 +25,8 @@ const Menu = () => {
   }, []);
 
   //popup Filter functionality of menu using category
-  const handleSubmitFilter = async (e) => {
-    e.preventDefault();
-    const selectedCategoryId = e.target.category.value;
+  const handleCategoryChange = async (e) => {
+    const selectedCategoryId = e.target.value;
     console.log(selectedCategoryId); 
 
     const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${selectedCategoryId}`;
@@ -67,15 +66,13 @@ const Menu = () => {
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
       setCartItems(newCartItems);
     }
-    alert("Product added to cart");
+    alert("Product added to cart!!!");
   };
 
 
   return (
     <div className="menu">
-      <h1>Our Menu</h1>
-      <p>Menu</p>
-
+      <br/><br/><br/><br/><br/><br/><br/>
       <section className="food-main">
           <div className="food-main-content">
               <h2>We believe food to be almost art, almost sacred...</h2>
@@ -94,20 +91,19 @@ const Menu = () => {
       <section className="food-items">
             <div className="food">
                 <h1>Explore Drinks and Food Options</h1>
-                <form className='filter-col' onSubmit={handleSubmitFilter}>
-                    <div className="divContents">                           
-                        <label className="label">Filter by Category:</label>
-                        <select name="category" id="category" className="textContent">
-                            <option key="all" value="all">All</option>
-                            {getCategoryList.map((category) => (
-                              <option key={category.categoryId} value={category.categoryId}>
-                                {category.categoryName}
-                              </option>
-                            ))}
-                        </select>
-                        <button type="submit" className="filterButton" name="filter">Apply Filter</button>
-                    </div>
-                </form>
+                <div className='filter-col'>
+                  <div className="divContents">                           
+                          <label className="label">Filter by Category:</label>
+                          <select name="category" id="category" className="textContent" onChange={handleCategoryChange}>
+                              <option key="all" value="all">All</option>
+                              {getCategoryList.map((category) => (
+                                <option key={category.categoryId} value={category.categoryId}>
+                                  {category.categoryName}
+                                </option>
+                              ))}
+                          </select>
+                      </div>
+                  </div>
                 <br/>
               
                 <main>
@@ -123,12 +119,12 @@ const Menu = () => {
                                 </div>
                             </div>
                             <h3>{product.item_name}</h3> 
-                            <p>{product.item_price}</p> 
+                            <p>${product.item_price}</p> 
                               <input type="hidden" name="product_id" value={product.item_id}/>
                               <input type="hidden" name="product_name" value={product.item_name}/> 
                               <input type="hidden" name="product_price" value={product.item_price}/> 
                               <input type="hidden" name="product_image" value={product.item_image}/> 
-                              <button type="submit" className="cartButton" name="add_to_cart"  onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                              <button type="submit" className="cartButton" name="add_to_cart"  onClick={() => handleAddToCart(product)}>ADD TO CART</button>
                         </div>
                       ))
                       ) : (

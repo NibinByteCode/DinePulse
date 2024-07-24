@@ -1,6 +1,7 @@
 ﻿using DinePulse_API.Utils;
 using System.Data;
 using System.Data.SqlClient;
+using System.Transactions;
 
 namespace DinePulse_API.Database
 {
@@ -57,11 +58,11 @@ namespace DinePulse_API.Database
 
         public DataTable Getbulkfromdb(string spname, List<SqlParameter> sp = null)
         {
+            DataTable dt = new DataTable();
             try
             {
                 com = new SqlCommand(spname, con);
                 com.CommandTimeout = 300;
-                DataTable dt = new DataTable();
                 com.CommandType = CommandType.StoredProcedure;
                 if (sp != null)
                     com.Parameters.AddRange(sp.ToArray());
@@ -69,10 +70,16 @@ namespace DinePulse_API.Database
                 da.Fill(dt);
                 return dt;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                new LogHelper().LogError(ex.Message);
-                return null;
+                new LogHelper().LogError(" Commit Exception Type: " + ex.GetType());
+                
+               
+                if (ex.Number == 50000)
+                {
+                    throw new InvalidOperationException(ex.Message);
+                }
+                return dt;
             }
         }
         public DataSet Getbulkfromdb_ds(string spname, List<SqlParameter> sp = null)
@@ -118,7 +125,7 @@ namespace DinePulse_API.Database
                     return (r);
 
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     new LogHelper().LogError(" Commit Exception Type: " + ex.GetType());
                     try
@@ -130,6 +137,10 @@ namespace DinePulse_API.Database
                         new LogHelper().LogError("Rollback Exception Type: " + ex2.GetType());
 
                         new LogHelper().LogError(ex.Message);
+                    }
+                    if (ex.Number == 50000)
+                    {
+                        throw new InvalidOperationException(ex.Message);
                     }
                     return (0);
                 }
@@ -143,7 +154,8 @@ namespace DinePulse_API.Database
             catch (Exception ex)
             {
                 new LogHelper().LogError(ex.Message);
-                return (0);
+                throw new InvalidOperationException(ex.Message);
+             
             }
 
 

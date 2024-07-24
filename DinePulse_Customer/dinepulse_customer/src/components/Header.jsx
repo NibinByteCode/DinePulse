@@ -26,16 +26,16 @@ const Header = () => {
       <nav className={`nav ${isMobileMenuOpen ? "nav-open" : ""}`}>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">HOME</Link>
           </li>
           <li>
-            <Link to="/menu">Menu</Link>
+            <Link to="/menu">MENU</Link>
           </li>
           <li>
-            <Link to="/gallery">Gallery</Link>
+            <Link to="/gallery">GALLERY</Link>
           </li>
           <li>
-            <Link to="/aboutus">About Us</Link>
+            <Link to="/aboutus">ABOUT US</Link>
           </li>
         </ul>
       </nav>

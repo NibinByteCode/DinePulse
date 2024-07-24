@@ -1,11 +1,13 @@
 .home {
-  background: url("../assets/plain_background.png") no-repeat center center;
+  background: url("../assets/customer-home-background.png") no-repeat center center;
   background-size: cover;
-  color: #8B4513;
-  text-align: center;
+  color: #bb521f;
+  /*text-align: center;*/
   padding: 40px 20px;
-  font-family: Arial, sans-serif;
+  /*font-family: Arial, sans-serif;*/
   margin-top: 80px;
+  font-family: "Roboto Slab", serif;
+  text-align: left;
 }
 .home .intro-section {
   background-color: rgba(255, 255, 255, 0.8);
@@ -30,14 +32,26 @@
   gap: 20px;
 }
 .home .buttons button {
-  background-color: #ff4500;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
+  /* background-color: #ff4500;
+   color: #fff;
+   border: none;
+   padding: 10px 20px;
+   font-size: 1em;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   border-radius: 5px;
+   width: 50%;*/
+  height: 33px;
+  translate: 80px;
+  border: 2px solid #ff914d;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  border-radius: 5px;
+  font-size: 17px;
+  color: #fff;
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  font-family: "Roboto Slab", serif;
+  font-size: 16px;
 }
 .home .buttons button:hover {
   background-color: #e03d00;

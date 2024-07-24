@@ -1,17 +1,18 @@
 .gallery_outer {
   margin-top: 80px;
   padding: 0 20px;
+  font-family: "Roboto Slab", serif;
+  background: url("../assets/plain_background.png") no-repeat center center;
+  background-size: cover;
 }
 .gallery_outer .gallery-specials {
-  font-family: Cambria, Century Gothic, serif;
   padding-top: 20px;
   margin-left: 0;
 }
 .gallery_outer .gallery-specials h1 {
   text-align: center;
   font-size: 2em;
-  color: #eee;
-  text-shadow: 2px 2px 5px #000;
+  color: #bb521f;
   margin: 0 auto;
 }
 .gallery_outer .gallery-specials .gallery-specials-subheading {
@@ -20,8 +21,8 @@
   text-align: center;
   line-height: 1.5;
   font-size: 1.25em;
-  color: #ffd700;
-  text-shadow: 2px 2px 5px #000;
+  color: #ff742b;
+  text-shadow: 2px 2px 5px orange;
 }
 .gallery_outer .gallery-specials .gallery-container {
   display: flex;
@@ -34,8 +35,8 @@
   width: calc(25% - 20px);
 }
 .gallery_outer .gallery-specials .gallery-container .gallery img {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   border: 1px solid #eee;
   border-radius: 20px 60px 20px 60px;
   min-height: clamp(12.5rem, 3.9754rem + 17.7596vw, 20.625rem);
