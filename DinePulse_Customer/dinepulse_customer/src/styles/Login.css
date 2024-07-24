@@ -5,6 +5,10 @@
   height: 100vh;
   margin-top: 80px;
   font-family: "Roboto Slab", serif;
+  /* Modal overlay */
+  /* Modal content */
+  /* Modal header */
+  /* Modal close button */
 }
 .login-page .left-section {
   display: flex;
@@ -44,7 +48,7 @@
 .login-page .right-section form .input-group input {
   /*width: 100%;*/
   width: 60%;
-  padding: 10px 35px;
+  padding: 10px 17px;
   font-size: 1em;
   /*border: 1px solid #ccc;
   border-radius: 5px;*/
@@ -61,6 +65,27 @@
   font-size: 20px;
   transform: translateX(-50%);
   color: #bb521f;
+}
+.login-page .right-section form .remember_forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin: 15px 170px;
+}
+.login-page .right-section form .remember_forgot label {
+  color: #bb521f;
+}
+.login-page .right-section form .remember_forgot label input {
+  accent-color: #bb521f;
+  margin-right: 5px;
+}
+.login-page .right-section form .remember_forgot a {
+  color: #bb521f;
+  text-decoration: none;
+  cursor: pointer;
+}
+.login-page .right-section form .remember_forgot a:hover {
+  text-decoration: underline;
 }
 .login-page .right-section form .btn-login {
   /*width: 100%;*/
@@ -87,6 +112,47 @@
 }
 .login-page .right-section .register-link:hover {
   text-decoration: underline;
+}
+.login-page .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-page .modal {
+  background: white;
+  padding: 20px;
+  border: 5px solid brown;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  font-family: "Roboto Slab", serif;
+}
+.login-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: "Roboto Slab", serif;
+}
+.login-page .modal-title {
+  flex-grow: 1;
+  text-align: center;
+  color: #bb521f;
+  margin: 0;
+}
+.login-page .modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #bb521f;
 }
 @media (max-width: 768px) {
   .login-page {
