@@ -48,5 +48,6 @@ app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.MapControllers();
 app.MapHub<OrderHub>("/orderHub");
+app.MapHub<CustomerTableReservationHub>("/CustomerTableReservationHub");
 app.Run();
 

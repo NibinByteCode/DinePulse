@@ -4,6 +4,8 @@ using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Data;
+using DinePulse_API.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DinePulse_API.Controllers.CustomerWebsiteControllers
 {
@@ -12,15 +14,18 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
     public class CustomerTableReservationController : Controller
     {
         DataLayer dataLayer;
+        private readonly IHubContext<CustomerTableReservationHub> _hubContext;
         readonly IConfiguration _iconfiguration;
-        public CustomerTableReservationController(IConfiguration iconfiguration)
+        public CustomerTableReservationController(IConfiguration iconfiguration, IHubContext<CustomerTableReservationHub> hubContext)
         {
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);
+            _hubContext = hubContext;
         }
+      
         [HttpPost]
         [ActionName("AddReservation")]
-        public IActionResult AddReservation([FromBody] CustomerReservationModel reservation)
+        public async Task<IActionResult> AddReservationAsync([FromBody] CustomerReservationModel reservation)
         {
             try
             {
@@ -35,6 +40,7 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
             };
 
                 dataLayer.ExecuteSp_transaction("Reservation_InsertReservationCustomer", sp);
+                await _hubContext.Clients.All.SendAsync("CustomerTableReserved", reservation);
                 return Ok("Reservation added successfully");
             }
             catch (Exception ex)

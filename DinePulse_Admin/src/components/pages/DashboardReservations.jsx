@@ -8,7 +8,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "react-modal";
 import axios from "axios";
 import { IoClose } from "react-icons/io5";
-
+import * as signalR from "@microsoft/signalr";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
 
@@ -28,7 +28,7 @@ export const DashboardReservations = () => {
   const [reservationTime, setReservationTime] = useState("");
   const [reservationSuggestions, setReservationSuggestions] = useState("");
   const [message, setMessage] = useState("");
-
+  const [connection, setConnection] = useState(null);
   //state for reservation inputs validation errors
   const [reservationerrors, setReservationErrors] = useState({});
 
@@ -71,6 +71,39 @@ export const DashboardReservations = () => {
 
   useEffect(() => {
     fetchReservation();
+  }, []);
+
+  useEffect(() => {
+    const newConnection = new signalR.HubConnectionBuilder()
+      .withUrl(`${process.env.REACT_APP_API_URL}/CustomerTableReservationHub`)
+      .build();
+
+    setConnection(newConnection);
+
+    newConnection.on("CustomerTableReserved", (reservation) => {
+      setReservationList((prevReservations) => {
+        const existingIndex = prevReservations.findIndex(
+          (res) => res.reservation_id === reservation.reservation_id
+        );
+        if (existingIndex !== -1) {
+          // Update existing reservation
+          const updatedReservations = [...prevReservations];
+          updatedReservations[existingIndex] = reservation;
+          return updatedReservations;
+        } else {
+          // Add new reservation
+          return [...prevReservations, reservation];
+        }
+      });
+    });
+
+    newConnection
+      .start()
+      .catch((err) => console.error("SignalR Connection Error: ", err));
+
+    return () => {
+      newConnection.stop();
+    };
   }, []);
 
   //function to validate reservation form inputs
