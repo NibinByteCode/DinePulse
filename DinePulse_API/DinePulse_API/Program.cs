@@ -8,64 +8,43 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
 // Add CORS policy
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins(allowedOrigins)
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials();
     });
 });
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificOrigin", builder =>
-//    {
-//        builder.WithOrigins("http://localhost:3000")
-//              .AllowAnyMethod()
-//              .AllowAnyHeader()
-//              .AllowCredentials();
-//    });
-//});
-builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
-        builder =>
-        {
-            builder.AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .SetIsOriginAllowed((host) => true)
-                   .AllowCredentials();
-        }));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-//Enable swagger for cloud deployment
+// Enable Swagger for all environments
 app.UseSwagger();
 app.UseSwaggerUI();
 IConfiguration configuration = app.Configuration;
 
 app.UseHttpsRedirection();
-// Use CORS policy
-app.UseCors("AllowAll");
-//app.UseCors("AllowSpecificOrigin");
-app.UseCors("CorsPolicy");
+
+// Use the specified CORS policy
+app.UseCors("AllowSpecificOrigin");
+
 app.UseAuthorization();
+app.UseRouting();
 app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<OrderHub>("/orderHub");
 app.MapHub<CustomerTableReservationHub>("/CustomerTableReservationHub");
-app.Run();
 
+app.Run();
