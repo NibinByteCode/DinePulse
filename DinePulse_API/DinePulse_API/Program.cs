@@ -49,11 +49,11 @@ app.UseSwaggerUI();
 IConfiguration configuration = app.Configuration;
 
 app.UseHttpsRedirection();
-
+// Use CORS policy
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 
-// Use CORS policy
-app.UseCors("AllowAll");
+
 app.UseStaticFiles();
 app.MapControllers();
 app.MapHub<OrderHub>("/orderHub");

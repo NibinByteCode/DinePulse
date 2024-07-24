@@ -75,26 +75,13 @@ export const DashboardReservations = () => {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.REACT_APP_API_URL}CustomerTableReservationHub`)
+      .withUrl("https://localhost:5000/CustomerTableReservationHub")
       .build();
 
     setConnection(newConnection);
 
     newConnection.on("CustomerTableReserved", (reservation) => {
-      setReservationList((prevReservations) => {
-        const existingIndex = prevReservations.findIndex(
-          (res) => res.reservation_id === reservation.reservation_id
-        );
-        if (existingIndex !== -1) {
-          // Update existing reservation
-          const updatedReservations = [...prevReservations];
-          updatedReservations[existingIndex] = reservation;
-          return updatedReservations;
-        } else {
-          // Add new reservation
-          return [...prevReservations, reservation];
-        }
-      });
+      fetchReservation();
     });
 
     newConnection
