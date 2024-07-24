@@ -25,16 +25,16 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificOrigin", policy =>
-//    {
-//        policy.WithOrigins("http://localhost:3000") 
-//              .AllowAnyMethod()
-//              .AllowAnyHeader()
-//              .AllowCredentials();
-//    });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,11 +50,9 @@ IConfiguration configuration = app.Configuration;
 
 app.UseHttpsRedirection();
 // Use CORS policy
-//app.UseCors("AllowSpecificOrigin");
 app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
-
-
 app.UseStaticFiles();
 app.MapControllers();
 app.MapHub<OrderHub>("/orderHub");
