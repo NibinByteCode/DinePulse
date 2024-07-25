@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/AdminDashboardStyles.css";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -100,12 +100,12 @@ export const AdminRegister = () => {
               <div className="inputitems">
                 <input
                   type="text"
-                  placeholder="Staff Email ID"
+                  placeholder="Staff UserID"
                   id="staff_email"
                   value={regusername}
                   onChange={(e) => setRegUsername(e.target.value)}
                 />
-                <FaEnvelope className="icons" />
+                <FaUserAlt className="icons" />
               </div>
               {regerrors.regusername && (
                 <span className="error">{regerrors.regusername}</span>

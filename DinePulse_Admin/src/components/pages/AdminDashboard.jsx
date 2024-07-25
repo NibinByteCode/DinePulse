@@ -34,7 +34,7 @@ export const AdminDashboard = () => {
         setNetRevenue(parseFloat(data.NetRevenue));
       })
       .catch((error) => {
-        alert("Caught error while fetching DashboardData: "+error);
+        //alert("Caught error while fetching DashboardData: "+error);
         console.error("Caught error while fetching GetDashboardData: ", error);
       });
 
@@ -59,7 +59,7 @@ export const AdminDashboard = () => {
         setRecentOrders(data);
       })
       .catch((error) => {
-        alert("Caught error while fetching RecentOrders: "+ error);
+        //alert("Caught error while fetching RecentOrders: "+ error);
         console.error("Caught error while fetching GetRecentOrders: ", error);
       });
   };
