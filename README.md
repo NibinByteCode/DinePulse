@@ -34,15 +34,14 @@ The API End points can be interacted and tested using the following Swagger Link
 
 **User Credentials**
 For Admin Panel
-Default 
-        Username : admin
-        
-        Password : admin123
-        
+        Default 
+                Username : admin
+                Password : admin123    
         This user will be able to login in both Admin dashboard and Mobile application.
+        
 For customer Website:
-        Username: 
-        Password: 
+        Username: testuserr@gmail.com
+        Password: testuser@123
 
- *Please make sure to run the app from localhost port 3000 or 3007 to avaoid the CORS error. *
+ *Please make sure to run the app from localhost port 3000 or 3007 to avoid the CORS error. *
   
