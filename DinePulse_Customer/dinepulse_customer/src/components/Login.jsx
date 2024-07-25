@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
@@ -12,7 +12,6 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 Modal.setAppElement("#root");
 
 const Login = () => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ username: "", password: "" });
@@ -46,7 +45,8 @@ const Login = () => {
         userName: username,
         userPassword: password,
       });
-      const API_URL = process.env.REACT_APP_API_URL + "Login/LoginUser";
+      const API_URL =
+        process.env.REACT_APP_API_URL + "CustomerLogin/LoginCustomer";
       let config = {
         method: "post",
         maxBodyLength: Infinity,
@@ -70,7 +70,8 @@ const Login = () => {
     }
   };
 
-  const [isModalOpenResetPassword, setIsModalOpenResetPassword] = useState(false);
+  const [isModalOpenResetPassword, setIsModalOpenResetPassword] =
+    useState(false);
   const [userName, setUserName] = useState("");
   const [userType, setUserType] = useState("");
   //state for username validation error
@@ -139,7 +140,6 @@ const Login = () => {
     } catch (error) {
       console.error("Caught error while fetching GetMenuByCategoryId:", error);
     }*/
-
   };
 
   return (
@@ -151,23 +151,30 @@ const Login = () => {
         <h2>LOGIN HERE...</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             {/*<i className="icon-email"></i>*/}
             <FaUserAlt className="icons" />
           </div>
-          {errors.username && (<span className="error">{errors.username}</span>)}
+          {errors.username && <span className="error">{errors.username}</span>}
           <div className="input-group">
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {/*<i className="icon-password"></i>*/}
             <FaLock className="icons" />
           </div>
-          {errors.password && (<span className="error">{errors.password}</span>)}
+          {errors.password && <span className="error">{errors.password}</span>}
           <div className="remember_forgot">
             <label>
               <input type="checkbox" />
               Remember me
             </label>
-            <a href="#" onClick={toggleModalResetPassword}>Forgot password?</a>
+            <a href="#" onClick={toggleModalResetPassword}>
+              Forgot password?
+            </a>
           </div>
           <button type="submit" className="btn-login">
             LOGIN
@@ -177,8 +184,6 @@ const Login = () => {
           NEW USER? REGISTER HERE
         </Link>
       </div>
-
-
       <Modal isOpen={isModalOpenResetPassword} onRequestClose={toggleModalResetPassword} contentLabel="Reset Password"
         className="modal" overlayClassName="modal-overlay">
         <div className="modal-header">
@@ -200,9 +205,7 @@ const Login = () => {
           </form>
         </div>
       </Modal>
-
     </div>
-
   );
 };
 

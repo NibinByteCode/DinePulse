@@ -4,13 +4,13 @@ import "../styles/Register.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import "../styles/Register.css";
 import registerImage from "../assets/register_image.png";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
 
 const Register = () => {
-
   const [regusername, setRegUsername] = useState("");
   const [regemailId, setRegEmailId] = useState("");
   const [regpassword, setRegPassword] = useState("");
@@ -72,35 +72,32 @@ const Register = () => {
     if (validateForm()) {
       // Form is valid, proceed with submission (e.g., API call)
       bcrypt.hash(regpassword, 10, (err, encryptPassword) => {
-        console.log("encrypted data : " + encryptPassword);
-        /*let data = JSON.stringify({
-          userName: regusername,
-          userPassword: encryptPassword,
-        });
+        if (err) {
+          console.error("Error encrypting password:", err);
+          return;
+        }
 
-        const API_URL = process.env.REACT_APP_API_URL + "Login/AddUser";
-
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: API_URL,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data,
+        const data = {
+          CustomerName: regusername,
+          CustomerEmail: regemailId,
+          CustomerPhone: regphone,
+          CustomerPassword: encryptPassword,
         };
 
+        const API_URL =
+          process.env.REACT_APP_API_URL + "CustomerLogin/RegisterCustomer";
+
         axios
-          .request(config)
+          .post(API_URL, data)
           .then((response) => {
-            console.log(JSON.stringify(response.data));
+            console.log("Response data:", response.data);
             alert("Registered successfully!!!");
             navigate("/");
           })
           .catch((error) => {
             alert("Caught error while registering user");
-            console.log(error);
-          });*/
+            console.log("Error:", error);
+          });
       });
     }
   };

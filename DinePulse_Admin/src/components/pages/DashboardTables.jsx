@@ -394,7 +394,8 @@ export const DashboardTables = () => {
         `${process.env.REACT_APP_API_URL}Table/DeleteTable/${tableId}`
       );
       if (response.status === 200) {
-        setMessage("Table deleted successfully.");
+        //setMessage("Table deleted successfully.");
+        alert("Table deleted successfully.");
         setTableList(
           getTableList.filter(
             (table) => table.tableId !== tableId
@@ -455,7 +456,7 @@ export const DashboardTables = () => {
 
       <div id="tables" className={`tabcontent ${activeTab === "TABLES" ? "active" : ""}`}>
         <button className="addnew_btn" onClick={toggleModalTables}>
-          <b><span class="addnew_text">ADD NEW TABLES</span></b>
+          <b><span className="addnew_text">ADD NEW TABLES</span></b>
           &nbsp;&nbsp;&nbsp;
           <MdAddToPhotos className="add_icon" />
         </button>
@@ -494,7 +495,7 @@ export const DashboardTables = () => {
 
       <div id="devices" className={`tabcontent ${activeTab === "DEVICES" ? "active" : ""}`}>
         <button className="addnew_btn" onClick={toggleModalDevices}>
-          <b><span class="addnew_text">ADD NEW DEVICE</span></b>
+          <b><span className="addnew_text">ADD NEW DEVICE</span></b>
           &nbsp;&nbsp;&nbsp;
           <MdAddToPhotos className="add_icon" />
         </button>
@@ -650,11 +651,12 @@ export const DashboardTables = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this table?</p>
+          <br/>
           <div className="delete-buttons">
             <button className="delete-btn"
               onClick={() => handleConfirmDelete(selectedTableToDelete.table_id) }>
               Delete
-            </button>
+            </button>&nbsp;
             <button className="cancel-btn" onClick={closeDeleteTableModal}>Cancel</button>
           </div>
         </div>

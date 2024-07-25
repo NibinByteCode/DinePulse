@@ -178,25 +178,34 @@ namespace DinePulse_API.Controllers.AdminControllers
 
         [HttpPost]
         [ActionName("InsertMenuItem")]
-        public IActionResult InsertMenuItem([FromBody] MenuModel menuModel)
+        public async Task<IActionResult> InsertMenuItem([FromForm] MenuModel menuModel, [FromForm] IFormFile itemImage = null)
         {
             try
             {
-                byte[] imageBytes = Convert.FromBase64String(menuModel.ItemImageBase64);
+                string imageName = null;
+
+                if (itemImage != null && itemImage.Length > 0)
+                {
+                    
+                    imageName = Guid.NewGuid().ToString() + Path.GetExtension(itemImage.FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await itemImage.CopyToAsync(stream);
+                    }
+                }
 
                 List<SqlParameter> parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@item_id", SqlDbType.Int) { Value = menuModel.ItemId },
+                    
                     new SqlParameter("@item_name", SqlDbType.VarChar, 100) { Value = menuModel.ItemName },
                     new SqlParameter("@item_category", SqlDbType.Int) { Value = menuModel.ItemCategory },
                     new SqlParameter("@item_description", SqlDbType.VarChar, 255) { Value = menuModel.ItemDescription },
                     new SqlParameter("@item_price", SqlDbType.Decimal) { Value = menuModel.ItemPrice },
-                    new SqlParameter("@item_image", SqlDbType.VarBinary, -1) { Value = imageBytes },
+                    new SqlParameter("@item_image", SqlDbType.VarChar, -1) { Value = (object)imageName ?? DBNull.Value }
                 };
 
-                // Execute the stored procedure to insert the menu item
                 int rowsAffected = dataLayer.ExecuteSp_transaction("Menu_InsertMenu", parameters);
-
                 if (rowsAffected > 0)
                 {
                     return Ok("Menu item inserted successfully.");
@@ -214,24 +223,38 @@ namespace DinePulse_API.Controllers.AdminControllers
             }
         }
 
+
         [HttpPut]
         [ActionName("UpdateMenuItem")]
-        public IActionResult UpdateMenuItem([FromBody] MenuModel menuModel)
+        public async Task<IActionResult> UpdateMenuItem([FromForm] MenuModel menuModel, [FromForm] IFormFile itemImage = null)
         {
             try
             {
-                byte[] imageBytes = Convert.FromBase64String(menuModel.ItemImageBase64);
+                string imageName = null;
+                if (itemImage != null && itemImage.Length > 0)
+                {
+                  
+                    imageName = Guid.NewGuid().ToString() + Path.GetExtension(itemImage.FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", imageName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await itemImage.CopyToAsync(stream);
+                    }
+                }
+                else
+                {
+                    imageName = menuModel.ItemImage;
+                }
 
                 List<SqlParameter> parameters = new List<SqlParameter>
-        {
-            new SqlParameter("@item_id", SqlDbType.Int) { Value = menuModel.ItemId },
-            new SqlParameter("@item_name", SqlDbType.VarChar, 100) { Value = menuModel.ItemName },
-            new SqlParameter("@item_category", SqlDbType.Int) { Value = menuModel.ItemCategory },
-            new SqlParameter("@item_description", SqlDbType.VarChar, 255) { Value = menuModel.ItemDescription },
-            new SqlParameter("@item_price", SqlDbType.Decimal) { Value = menuModel.ItemPrice },
-            new SqlParameter("@item_image", SqlDbType.VarBinary, -1) { Value = imageBytes },
-        };
-
+                {
+                    new SqlParameter("@item_id", SqlDbType.Int) { Value = menuModel.ItemId },
+                    new SqlParameter("@item_name", SqlDbType.VarChar, 100) { Value = menuModel.ItemName },
+                    new SqlParameter("@item_category", SqlDbType.Int) { Value = menuModel.ItemCategory },
+                    new SqlParameter("@item_description", SqlDbType.VarChar, 255) { Value = menuModel.ItemDescription },
+                    new SqlParameter("@item_price", SqlDbType.Decimal) { Value = menuModel.ItemPrice },
+                    new SqlParameter("@item_image", SqlDbType.VarChar, -1) { Value = (object)imageName ?? DBNull.Value }
+                };
 
                 int rowsAffected = dataLayer.ExecuteSp_transaction("Menu_UpdateMenu", parameters);
 
@@ -252,7 +275,6 @@ namespace DinePulse_API.Controllers.AdminControllers
             }
         }
 
-
         [HttpDelete("{itemId}")]
         [ActionName("DeleteMenuItem")]
         public IActionResult DeleteMenuItem(int itemId)
@@ -264,7 +286,7 @@ namespace DinePulse_API.Controllers.AdminControllers
             new SqlParameter() { ParameterName = "@item_id", SqlDbType = SqlDbType.Int, Value = itemId }
         };
 
-                dataLayer.ExecuteSp_transaction("DeleteMenuItem", sp);
+                dataLayer.ExecuteSp_transaction("Menu_DeleteMenu", sp);
                 return Ok("Menu item deleted successfully");
             }
             catch (Exception ex)

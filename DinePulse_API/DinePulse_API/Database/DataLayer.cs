@@ -208,5 +208,31 @@ namespace DinePulse_API.Database
                 return 0;
             }
         }
+        public void Execute_sp_with_result(string procedureName, List<SqlParameter> parameters)
+        {
+            try
+            {
+                using (SqlConnection connection = con)
+                {
+                    using (SqlCommand command = new SqlCommand(procedureName, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        if (parameters != null)
+                        {
+                            command.Parameters.AddRange(parameters.ToArray());
+                        }
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError(ex.Message); 
+                return;
+            }
+        }
     }
 }
