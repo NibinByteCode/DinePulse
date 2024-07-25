@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../css/AdminDashboardStyles.css";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaLock } from "react-icons/fa";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Notify from "./ToastNotifications";
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +55,7 @@ export const AdminHome = () => {
         .then((response) => {
           //console.log(JSON.stringify(response.data));
           navigate("/dashboard");
+          Notify("Login Success!!!");
         })
         .catch((error) => {
           alert("Invalid Login Credentials!!!");
@@ -92,7 +93,7 @@ export const AdminHome = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <FaEnvelope className="icons" />
+                  <FaUserAlt className="icons" />
                 </div>
                 {errors.username && (
                   <span className="error">{errors.username}</span>
