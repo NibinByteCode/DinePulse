@@ -38,11 +38,11 @@ namespace DinePulse_API.Controllers.AdminControllers
                     if (BCrypt.Net.BCrypt.Verify(loginRequest.userPassword, storedHashedPassword))
                     {
                         var user = new
-                        {
-                            Name = table.Rows[0]["user_name"].ToString(),
-                            Email = table.Rows[0]["user_id"].ToString(), 
-                                                                           
-                        };
+                            {
+                                Name = table.Rows[0]["user_name"].ToString(),
+                                UserID = table.Rows[0]["user_id"].ToString(), 
+                                                   
+                            };
 
                         return Ok(user);
                     }
