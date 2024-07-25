@@ -10,6 +10,7 @@ import axios from "axios";
 import { IoClose } from "react-icons/io5";
 import * as signalR from "@microsoft/signalr";
 import Notify from "../utils/ToastNotifications";
+import { useAuth } from "../utils/AuthenticationHandler";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
 
@@ -32,7 +33,7 @@ export const DashboardReservations = () => {
   const [connection, setConnection] = useState(null);
   //state for reservation inputs validation errors
   const [reservationerrors, setReservationErrors] = useState({});
-
+  const { isLoggedIn } = useAuth();
   const toggleModalReservation = () => {
     if (isModalOpenReservation) {
       setSelectedReservation(null);

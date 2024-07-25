@@ -37,7 +37,14 @@ namespace DinePulse_API.Controllers.AdminControllers
                     string storedHashedPassword = table.Rows[0]["user_password"].ToString();
                     if (BCrypt.Net.BCrypt.Verify(loginRequest.userPassword, storedHashedPassword))
                     {
-                        return Ok("Login successful.");
+                        var user = new
+                        {
+                            Name = table.Rows[0]["user_name"].ToString(),
+                            Email = table.Rows[0]["user_id"].ToString(), 
+                                                                           
+                        };
+
+                        return Ok(user);
                     }
                     else
                     {

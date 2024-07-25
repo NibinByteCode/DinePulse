@@ -5,13 +5,16 @@ import App from "./App";
 import { ToastContainer } from "react-toastify"; // for toast notification
 import "react-toastify/dist/ReactToastify.css";
 import NotificationProvider from "./components/utils/NotificationHandler";
+import { AuthenticationProvider } from "./components/utils/AuthenticationHandler";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <NotificationProvider>
-      <App />
-      <ToastContainer position="bottom-right" />
-    </NotificationProvider>
+    <AuthenticationProvider>
+      <NotificationProvider>
+        <App />
+        <ToastContainer position="bottom-right" />
+      </NotificationProvider>
+    </AuthenticationProvider>
   </React.StrictMode>
 );
 

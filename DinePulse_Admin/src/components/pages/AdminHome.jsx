@@ -5,10 +5,12 @@ import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Notify from "../utils/ToastNotifications";
+import { useAuth } from "../utils/AuthenticationHandler";
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ username: "", password: "" });
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -54,6 +56,8 @@ export const AdminHome = () => {
         .request(config)
         .then((response) => {
           //console.log(JSON.stringify(response.data));
+          const user = response.data;
+          login(user);
           navigate("/dashboard");
           Notify("Login Success!!!");
         })
