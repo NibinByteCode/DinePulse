@@ -4,7 +4,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Notify from "./ToastNotifications";
+import Notify from "../utils/ToastNotifications";
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

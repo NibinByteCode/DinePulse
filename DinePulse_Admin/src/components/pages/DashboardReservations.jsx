@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import { IoClose } from "react-icons/io5";
 import * as signalR from "@microsoft/signalr";
-import Notify from "./ToastNotifications";
+import Notify from "../utils/ToastNotifications";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
 

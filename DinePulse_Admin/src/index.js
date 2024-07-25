@@ -4,7 +4,7 @@ import "./components/css/index.css";
 import App from "./App";
 import { ToastContainer } from "react-toastify"; // for toast notification
 import "react-toastify/dist/ReactToastify.css";
-import NotificationProvider from "./components/pages/NotificationHandler";
+import NotificationProvider from "./components/utils/NotificationHandler";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
