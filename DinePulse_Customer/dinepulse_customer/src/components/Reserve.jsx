@@ -5,10 +5,10 @@ import axios from "axios";
 
 const Reserve = () => {
   //state for reservation input fields
-  const [noofGuests, setNoofGuests] = useState("");
+  const [noofGuests, setNoofGuests] = useState("");  
   const [reservationEmail, setReservationEmail] = useState("");
   const [reservationPhone, setReservationPhone] = useState("");
-  const [reservationDate, setReservationDate] = useState("");
+  const [reservationDate, setReservationDate] = useState(""); 
   const [reservationTime, setReservationTime] = useState("");
   const [reservationSuggestions, setReservationSuggestions] = useState("");
 
@@ -96,13 +96,12 @@ const Reserve = () => {
   };
 
   const resetAll = () => {
-    alert("aaaaaaaaaa");
     setNoofGuests("");
     setReservationEmail("");
     setReservationPhone("");
-    setReservationDate(null);
-    setReservationTime(null);
-    setReservationSuggestions(null);
+    setReservationDate("");
+    setReservationTime("");
+    setReservationSuggestions("");
     setReservationErrors({}); //clear errors when closing the modal
   };
 
@@ -125,11 +124,11 @@ const Reserve = () => {
                     <input
                       type="number"
                       name="guests"
-                      placeholder="Type here"
+                      placeholder="Type here" value={noofGuests}
                       onChange={(e) => setNoofGuests(e.target.value)}
-                    />
+                    />   
                     {reservationerrors.noofGuests && (
-                      <p className="error">{reservationerrors.noofGuests}</p>
+                      <p className="error">{reservationerrors.noofGuests}</p>      
                     )}
                   </label>
                   <label>
@@ -137,7 +136,7 @@ const Reserve = () => {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Type here"
+                      placeholder="Type here" value={reservationEmail}
                       onChange={(e) => setReservationEmail(e.target.value)}
                     />
                     {reservationerrors.reservationEmail && (
@@ -151,7 +150,7 @@ const Reserve = () => {
                     <input
                       type="tel"
                       name="phone"
-                      placeholder="Type here"
+                      placeholder="Type here" value={reservationPhone}
                       onChange={(e) => setReservationPhone(e.target.value)}
                     />
                     {reservationerrors.reservationPhone && (
@@ -165,8 +164,8 @@ const Reserve = () => {
                     <input
                       type="date"
                       name="date"
-                      placeholder="Type here"
-                      onChange={(e) => setReservationDate(e.target.value)}
+                      placeholder="Type here" value={reservationDate}
+                      onChange={(e) => setReservationDate(e.target.value)}     
                     />
                     {reservationerrors.reservationDate && (
                       <p className="error">
@@ -179,7 +178,7 @@ const Reserve = () => {
                     <input
                       type="time"
                       name="time"
-                      placeholder="Type here"
+                      placeholder="Type here" value={reservationTime}
                       onChange={(e) => setReservationTime(e.target.value)}
                     />
                     {reservationerrors.reservationTime && (
@@ -195,7 +194,7 @@ const Reserve = () => {
                     Suggestions:
                     <textarea
                       name="suggestions"
-                      placeholder="If no suggestions, enter NIL"
+                      placeholder="If no suggestions, enter NIL" value={reservationSuggestions}
                       onChange={(e) =>
                         setReservationSuggestions(e.target.value)
                       }
