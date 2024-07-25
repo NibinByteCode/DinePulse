@@ -651,11 +651,12 @@ export const DashboardTables = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this table?</p>
+          <br/>
           <div className="delete-buttons">
             <button className="delete-btn"
               onClick={() => handleConfirmDelete(selectedTableToDelete.table_id) }>
               Delete
-            </button>
+            </button>&nbsp;
             <button className="cancel-btn" onClick={closeDeleteTableModal}>Cancel</button>
           </div>
         </div>

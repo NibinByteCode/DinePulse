@@ -781,6 +781,7 @@ export const DashboardProducts = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this category?</p>
+          <br/>
           <div className="delete-buttons">
             <button
               className="delete-btn"
@@ -789,7 +790,7 @@ export const DashboardProducts = () => {
               }
             >
               Delete
-            </button>
+            </button>&nbsp;
             <button className="cancel-btn" onClick={closeDeleteCategoryModal}>
               Cancel
             </button>
@@ -813,6 +814,7 @@ export const DashboardProducts = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this menu?</p>
+          <br/>
           <div className="delete-buttons">
             <button
               className="delete-btn"
@@ -821,7 +823,7 @@ export const DashboardProducts = () => {
               }
             >
               Delete
-            </button>
+            </button>&nbsp;
             <button className="cancel-btn" onClick={closeDeleteMenuModal}>
               Cancel
             </button>

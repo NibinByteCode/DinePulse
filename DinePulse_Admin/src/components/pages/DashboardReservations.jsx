@@ -8,7 +8,8 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "react-modal";
 import axios from "axios";
 import { IoClose } from "react-icons/io5";
-import * as signalR from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr"; 
+import Notify from "./ToastNotifications";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
 
@@ -73,10 +74,11 @@ export const DashboardReservations = () => {
     fetchReservation();
   }, []);
 
+
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
       .withUrl(
-        `${process.env.REACT_APP_API_ROOT_URL}/CustomerTableReservationHub`
+        `${process.env.REACT_APP_API_ROOT_URL}CustomerTableReservationHub`
       )
       .build();
 
@@ -84,6 +86,7 @@ export const DashboardReservations = () => {
 
     newConnection.on("CustomerTableReserved", (reservation) => {
       fetchReservation();
+      Notify("New Table Reservation Request Received!!!");
     });
 
     newConnection
@@ -223,22 +226,23 @@ export const DashboardReservations = () => {
   //modify the handleDeleteReservation function to directly open the delete modal
   const handleDeleteReservation = (reservationId) => {
     const reservationToDelete = getReservationList.find(
-      (reservation) => reservation.user_id === reservationId
+      (reservation) => reservation.reservation_id === reservationId
     );
     openDeleteReservationModal(reservationToDelete);
   };
 
+  
+
   const handleConfirmDelete = async (reservationId) => {
-    console.log("delete id : " + reservationId);
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}Login/DeleteUser/${reservationId}`
+        `${process.env.REACT_APP_API_URL}TableReservation/DeleteReservation/${reservationId}`
       );
       if (response.status === 200) {
-        setMessage("Reservation Cancelled successfully.");
+        alert("Reservation Cancelled successfully.");
         setReservationList(
           getReservationList.filter(
-            (reservation) => reservation.user_id !== reservationId
+            (reservation) => reservation.reservation_id !== reservationId
           )
         );
         setIsDeleteReservationModalOpen(false);
@@ -247,7 +251,7 @@ export const DashboardReservations = () => {
       }
     } catch (error) {
       console.error("Error deleting Reservation", error);
-      setMessage("An error occurred while processing your request.");
+      alert("An error occurred while processing your request.");
     }
   };
 
@@ -303,7 +307,7 @@ export const DashboardReservations = () => {
                         <RiDeleteBin5Fill
                           className="deletereservation_icon"
                           onClick={() =>
-                            handleDeleteReservation(reservationlist.user_id)
+                            handleDeleteReservation(reservationlist.reservation_id)
                           }
                         />
                       </td>
@@ -471,15 +475,17 @@ export const DashboardReservations = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this Reservation?</p>
+          <br/>
           <div className="delete-buttons">
             <button
               className="delete-btn"
               onClick={() =>
-                handleConfirmDelete(selectedReservationToDelete.user_id)
+                handleConfirmDelete(selectedReservationToDelete.reservation_id)
               }
             >
               Delete
             </button>
+            &nbsp;&nbsp;&nbsp;
             <button
               className="cancel-btn"
               onClick={closeDeleteReservationModal}

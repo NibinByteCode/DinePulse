@@ -358,6 +358,7 @@ export const DashboardEmployees = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this employee?</p>
+          <br/>
           <div className="delete-buttons">
             <button
               className="delete-btn"
@@ -366,7 +367,7 @@ export const DashboardEmployees = () => {
               }
             >
               Delete
-            </button>
+            </button>&nbsp;
             <button className="cancel-btn" onClick={closeDeleteEmployeeModal}>
               Cancel
             </button>
