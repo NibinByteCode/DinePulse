@@ -39,4 +39,5 @@ Default
         Password : admin123
         
 This user will be able to login in both Admin dashboard and Mobile application.
+ Please make sure to run the app from localhost port 3000 or 3007 to avaoid the CORS error.
   
