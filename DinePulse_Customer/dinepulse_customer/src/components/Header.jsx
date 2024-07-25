@@ -32,6 +32,9 @@ const Header = () => {
             <Link to="/menu">MENU</Link>
           </li>
           <li>
+            <Link to="/cart">CART</Link>
+          </li>
+          <li>
             <Link to="/gallery">GALLERY</Link>
           </li>
           <li>
