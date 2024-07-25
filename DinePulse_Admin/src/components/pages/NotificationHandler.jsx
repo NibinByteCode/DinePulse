@@ -1,0 +1,52 @@
+import React, { createContext, useContext, useEffect, useState } from "react";
+import * as signalR from "@microsoft/signalr";
+import Notify from "./ToastNotifications"; // Import your Notify function
+
+const NotificationContext = createContext();
+
+export const useSignalR = () => {
+  return useContext(NotificationContext);
+};
+
+const NotificationProvider = ({ children }) => {
+  const [connection, setConnection] = useState(null);
+
+  useEffect(() => {
+    const newConnection = new signalR.HubConnectionBuilder()
+      .withUrl(
+        `${process.env.REACT_APP_API_ROOT_URL}CustomerTableReservationHub`
+      )
+      .build();
+
+    newConnection.on("CustomerTableReserved", (reservation) => {
+      Notify("New Table Reservation Request Received!!!");
+    });
+
+    newConnection.on("OrderReceived", (order) => {
+      Notify("New Order Received!!!");
+    });
+
+    newConnection
+      .start()
+      .then(() => {
+        console.log("SignalR Connected.");
+      })
+      .catch((err) => console.log("SignalR Connection Error: ", err));
+
+    setConnection(newConnection);
+
+    return () => {
+      if (newConnection) {
+        newConnection.stop();
+      }
+    };
+  }, []);
+
+  return (
+    <NotificationContext.Provider value={{ connection }}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};
+
+export default NotificationProvider;

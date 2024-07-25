@@ -8,7 +8,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Modal from "react-modal";
 import axios from "axios";
 import { IoClose } from "react-icons/io5";
-import * as signalR from "@microsoft/signalr"; 
+import * as signalR from "@microsoft/signalr";
 import Notify from "./ToastNotifications";
 // Set the app element for accessibility
 Modal.setAppElement("#root");
@@ -74,7 +74,6 @@ export const DashboardReservations = () => {
     fetchReservation();
   }, []);
 
-
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
       .withUrl(
@@ -86,7 +85,7 @@ export const DashboardReservations = () => {
 
     newConnection.on("CustomerTableReserved", (reservation) => {
       fetchReservation();
-      Notify("New Table Reservation Request Received!!!");
+      //Notify("New Table Reservation Request Received!!!");
     });
 
     newConnection
@@ -231,8 +230,6 @@ export const DashboardReservations = () => {
     openDeleteReservationModal(reservationToDelete);
   };
 
-  
-
   const handleConfirmDelete = async (reservationId) => {
     try {
       const response = await axios.delete(
@@ -307,7 +304,9 @@ export const DashboardReservations = () => {
                         <RiDeleteBin5Fill
                           className="deletereservation_icon"
                           onClick={() =>
-                            handleDeleteReservation(reservationlist.reservation_id)
+                            handleDeleteReservation(
+                              reservationlist.reservation_id
+                            )
                           }
                         />
                       </td>
@@ -475,7 +474,7 @@ export const DashboardReservations = () => {
         </div>
         <div className="delete">
           <p>Are you sure you want to delete this Reservation?</p>
-          <br/>
+          <br />
           <div className="delete-buttons">
             <button
               className="delete-btn"
