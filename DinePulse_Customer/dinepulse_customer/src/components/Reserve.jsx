@@ -49,23 +49,23 @@ const Reserve = () => {
       return;
     }
 
-    /*const formData = new FormData();
-    formData.append("userName", noofGuests);
-    formData.append("userPassword", reservationEmail);
-    formData.append("userType", reservationPhone);
-    formData.append("userName", reservationDate);
-    formData.append("userPassword", reservationTime);
-    formData.append("userType", reservationSuggestions);
+    const formData = new FormData();
+    formData.append("guestCount", noofGuests);
+    formData.append("customerEmail", reservationEmail);
+    formData.append("customerPhone", reservationPhone);
+    formData.append("reservationDate", reservationDate);
+    formData.append("reservationTime", reservationTime);
+    formData.append("customerSuggestion", reservationSuggestions);
 
-    console.log("reservation noofGuests ==> "+noofGuests);
+    /*console.log("reservation noofGuests ==> "+noofGuests);
     console.log("reservation reservationEmail ==> "+reservationEmail);
     console.log("reservation reservationPhone ==> "+reservationPhone);
     console.log("reservation reservationDate ==> "+reservationDate);
     console.log("reservation reservationTime ==> "+reservationTime);
-    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);
+    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);*/
 
     try {
-      const url = `${process.env.REACT_APP_API_URL}Login/AddUser`;
+      const url = `${process.env.REACT_APP_API_URL}CustomerTableReservation/AddReservation`;
 
       const method = "post";
 
@@ -92,7 +92,7 @@ const Reserve = () => {
     } catch (error) {
       console.error("Error saving Reservation Details", error);
       alert("An error occurred while processing your request.");
-    }*/
+    }
   };
 
   const resetAll = () => {
