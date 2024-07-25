@@ -25,17 +25,17 @@ const Cart = () => {
     };
 
     const handleDecrement = (index) => {
-    const updatedItems = [...cartItems];
-    if (updatedItems[index].count > 1) {
-        updatedItems[index].count--;
-        updateCart(updatedItems);
-    }
+        const updatedItems = [...cartItems];
+        if (updatedItems[index].count > 1) {
+            updatedItems[index].count--;
+            updateCart(updatedItems);
+        }
     };
 
     const handleRemove = (itemId) => {
         const updatedItems = cartItems.filter((item) => item.item_id !== itemId);
         updateCart(updatedItems);
-      };
+    };
 
     const orderPrice = cartItems.reduce((total, item) => total + (item.count * parseFloat(item.item_price)), 0);
     const shippingCharges = 5.49;
@@ -45,8 +45,7 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            <h1>Our Cart</h1>
-            <p>Cart</p>
+            <h2>Cart</h2>
             {cartItems.length > 0 ? (
                 <main className="cart-container">
                     <div className="order-container">
@@ -64,17 +63,17 @@ const Cart = () => {
                                 {cartItems.map((item, index) => (
                                     <tr key={index}>
                                         <td>
-                                            <img 
-                                                src={`${process.env.REACT_APP_IMAGE_URL}${item.item_image}`} 
-                                                alt={item.item_name} 
-                                                className='product-image' 
+                                            <img
+                                                src={`${process.env.REACT_APP_IMAGE_URL}${item.item_image}`}
+                                                alt={item.item_name}
+                                                className='product-image'
                                             />
                                         </td>
                                         <td>{item.item_name}</td>
                                         <td>${item.item_price}</td>
                                         <td>
-                                            <button 
-                                                className='quantity-btn' 
+                                            <button
+                                                className='quantity-btn'
                                                 onClick={() => handleDecrement(index)}
                                             >
                                                 &nbsp;-&nbsp;
@@ -83,17 +82,17 @@ const Cart = () => {
                                                 &nbsp;{item.count}&nbsp;
                                             </span>
                                             &nbsp;
-                                            <button 
-                                                className='quantity-btn' 
+                                            <button
+                                                className='quantity-btn'
                                                 onClick={() => handleIncrement(index)}
                                             >
                                                 &nbsp;+&nbsp;
                                             </button>
                                         </td>
                                         <td>
-                                            <RiDeleteBin5Fill 
-                                                className='delete-icon' 
-                                                onClick={() => handleRemove(item.item_id)} 
+                                            <RiDeleteBin5Fill
+                                                className='delete-icon'
+                                                onClick={() => handleRemove(item.item_id)}
                                             />
                                         </td>
                                     </tr>
@@ -104,7 +103,6 @@ const Cart = () => {
 
                     <aside className="paymentInfo">
                         <div className="team_payment">
-                            <br/>
                             <h2>Payment Summary</h2>
                             <h4 id="total">Order price: ${orderPrice.toFixed(2)}</h4>
                             <h4>Shipping charges: ${shippingCharges.toFixed(2)}</h4>
@@ -113,7 +111,6 @@ const Cart = () => {
                             <p>
                                 <button className="checkout-button" onClick={() => navigate("/checkout")}>Continue to checkout</button>
                             </p>
-                            <br />
                         </div>
                     </aside>
                 </main>

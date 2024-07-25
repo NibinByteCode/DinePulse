@@ -1,87 +1,86 @@
 .checkout {
-    background: url('../assets/plain_background.png') no-repeat center center;
+    background: url('../assets/plain_background.png') repeat center center;
     background-size: cover;
     font-family: "Roboto Slab", serif;
-    width: 80%;
-    margin: 0 auto;
     padding: 20px;
+    margin-top: 50px;
+
+    .checkout-container {
+
+        .form-sections {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+
+            .personal-details {
+                width: 50%;
+
+                .personal-section {
+                    padding: 15px;
+                    border-radius: 8px;
+
+                    h2 {
+                        margin-top: 0;
+                        margin-bottom: 10px;
+                        font-size: 25px;
+                        color: #bb521f;
+                    }
+
+                    .divContents {
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+
+                        .label {
+                            font-weight: bold;
+                            width: 200px;
+                            text-align: right;
+                            margin-right: 10px;
+                            color: #bb521f;
+                            font-size: 15px;
+                        }
+
+                        input {
+                            color: #bb521f;
+                            font-family: "Roboto Slab", serif;
+                            border: 1px solid #bb521f;
+                            border-radius: 7px;
+                        }
+
+                        .textContent {
+                            flex: 1;
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            font-size: 1em;
+                        }
+
+                        span {
+                            color: red;
+                            font-weight: bold;
+                            margin-left: 5px;
+                        }
+
+                        .error {
+                            color: red;
+                            font-size: 0.875em;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .buttonClick {
+            text-align: center;
+            margin-top: 20px;
+        }
+    }
 }
 
-.checkout-container {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: #f9f9f9;
-}
 
-.form-sections {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
 
-.personal-details, .card-details {
-    width: 48%;
-}
-
-.personal-section, .card-section {
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    margin-top: 0;
-    font-size: 2em;
-    color: #bb521f;
-}
-
-.divContents {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.label {
-    font-weight: bold;
-    width: 200px;
-    text-align: right;
-    margin-right: 10px;
-    color: #bb521f;
-}
-
-.divContents input {
-    color: #bb521f;
-    font-family: "Roboto Slab", serif;
-    border: 1px solid #bb521f;
-    border-radius: 7px;
-}
-
-.textContent {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-}
-
-span {
-    color: red;
-    font-weight: bold;
-    margin-left: 5px;
-}
-
-.error {
-    color: red;
-    font-size: 0.875em;
-    margin-left: 10px;
-}
-
-.buttonClick {
-    text-align: center;
-    margin-top: 20px;
-}
 
 input[type="submit"] {
     font-family: "Roboto Slab", serif;
@@ -108,4 +107,18 @@ input[type="submit"]:hover {
     color: red;
     text-align: center;
     margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .checkout {
+        .checkout-container {
+            .form-sections {
+                flex-direction: column;
+
+                .personal-details {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
