@@ -26,32 +26,8 @@ const Checkout = () => {
     const validate = () => {
         const newErrors = {};
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phonePattern = /^[0-9]{10}$/; // Adjust this pattern as needed
+        const phonePattern = /^[0-9]{10}$/; 
 
-        /*for (const [key, value] of Object.entries(formData)) {
-            if (!value.trim()) {
-                newErrors[key] = "This field is required";
-            }
-        }
-
-        if (formData.custEmail && !emailPattern.test(formData.custEmail)) {
-            newErrors.custEmail = "Invalid email format";
-        }
-
-        if (formData.custPhone && !phonePattern.test(formData.custPhone)) {
-            newErrors.custPhone = "Invalid phone number format";
-        }
-
-        if (formData.cardNumber && formData.cardNumber.length !== 16) {
-            newErrors.cardNumber = "Card number must be 16 digits";
-        }
-
-        if (formData.cardcvv && formData.cardcvv.length !== 3) {
-            newErrors.cardcvv = "CVV must be 3 digits";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;*/
         if (!formData.custName.trim()) newErrors.custName = "Customer Name is required";
         if (!formData.custEmail.trim()) newErrors.custEmail = "Email ID is required";
         if (formData.custEmail && !emailPattern.test(formData.custEmail)) newErrors.custEmail = "Invalid email format";
@@ -92,7 +68,7 @@ const Checkout = () => {
             // Handle form submission
             alert('Form submitted successfully!');
             navigate('/ordersuccess');
-            // You can perform further actions like sending the data to a server here
+            // sending the data to a server
         }
     };
 
@@ -269,7 +245,7 @@ const Checkout = () => {
                                 <div className="divContents">
                                     <label htmlFor="expiryDate" className="label">Expiry Date:</label>
                                     <input
-                                        type="date"
+                                        type="month"
                                         id="expiryDate"
                                         name="expiryDate"
                                         className="textContent"
@@ -298,11 +274,6 @@ const Checkout = () => {
                     <div className="buttonClick">
                         <input type="submit" name="submit" id="submit" value="PROCEED TO PAY" />
                     </div>
-                    {/*{formSubmitted && !Object.keys(errors).length && (
-                        <div className="order-success">
-                            <h5>Form submitted successfully!</h5>
-                        </div>
-                    )}*/}
                 </form>
             </main>
         </div>
