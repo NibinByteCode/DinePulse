@@ -421,7 +421,7 @@ export const DashboardTakeOrders = () => {
       </Modal>
 
       {/* Hidden Receipt Component */}
-      <div>
+      <div style={{ display: "none" }}>
         <Receipt
           ref={receiptRef}
           cartItems={cartItems}
