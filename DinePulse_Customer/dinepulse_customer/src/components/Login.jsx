@@ -77,7 +77,6 @@ const Login = () => {
   const [resetPassworderrors, setResetPasswordErrors] = useState({});
 
   const toggleModalResetPassword = () => {
-    alert("modal open")
     if (isModalOpenResetPassword) {
       setUserName("");
       setResetPasswordErrors({}); //clear errors when closing the modal
@@ -150,7 +149,6 @@ const Login = () => {
       </div>
       <div className="right-section">
         <h2>LOGIN HERE...</h2>
-        <br/><br/>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -159,7 +157,7 @@ const Login = () => {
           </div>
           {errors.username && (<span className="error">{errors.username}</span>)}
           <div className="input-group">
-            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {/*<i className="icon-password"></i>*/}
             <FaLock className="icons" />
           </div>
@@ -183,27 +181,27 @@ const Login = () => {
 
       <Modal isOpen={isModalOpenResetPassword} onRequestClose={toggleModalResetPassword} contentLabel="Reset Password"
         className="modal" overlayClassName="modal-overlay">
-            <div className="modal-header">
-                <h2 className='modal-title'>Reset Password</h2>
-                <button className="modal-close-button" onClick={toggleModalResetPassword}><IoClose /></button>
+        <div className="modal-header">
+          <h2 className='modal-title'>Reset Password</h2>
+          <div className="modal-close-button" onClick={toggleModalResetPassword}><IoClose /></div>
+        </div>
+        <div className='add'>
+          <form className='flex-col' onSubmit={handleSubmitResetPassword}>
+            <div className='add-employee-password flex-col'>
+              <label>Enter Username</label>
+              <input type='text' name='name' placeholder='Enter Username here'
+                onChange={(e) => setUserName(e.target.value)} />
+              {resetPassworderrors.userName && <p className="error">{resetPassworderrors.userName}</p>}
             </div>
-            <div className='add'>
-                <form className='flex-col' onSubmit={handleSubmitResetPassword}>
-                    <div className='add-employee-password flex-col'>
-                        <p>Enter Username</p>
-                        <input type='text' name='name' placeholder='Type here'
-                          onChange={(e) => setUserName(e.target.value)}/>
-                          {resetPassworderrors.userName && <p className="error">{resetPassworderrors.userName}</p>}
-                    </div>
-                    
-                    <div className='employee-buttons'>
-                        <button type="submit" className="add-btn">SEARCH</button>
-                    </div>
-                </form>
+
+            <div className='employee-buttons'>
+              <button type="submit" className="password-btn">Search</button>
             </div>
+          </form>
+        </div>
       </Modal>
 
-      </div>
+    </div>
 
   );
 };

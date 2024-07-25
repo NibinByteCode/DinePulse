@@ -1,8 +1,168 @@
-/* overlay description  */
 .menu {
-    background: url('../assets/plain_background.png') no-repeat center center;
+    background: url('../assets/plain_background.png') repeat center center;
     background-size: cover;
     font-family: "Roboto Slab", serif;
+    margin-top: 85px;
+    padding: 20px;
+
+    .food-main {
+        .food-main-content {
+            h2 {
+                color: #bb521f;
+                font-size: 33px;
+            }
+
+            p {
+                color: #ff742b;
+                font-size: 20px;
+            }
+
+        }
+    }
+
+    .food-items {
+        .food {
+            h1 {
+                color: #bb521f;
+            }
+
+            .filter-col {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .menuContents {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 800px;
+                    height: 35px;
+
+                    select {
+                        font-family: "Roboto Slab", serif;
+                        border: 2px solid #bb521f;
+                        border-radius: 7px;
+                        color: #bb521f;
+                        margin-right: 10px;
+                    }
+                }
+
+                .cart-icon {
+                    display: flex;
+                    align-items: center;
+                    margin-left: 100px;
+                    margin-bottom: 31px;
+                    position: relative;
+                }
+            }
+
+            .product-row {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 10px;
+
+                .item {
+                    flex-basis: calc(25% - 20px);
+                    margin: 0 10px;
+                    padding: 20px;
+                    text-align: center;
+                    box-sizing: border-box;
+
+                    h3 {
+                        color: #9f3d09;
+                        /* text-shadow: 2px 2px 5px #000;*/
+                        text-transform: uppercase;
+                    }
+
+                    p {
+                        color: #ff3131;
+                        font-size: 18px;
+                        /*text-shadow: 2px 2px 5px #000;*/
+                    }
+
+                    .img-container {
+                        img {
+                            width: 250px;
+                            height: 250px;
+                            width: 250px;
+                            height: 280px;
+                            border: 2px solid white;
+                            border-radius: 15px;
+                        }
+
+                        position: relative;
+
+                        .overlay {
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 53px;
+                            right: 0;
+                            width: 250px;
+                            height: 280px;
+                            display: flex;
+                            align-items: center;
+                            background-color: #ffbd59;
+                            opacity: 0;
+                            transition: opacity 0.8s ease-in-out;
+                            border: 2px solid white;
+                            border-radius: 15px;
+
+                            p {
+                                color: #4d4c4c;
+                                /*text-shadow: 2px 2px 5px #eee;*/
+                                font-weight: bolder;
+                                padding: 0 10px;
+                                font-size: 17px;
+                                word-spacing: 2px;
+                            }
+                        }
+
+                        &:hover {
+                            .overlay {
+                                opacity: 1;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
+                    .cartButton {
+                        font-family: Cambria, Century Gothic, serif;
+                        font-size: 14px;
+                        font-weight: bolder;
+                        margin-top: 0px;
+                        background-image: linear-gradient(135deg, #bb521f 40%, #7f2f0c);
+                        padding: 4px 10px;
+                        border: none;
+                        color: #ffffff;
+                        border-radius: 5px;
+                        border: 1px solid transparent;
+                        height: 26px;
+
+                        &:hover {
+                            color: #eee;
+                            border: 1px #ea6d27 solid;
+                            background-color: #ffffff;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .emptymenulist {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100px;
+                    width: 100%;
+                    font-size: 20px;
+                    color: #bb521f;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+
+    }
 }
 
 .cart-icon {
@@ -23,55 +183,10 @@
     font-size: 14px;
 }
 
-.product-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 10px;
-}
 
-.food-main h2 {
-    color: #bb521f;
-    font-size: 33px;
-}
 
-.food-main p {
-    color: #ff742b;
-    font-size: 20px;
-}
 
-.food h1 {
-    color: #bb521f;
-}
 
-.filter-col {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the container */
-}
-
-.menuContents {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 800px;
-    height: 35px;
-}
-
-.menuContents select {
-    font-family: "Roboto Slab", serif;
-    border: 2px solid #bb521f;
-    border-radius: 7px;
-    color: #bb521f;
-    margin-right: 10px;
-}
-
-.cart-icon {
-    display: flex;
-    align-items: center;
-    margin-left: 100px;
-    margin-bottom: 31px;
-    position: relative;
-}
 
 .cart-icon .cart-count {
     font-size: 14px;
@@ -81,103 +196,4 @@
     border-radius: 50%;
     padding: 2px 6px;
     margin-left: 5px;
-}
-
-.emptymenulist {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; 
-    width: 100%;
-    font-size: 20px;
-    color: #bb521f;
-    padding: 10px;
-    text-align: center;
-}
-
-.item {
-    flex-basis: calc(25% - 20px);
-    margin: 0 10px;
-    padding: 20px;
-    text-align: center;
-    box-sizing: border-box;
-
-    h3 {
-        color: #9f3d09;
-       /* text-shadow: 2px 2px 5px #000;*/
-        text-transform: uppercase;
-    }
-
-    p {
-        color: #ff3131;
-        font-size: 18px;
-        /*text-shadow: 2px 2px 5px #000;*/
-    }
-}
-
-.img-container {
-    img {
-        width: 250px;
-        height: 250px;
-        width: 250px;
-        height: 280px;
-        border: 2px solid white;
-        border-radius: 15px;
-    }
-
-    position: relative;
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 53px;
-        right: 0;
-        width: 250px;
-        height: 280px;
-        display: flex;
-        align-items: center;
-        background-color: #ffbd59;
-        opacity: 0;
-        transition: opacity 0.8s ease-in-out;
-        border: 2px solid white;
-        border-radius: 15px;
-
-        p {
-            color: #4d4c4c;
-            /*text-shadow: 2px 2px 5px #eee;*/
-            font-weight: bolder;
-            padding: 0 10px;
-            font-size: 17px;
-            word-spacing: 2px;
-        }
-    }
-
-    &:hover {
-        .overlay {
-            opacity: 1;
-            cursor: pointer;
-        }
-    }
-}
-
-.cartButton {
-    font-family: Cambria, Century Gothic, serif;
-    font-size: 14px;
-    font-weight: bolder;
-    margin-top: 0px;
-    background-image: linear-gradient(135deg, #bb521f 40%, #7f2f0c);
-    padding: 4px 10px;
-    border: none;
-    color: #ffffff;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    height: 26px;
-
-    &:hover {
-        color: #eee;
-        border: 1px #ea6d27 solid;
-        background-color: #ffffff;
-        cursor: pointer;
-    }
 }

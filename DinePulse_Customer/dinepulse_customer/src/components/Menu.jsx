@@ -81,75 +81,72 @@ const Menu = () => {
 
   return (
     <div className="menu">
-      <br/><br/><br/><br/><br/><br/><br/>
       <section className="food-main">
-          <div className="food-main-content">
-              <h2>We believe food to be almost art, almost sacred...</h2>
-              <p>
-                  DinePulse is a gourmet paradise that entices palates with a delectable blend of world cuisines. 
-                  We have a wide selection of delectable foods on our menu that are expertly prepared to please
-                  every palate. Every mouthful at DinePulse is an adventure through culinary perfection, from 
-                  savory appetizers that set the tone for an amazing meal to masterfully prepared main meals 
-                  showcasing the best ingredients. Our chefs create a symphony of flavors with a dedication to 
-                  quality and innovation that turns eating into a pleasurable and unforgettable celebration of 
-                  cuisine.
-              </p>
-          </div>
+        <div className="food-main-content">
+          <h2>We believe food to be almost art, almost sacred...</h2>
+          <p>
+            DinePulse is a gourmet paradise that entices palates with a delectable blend of world cuisines.
+            We have a wide selection of delectable foods on our menu that are expertly prepared to please
+            every palate. Every mouthful at DinePulse is an adventure through culinary perfection, from
+            savory appetizers that set the tone for an amazing meal to masterfully prepared main meals
+            showcasing the best ingredients. Our chefs create a symphony of flavors with a dedication to
+            quality and innovation that turns eating into a pleasurable and unforgettable celebration of
+            cuisine.
+          </p>
+        </div>
       </section>
 
       <section className="food-items">
-            <div className="food">
-                <h1>Explore Drinks and Food Options</h1>
-                <div className='filter-col'>
-                  <div className="menuContents">                           
-                          <label className="label">Filter by Category:</label>
-                          <select name="category" id="category" className="textContent" onChange={handleCategoryChange} value={selectedCategoryId}>
-                              {getCategoryList.map((category) => (
-                                <option key={category.categoryId} value={category.categoryId}>
-                                  {category.categoryName}
-                                </option>
-                              ))}
-                          </select>
-                  </div>
-                  <div className="cart-icon">
-                    <FaShoppingCart size={24} onClick={() => openCartScreen()}/>
-                    {/*<span className="cart-count">{cartItems.length}</span>*/}
-                  </div>
-                </div>
-                <br/>
-              
-                <main>
-                    <div className="product-row">
-                    {getMenuByCategoryList && getMenuByCategoryList.length > 0 ? (
-                      getMenuByCategoryList.map((product) => (
-                        <div className="item" key={product.item_id}>
-                            <div className="img-container">
-                                <img src={`${process.env.REACT_APP_IMAGE_URL}${product.item_image}`}
-                                alt={product.item_name}/>
-                                <div className="overlay">
-                                  <p>{product.item_description}</p>
-                                </div>
-                            </div>
-                            <h3>{product.item_name}</h3> 
-                            <p>${product.item_price}</p> 
-                              <input type="hidden" name="product_id" value={product.item_id}/>
-                              <input type="hidden" name="product_name" value={product.item_name}/> 
-                              <input type="hidden" name="product_price" value={product.item_price}/> 
-                              <input type="hidden" name="product_image" value={product.item_image}/> 
-                              <button type="submit" className="cartButton" name="add_to_cart"  onClick={() => handleAddToCart(product)}>ADD TO CART</button>
-                        </div>
-                      ))
-                      ) : (
-                        <div className="emptymenulist"
-                          
-                        >
-                        No items available for this category!!!
-                      </div>
-                    )}
-                    </div>
-                </main>
+        <div className="food">
+          <h1>Explore Drinks and Food Options</h1>
+          <div className='filter-col'>
+            <div className="menuContents">
+              <label className="label">Filter by Category:</label>
+              <select name="category" id="category" className="textContent" onChange={handleCategoryChange} value={selectedCategoryId}>
+                {getCategoryList.map((category) => (
+                  <option key={category.categoryId} value={category.categoryId}>
+                    {category.categoryName}
+                  </option>
+                ))}
+              </select>
             </div>
-        </section>   
+            <div className="cart-icon">
+              <FaShoppingCart size={24} onClick={() => openCartScreen()} />
+              {/*<span className="cart-count">{cartItems.length}</span>*/}
+            </div>
+          </div>
+          <main>
+            <div className="product-row">
+              {getMenuByCategoryList && getMenuByCategoryList.length > 0 ? (
+                getMenuByCategoryList.map((product) => (
+                  <div className="item" key={product.item_id}>
+                    <div className="img-container">
+                      <img src={`${process.env.REACT_APP_IMAGE_URL}${product.item_image}`}
+                        alt={product.item_name} />
+                      <div className="overlay">
+                        <p>{product.item_description}</p>
+                      </div>
+                    </div>
+                    <h3>{product.item_name}</h3>
+                    <p>${product.item_price}</p>
+                    <input type="hidden" name="product_id" value={product.item_id} />
+                    <input type="hidden" name="product_name" value={product.item_name} />
+                    <input type="hidden" name="product_price" value={product.item_price} />
+                    <input type="hidden" name="product_image" value={product.item_image} />
+                    <button type="submit" className="cartButton" name="add_to_cart" onClick={() => handleAddToCart(product)}>ADD TO CART</button>
+                  </div>
+                ))
+              ) : (
+                <div className="emptymenulist"
+
+                >
+                  No items available for this category!!!
+                </div>
+              )}
+            </div>
+          </main>
+        </div>
+      </section>
     </div>
   );
 };
