@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "../styles/Register.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import "../styles/Register.css";
@@ -107,64 +109,47 @@ const Register = () => {
       </div>
       <div className="right-section">
         <h2>LET'S GET STARTED...</h2>
-        <br />
-        <br />
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <input
-              type="text"
-              placeholder="Customer Name"
-              value={regusername}
-              onChange={(e) => setRegUsername(e.target.value)}
-            />
+            <input type="text" placeholder="Customer Name" value={regusername}
+              onChange={(e) => setRegUsername(e.target.value)} />
+            {/*<i className="icon-user"></i>*/}
             <FaUserAlt className="icons" />
           </div>
           {regerrors.regusername && (
             <span className="error">{regerrors.regusername}</span>
           )}
           <div className="input-group">
-            <input
-              type="email"
-              placeholder="Email id"
-              value={regemailId}
-              onChange={(e) => setRegEmailId(e.target.value)}
-            />
+            <input type="email" placeholder="Email id" value={regemailId}
+              onChange={(e) => setRegEmailId(e.target.value)} />
+            {/*<i className="icon-email"></i>*/}
             <MdEmail className="icons" />
           </div>
           {regerrors.regemailId && (
             <span className="error">{regerrors.regemailId}</span>
           )}
           <div className="input-group">
-            <input
-              type="password"
-              placeholder="New password"
-              value={regpassword}
-              onChange={(e) => setRegPassword(e.target.value)}
-            />
+            <input type="password" placeholder="New password" value={regpassword}
+              onChange={(e) => setRegPassword(e.target.value)} />
+            {/*<i className="icon-password"></i>*/}
             <FaLock className="icons" />
           </div>
           {regerrors.regpassword && (
             <span className="error">{regerrors.regpassword}</span>
           )}
           <div className="input-group">
-            <input
-              type="password"
-              placeholder="Confirm password"
-              value={confirmpass}
-              onChange={(e) => setConfirmPass(e.target.value)}
-            />
+            <input type="password" placeholder="Confirm password" value={confirmpass}
+              onChange={(e) => setConfirmPass(e.target.value)} />
+            {/*<i className="icon-password"></i>*/}
             <FaLock className="icons" />
           </div>
           {regerrors.confirmpass && (
             <span className="error">{regerrors.confirmpass}</span>
           )}
           <div className="input-group">
-            <input
-              type="tel"
-              placeholder="Contact Number"
-              value={regphone}
-              onChange={(e) => setRegphone(e.target.value)}
-            />
+            <input type="tel" placeholder="Contact Number" value={regphone}
+              onChange={(e) => setRegphone(e.target.value)} />
+            {/*<i className="icon-phone"></i>*/}
             <FaPhoneVolume className="icons" />
           </div>
           {regerrors.regphone && (

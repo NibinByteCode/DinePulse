@@ -70,7 +70,7 @@ const Checkout = () => {
         if (!formData.expiryDate.trim()) newErrors.expiryDate = "Expiry Date is required";
         if (!formData.cardcvv.trim()) newErrors.cardcvv = "CVV is required";
         if (formData.cardcvv && formData.cardcvv.length !== 3) newErrors.cardcvv = "CVV must be 3 digits";
-    
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -99,7 +99,6 @@ const Checkout = () => {
     return (
         <div className="checkout">
             <h1>Checkout</h1>
-            <p>Checkout Page</p>
             <main className="checkout-container">
                 <form onSubmit={handleSubmit} id="order_form">
                     <div className="form-sections">
@@ -225,8 +224,8 @@ const Checkout = () => {
                                 </div>
                             </div>
                         </section>
-                        <section className="card-details">
-                            <div className="card-section">
+                        <section className="personal-details">
+                            <div className="personal-section">
                                 <h2>Cardholder Information</h2>
                                 <div className="divContents">
                                     <label htmlFor="cardName" className="label">Name on Card:</label>
