@@ -30,14 +30,19 @@ The API End points can be interacted and tested using the following Swagger Link
 - Run the API Source Code using Visual Studio from the folder Dinepulse/Dinepulse_API. Make sure to change the Connection String in the secrets.json file.
 - Run the Admin Dashboard app from the folder- Dinepulse/Dinepulse_Admin - using command *npm start* . Make sure to change the API URL in the .env file.
 - For the Flutter Mobile Application, assuming the Flutter SDK is configured in the system, Project can be run from the folder Dinpulse/DinePulse_MobileApp/dinepulse_mobileapp using the Command - *Flutter run*
+- Run the Customer Website from the folder - Dinepulse/DinePulse_Customer/dinepulse_customer - using the command *npm start* .
 
 **User Credentials**
-
+For Admin Panel
 Default 
         Username : admin
         
         Password : admin123
         
-This user will be able to login in both Admin dashboard and Mobile application.
- Please make sure to run the app from localhost port 3000 or 3007 to avaoid the CORS error.
+        This user will be able to login in both Admin dashboard and Mobile application.
+For customer Website:
+        Username: 
+        Password: 
+
+ *Please make sure to run the app from localhost port 3000 or 3007 to avaoid the CORS error. *
   
