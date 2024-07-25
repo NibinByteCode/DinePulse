@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
@@ -12,7 +12,6 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 Modal.setAppElement("#root");
 
 const Login = () => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ username: "", password: "" });
@@ -46,7 +45,8 @@ const Login = () => {
         userName: username,
         userPassword: password,
       });
-      const API_URL = process.env.REACT_APP_API_URL + "Login/LoginUser";
+      const API_URL =
+        process.env.REACT_APP_API_URL + "CustomerLogin/LoginCustomer";
       let config = {
         method: "post",
         maxBodyLength: Infinity,
@@ -70,14 +70,15 @@ const Login = () => {
     }
   };
 
-  const [isModalOpenResetPassword, setIsModalOpenResetPassword] = useState(false);
+  const [isModalOpenResetPassword, setIsModalOpenResetPassword] =
+    useState(false);
   const [userName, setUserName] = useState("");
   const [userType, setUserType] = useState("");
   //state for username validation error
   const [resetPassworderrors, setResetPasswordErrors] = useState({});
 
   const toggleModalResetPassword = () => {
-    alert("modal open")
+    alert("modal open");
     if (isModalOpenResetPassword) {
       setUserName("");
       setResetPasswordErrors({}); //clear errors when closing the modal
@@ -140,7 +141,6 @@ const Login = () => {
     } catch (error) {
       console.error("Caught error while fetching GetMenuByCategoryId:", error);
     }*/
-
   };
 
   return (
@@ -150,26 +150,39 @@ const Login = () => {
       </div>
       <div className="right-section">
         <h2>LOGIN HERE...</h2>
-        <br/><br/>
+        <br />
+        <br />
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             {/*<i className="icon-email"></i>*/}
             <FaUserAlt className="icons" />
           </div>
-          {errors.username && (<span className="error">{errors.username}</span>)}
+          {errors.username && <span className="error">{errors.username}</span>}
           <div className="input-group">
-            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             {/*<i className="icon-password"></i>*/}
             <FaLock className="icons" />
           </div>
-          {errors.password && (<span className="error">{errors.password}</span>)}
+          {errors.password && <span className="error">{errors.password}</span>}
           <div className="remember_forgot">
             <label>
               <input type="checkbox" />
               Remember me
             </label>
-            <a href="#" onClick={toggleModalResetPassword}>Forgot password?</a>
+            <a href="#" onClick={toggleModalResetPassword}>
+              Forgot password?
+            </a>
           </div>
           <button type="submit" className="btn-login">
             LOGIN
@@ -180,31 +193,46 @@ const Login = () => {
         </Link>
       </div>
 
+      <Modal
+        isOpen={isModalOpenResetPassword}
+        onRequestClose={toggleModalResetPassword}
+        contentLabel="Reset Password"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <div className="modal-header">
+          <h2 className="modal-title">Reset Password</h2>
+          <button
+            className="modal-close-button"
+            onClick={toggleModalResetPassword}
+          >
+            <IoClose />
+          </button>
+        </div>
+        <div className="add">
+          <form className="flex-col" onSubmit={handleSubmitResetPassword}>
+            <div className="add-employee-password flex-col">
+              <p>Enter Username</p>
+              <input
+                type="text"
+                name="name"
+                placeholder="Type here"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              {resetPassworderrors.userName && (
+                <p className="error">{resetPassworderrors.userName}</p>
+              )}
+            </div>
 
-      <Modal isOpen={isModalOpenResetPassword} onRequestClose={toggleModalResetPassword} contentLabel="Reset Password"
-        className="modal" overlayClassName="modal-overlay">
-            <div className="modal-header">
-                <h2 className='modal-title'>Reset Password</h2>
-                <button className="modal-close-button" onClick={toggleModalResetPassword}><IoClose /></button>
+            <div className="employee-buttons">
+              <button type="submit" className="add-btn">
+                SEARCH
+              </button>
             </div>
-            <div className='add'>
-                <form className='flex-col' onSubmit={handleSubmitResetPassword}>
-                    <div className='add-employee-password flex-col'>
-                        <p>Enter Username</p>
-                        <input type='text' name='name' placeholder='Type here'
-                          onChange={(e) => setUserName(e.target.value)}/>
-                          {resetPassworderrors.userName && <p className="error">{resetPassworderrors.userName}</p>}
-                    </div>
-                    
-                    <div className='employee-buttons'>
-                        <button type="submit" className="add-btn">SEARCH</button>
-                    </div>
-                </form>
-            </div>
+          </form>
+        </div>
       </Modal>
-
-      </div>
-
+    </div>
   );
 };
 
