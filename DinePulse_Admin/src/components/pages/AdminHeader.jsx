@@ -1,12 +1,18 @@
 import React from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import { FaSignOutAlt, FaUtensils, FaShoppingBag, FaPauseCircle } from "react-icons/fa";
+import {
+  FaSignOutAlt,
+  FaUtensils,
+  FaShoppingBag,
+  FaPauseCircle,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-export const AdminHeader = ({showHeaderLeft}) => {
+import { useAuth } from "../utils/AuthenticationHandler";
+export const AdminHeader = ({ showHeaderLeft }) => {
   const navigate = useNavigate();
-
+  const { logout } = useAuth();
   const handleLogout = () => {
+    logout();
     navigate("/");
   };
 
@@ -18,20 +24,23 @@ export const AdminHeader = ({showHeaderLeft}) => {
 
   return (
     <header className="header">
-      <div className="header-left" style={{marginLeft:260}}>
-      {showHeaderLeft && (
-        <div className="header-buttons">
+      <div className="header-left" style={{ marginLeft: 260 }}>
+        {showHeaderLeft && (
+          <div className="header-buttons">
             <button onClick={() => handleAction("On-Hold")}>
-              <FaPauseCircle className="button-icon" />On Hold
+              <FaPauseCircle className="button-icon" />
+              On Hold
             </button>
             <button onClick={() => handleAction("Take-Away")}>
-              <FaShoppingBag className="button-icon" />Takeout
+              <FaShoppingBag className="button-icon" />
+              Takeout
             </button>
             <button onClick={() => handleAction("Dine-In")}>
-              <FaUtensils className="button-icon" />Dine-In
+              <FaUtensils className="button-icon" />
+              Dine-In
             </button>
-        </div>
-      )}
+          </div>
+        )}
       </div>
 
       <div className="header-right">
