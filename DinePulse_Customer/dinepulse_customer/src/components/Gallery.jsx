@@ -19,7 +19,6 @@ import galleryimage15 from "../assets/galleryimages/restaurant5.jpg";
 const Gallery = () => {
   return (
     <div className="gallery_outer">
-      <br/><br/>
       <section className="gallery-specials">
         <h1>Welcome to our culinary journey captured in pixels...</h1>
         <p className="gallery-specials-subheading">
@@ -29,7 +28,6 @@ const Gallery = () => {
           make new memories of your own, we'll be here to welcome you with open
           arms and a table set just for you!!!
         </p>
-        <br/><br/>
         <section className="gallery-container">
           <div className="gallery">
             <img src={galleryimage1} alt="SmoothieAcai" />

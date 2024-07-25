@@ -10,16 +10,15 @@
     width: 100%;
     z-index: 20;
     box-sizing: border-box;
-    padding: 10px 20px;
+    padding: 0 20px;
 
     .logo {
         display: flex;
         align-items: center;
-        
+
         img {
             /*height: 50px;*/
-            margin-right: 10px;
-            width: 100px;
+            width: clamp(4.0625rem, 3.587rem + 2.1739vw, 5.625rem);
         }
 
         span {
@@ -28,9 +27,10 @@
             color: #8B4513;*/
             font-family: "Shojumaru", system-ui;
             font-weight: 400;
-            font-size: 35px;
+            font-size: clamp(1.25rem, 1.0598rem + 0.8696vw, 1.875rem);
             color: #bb521f;
             text-shadow: 1px 1px 2px #000;
+            margin-top: 10px;
         }
 
         a {
@@ -43,7 +43,7 @@
     .nav {
         ul {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -71,7 +71,7 @@
 
     .mobile-menu-icon {
         display: none;
-        font-size: 1.5em;
+        font-size: clamp(1.125rem, 0.7952rem + 1.5075vw, 1.5rem);
         cursor: pointer;
         color: #8B4513;
     }
@@ -80,13 +80,22 @@
         display: none;
     }
 
-    @media (max-width: 768px) {
+    .overlay {
+        display: none;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 clamp(0.625rem, 0.0754rem + 2.5126vw, 1.25rem);
+
         .nav {
             display: none;
         }
 
         .mobile-menu-icon {
-            display: block;
+            display: contents;
         }
 
         .mobile-nav {
@@ -153,13 +162,7 @@
                 }
             }
         }
-    }
 
-    .overlay {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
         .overlay {
             display: block;
             position: fixed;

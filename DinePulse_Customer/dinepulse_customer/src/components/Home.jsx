@@ -32,13 +32,20 @@ const Home = () => {
             HAVE YOU COMING BACK FOR MORE.
           </p>
         </div>
-      </div>
-      <div className="buttons">
-        <button onClick={() => navigate("/login")}>LOGIN</button>
-        <button onClick={() => navigate("/register")}>REGISTER</button>
-        <button onClick={() => navigate("/reserve")}>
-          RESERVE A TABLE TODAY!!!
-        </button>
+        <div className="buttons">
+          <button onClick={() => navigate("/login")} aria-label="Login">
+            LOGIN
+          </button>
+          <button onClick={() => navigate("/register")} aria-label="Register">
+            REGISTER
+          </button>
+          <button
+            onClick={() => navigate("/reserve")}
+            aria-label="Reserve a table"
+          >
+            RESERVE A TABLE TODAY!!!
+          </button>
+        </div>
       </div>
     </div>
   );

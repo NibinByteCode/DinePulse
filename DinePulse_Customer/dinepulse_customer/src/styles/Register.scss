@@ -3,7 +3,7 @@
     background: url('../assets/plain_background.png') no-repeat center center fixed;
     background-size: cover;
     height: 100vh;
-    margin-top: 80px;
+    // margin-top: 80px;
     font-family: "Roboto Slab", serif;
 
     .left-section {
@@ -24,7 +24,6 @@
         justify-content: center;
         flex: 1;
         padding: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
 
         h2 {
             font-size: 2em;
@@ -33,14 +32,23 @@
         }
 
         form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
             .input-group {
-                position: relative;
+                // position: relative;
                 margin-bottom: 15px;
+                display: flex;
+                width: 100%;
+                justify-content: center;
+
 
                 input {
                     /*width: 100%;*/
                     width: 60%;
-                    padding: 10px 35px;
+                    padding: 10px 15px;
                     font-size: 1em;
                     /*border: 1px solid #ccc;
                     border-radius: 5px;*/
@@ -62,11 +70,13 @@
                     color: #8B4513;
                 }*/
                 .icons {
-                    position: absolute;
-                    right: 170px;
-                    top: 30%;
+                    // position: absolute;
+                    // right: 170px;
+                    // top: 30%;
+                    margin-left: -30px;
+                    margin-top: 10px;
                     font-size: 20px;
-                    transform: translateX(-50%);
+                    // transform: translateX(-50%);
                     color: #bb521f;
                 }
             }
@@ -103,8 +113,12 @@
         }
     }
 
-    @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
+    .register-page {
         flex-direction: column;
+        justify-content: center;
 
         .left-section {
             display: none;
@@ -113,6 +127,29 @@
         .right-section {
             flex: none;
             padding: 20px;
+        }
+    }
+
+}
+
+@media (max-width: 480px) {
+    .register-page {
+        .right-section {
+            h2 {
+                font-size: clamp(1.75rem, 1.5407rem + 0.9569vw, 2rem);
+            }
+
+            form {
+                .input-group {
+                    input {
+                        width: 100%;
+                    }
+                }
+
+                .btn-register {
+                    width: 100%;
+                }
+            }
         }
     }
 }

@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BsTable } from "react-icons/bs";
 import "../styles/Reserve.css";
 import axios from "axios";
 
 const Reserve = () => {
-
   //state for reservation input fields
   const [noofGuests, setNoofGuests] = useState("");
   const [reservationEmail, setReservationEmail] = useState("");
@@ -97,91 +96,134 @@ const Reserve = () => {
   };
 
   const resetAll = () => {
-
-    alert("aaaaaaaaaa")
-      setNoofGuests("");
-      setReservationEmail("");
-      setReservationPhone("");
-      setReservationDate(null);
-      setReservationTime(null);
-      setReservationSuggestions(null);
-      setReservationErrors({}); //clear errors when closing the modal
+    alert("aaaaaaaaaa");
+    setNoofGuests("");
+    setReservationEmail("");
+    setReservationPhone("");
+    setReservationDate(null);
+    setReservationTime(null);
+    setReservationSuggestions(null);
+    setReservationErrors({}); //clear errors when closing the modal
   };
 
   return (
     <div className="reserve">
-      <br/><br/><br/><br/><br/><br/>
       <div className="add">
-          <div className='reservetoday'>
-                <form className='reserve-col' onSubmit={handleSubmitReservation}>
-                    <div className="booktable_header">
-                      <BsTable className="booktable_icon"/> <h3> BOOK A TABLE </h3>
-                    </div>
-                    <div className="booktable_subheader"><h5> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</h5></div>
-                    <br />
-                    <div className="reservation-form-container">
-                      <div className="reservation-form" >
-                        <div className="left-side">
-                          <label>Number of Guests:
-                            <input type="number" name="guests" placeholder='Type here'
-                            onChange={(e) => setNoofGuests(e.target.value)}/>
-                            {reservationerrors.noofGuests && <p className="error">{reservationerrors.noofGuests}</p>}
-                          </label>             
-                          <label>Email ID:
-                            <input type="email" name="email" placeholder="Type here"
-                            onChange={(e) => setReservationEmail(e.target.value)}/>
-                            {reservationerrors.reservationEmail && (
-                              <p className="error">{reservationerrors.reservationEmail}</p>
-                            )}
-                          </label>
-                          <label>Phone Number:
-                            <input type="tel" name="phone" placeholder="Type here"
-                            onChange={(e) => setReservationPhone(e.target.value)}/>
-                            {reservationerrors.reservationPhone && (
-                              <p className="error">{reservationerrors.reservationPhone}</p>
-                            )}
-                          </label>
-                          <label>Date:
-                            <input type="date" name="date" placeholder="Type here"
-                              onChange={(e) => setReservationDate(e.target.value)}
-                            />
-                            {reservationerrors.reservationDate && (
-                              <p className="error">{reservationerrors.reservationDate}</p>
-                            )}
-                          </label>
-                          <label>Time:
-                            <input type="time" name="time" placeholder="Type here"
-                            onChange={(e) => setReservationTime(e.target.value)}
-                          />
-                          {reservationerrors.reservationTime && (
-                            <p className="error">{reservationerrors.reservationTime}</p>
-                          )}
-                          </label>
-                        </div>
-                        
-                        <div className="right-side">
-                          <label>Suggestions:
-                            <textarea name="suggestions" placeholder="If no suggestions, enter NIL"
-                            onChange={(e) => setReservationSuggestions(e.target.value)}
-                            ></textarea>
-                            {reservationerrors.reservationSuggestions && (
-                              <p className="error">
-                                {reservationerrors.reservationSuggestions}
-                              </p>
-                            )}
-                          </label>
-                          <div className='reservation-buttons'>
-                            <button type="submit" className="add-btn">MAKE BOOKING</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="button" className="cancel-btn"  onClick={resetAll}>RESET</button>
-                          </div>
-                          
-                        </div>
-                        </div>
-                    </div>
-                </form>
+        <div className="reservetoday">
+          <form className="reserve-col" onSubmit={handleSubmitReservation}>
+            <div className="booktable_header">
+              <BsTable className="booktable_icon" /> <h3> BOOK A TABLE </h3>
             </div>
-        </div>      
+            <div className="booktable_subheader">
+              <p> WE OFFER YOU THE BEST RESERVATION SERVICE!!!</p>
+            </div>
+            <div className="reservation-form-container">
+              <div className="reservation-form">
+                <div className="left-side">
+                  <label>
+                    Number of Guests:
+                    <input
+                      type="number"
+                      name="guests"
+                      placeholder="Type here"
+                      onChange={(e) => setNoofGuests(e.target.value)}
+                    />
+                    {reservationerrors.noofGuests && (
+                      <p className="error">{reservationerrors.noofGuests}</p>
+                    )}
+                  </label>
+                  <label>
+                    Email ID:
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Type here"
+                      onChange={(e) => setReservationEmail(e.target.value)}
+                    />
+                    {reservationerrors.reservationEmail && (
+                      <p className="error">
+                        {reservationerrors.reservationEmail}
+                      </p>
+                    )}
+                  </label>
+                  <label>
+                    Phone Number:
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Type here"
+                      onChange={(e) => setReservationPhone(e.target.value)}
+                    />
+                    {reservationerrors.reservationPhone && (
+                      <p className="error">
+                        {reservationerrors.reservationPhone}
+                      </p>
+                    )}
+                  </label>
+                  <label>
+                    Date:
+                    <input
+                      type="date"
+                      name="date"
+                      placeholder="Type here"
+                      onChange={(e) => setReservationDate(e.target.value)}
+                    />
+                    {reservationerrors.reservationDate && (
+                      <p className="error">
+                        {reservationerrors.reservationDate}
+                      </p>
+                    )}
+                  </label>
+                  <label>
+                    Time:
+                    <input
+                      type="time"
+                      name="time"
+                      placeholder="Type here"
+                      onChange={(e) => setReservationTime(e.target.value)}
+                    />
+                    {reservationerrors.reservationTime && (
+                      <p className="error">
+                        {reservationerrors.reservationTime}
+                      </p>
+                    )}
+                  </label>
+                </div>
+
+                <div className="right-side">
+                  <label>
+                    Suggestions:
+                    <textarea
+                      name="suggestions"
+                      placeholder="If no suggestions, enter NIL"
+                      onChange={(e) =>
+                        setReservationSuggestions(e.target.value)
+                      }
+                    ></textarea>
+                    {reservationerrors.reservationSuggestions && (
+                      <p className="error">
+                        {reservationerrors.reservationSuggestions}
+                      </p>
+                    )}
+                  </label>
+                  <div className="reservation-buttons">
+                    <button type="submit" className="add-btn">
+                      MAKE BOOKING
+                    </button>
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={resetAll}
+                    >
+                      RESET
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,124 +1,118 @@
 .aboutus {
-  background: url("../assets/plain_background.png") no-repeat center center;
+  background: url("../assets/plain_background.png") repeat center center;
   background-size: cover;
   font-family: "Roboto Slab", serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
-
-.grid-container {
-  grid-row: 3;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 20px;
+.aboutus .container-outer {
+  gap: 5px;
   padding: 0px;
+  display: flex;
+  margin-top: 80px;
 }
-
-.sidebar {
+.aboutus .container-outer .sidebar {
   padding: 10px;
-  margin-left: 10px;
-  margin-top: 35px;
+  width: 30%;
 }
-.sidebar h2 {
+.aboutus .container-outer .sidebar h2 {
   text-align: center;
   color: #bb521f;
   /*text-shadow: 2px 2px 5px #ff914d;*/
   font-size: 30px;
+  margin-bottom: 15px;
 }
-.sidebar h3 {
+.aboutus .container-outer .sidebar h3 {
   text-align: center;
   color: #9f3d09;
   text-shadow: 2px 2px 5px rgb(233, 184, 162);
-  font-size: 21px;
+  font-size: 20px;
+  margin: 15px 0;
 }
-
-.store_card {
+.aboutus .container-outer .sidebar .aside_stores .store_card {
   box-shadow: 0 4px 8px 0 #9f3d09;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  width: 16vw;
   background-color: white;
   margin: auto;
   text-align: center;
-  padding: 7px 14px;
+  padding: 10px;
+  margin-bottom: 15px;
 }
-.store_card p {
+.aboutus .container-outer .sidebar .aside_stores .store_card p {
   color: #bb521f;
   font-size: 16px;
+  margin: 10px 0;
 }
-
-.main-content {
+.aboutus .container-outer .main-content {
   padding: 10px;
-  margin-top: 35px;
-  border-radius: 10px;
+  width: 60%;
 }
-
-.about-section {
-  text-align: left;
+.aboutus .container-outer .main-content .about-section {
+  text-align: justify;
   color: #bb521f;
   /*text-shadow: 2px 2px 5px #ff914d;*/
   line-height: 29px;
   font-size: 18px;
   font-family: "Roboto Slab", serif;
 }
-.about-section p {
-  padding-top: 30px;
+.aboutus .container-outer .main-content .about-section p {
+  padding-top: 15px;
   margin: 0;
+  text-align: justify;
 }
-.about-section h2 {
+.aboutus .container-outer .main-content .about-section h2 {
   text-align: center;
   color: #bb521f;
   text-shadow: 2px 2px 5px #ff914d;
   font-size: 30px;
 }
-.about-section li {
-  margin-left: 115px;
+.aboutus .container-outer .main-content .about-section li {
+  margin-left: 50px;
+  font-style: italic;
+  font-size: 16px;
 }
-
-.teamInfo {
-  padding: 10px;
-  margin-top: 35px;
-  text-align: center;
+.aboutus .container-outer .teamInfo {
+  width: 30%;
 }
-.teamInfo h2 {
+.aboutus .container-outer .teamInfo h2 {
   text-align: center;
   color: #bb521f;
-  /*text-shadow: 2px 2px 5px #ff914d;*/
   font-size: 30px;
+  margin-bottom: 15px;
 }
-
-.team_card {
-  box-shadow: 0 4px 8px 0 #9f3d09;
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  max-width: 260px;
-  margin: auto;
-  text-align: center;
-  background-color: white;
-}
-.team_card img {
-  width: 100px;
-  height: 100px;
-  margin-top: 8px;
-}
-
-.teamsDetails {
-  width: 99%;
+.aboutus .container-outer .teamInfo .teamsDetails {
+  width: 100%;
   margin-bottom: 16px;
   padding: 0 8px;
 }
-
-.personalInfo h4 {
+.aboutus .container-outer .teamInfo .teamsDetails .team_card {
+  box-shadow: 0 4px 8px 0 #9f3d09;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.aboutus .container-outer .teamInfo .teamsDetails .team_card img {
+  width: 60px;
+  height: 60px;
+  margin-top: 8px;
+}
+.aboutus .container-outer .teamInfo .teamsDetails .team_card .personalInfo h4 {
   color: #bb521f;
   font-size: 18px;
-  margin: 0;
+  margin: 10px 0;
 }
-.personalInfo p {
+.aboutus .container-outer .teamInfo .teamsDetails .team_card .personalInfo p {
   color: #bb521f;
-  margin: 0;
-  padding: 0;
+  margin: 10px 0;
   font-size: 16px;
 }
-
-.contact-button {
+.aboutus .container-outer .teamInfo .teamsDetails .team_card .personalInfo .contact-button {
   font-size: 14px;
   margin-top: 0px;
   box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px, rgba(179, 132, 201, 0.4) 0 8px 12px;
@@ -131,9 +125,102 @@
   border: 1px solid transparent;
   font-family: "Roboto Slab", serif;
 }
-.contact-button:hover {
+.aboutus .container-outer .teamInfo .teamsDetails .team_card .personalInfo .contact-button:hover {
   color: #333;
   border: 1px #ea6d27 solid;
   background-color: #ffffff;
   cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .aboutus .container-outer {
+    gap: 5px;
+    flex-direction: column;
+  }
+  .aboutus .container-outer .sidebar {
+    padding: 10px;
+    width: auto;
+    order: 3;
+  }
+  .aboutus .container-outer .sidebar h2 {
+    font-size: clamp(1.75rem, 1.6185rem + 0.2736vw, 1.875rem);
+  }
+  .aboutus .container-outer .sidebar h3 {
+    font-size: clamp(1.125rem, 0.9935rem + 0.2736vw, 1.25rem);
+  }
+  .aboutus .container-outer .sidebar .aside_stores .store_card_outer {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+  }
+  .aboutus .container-outer .sidebar .aside_stores .store_card_outer .store_card {
+    width: 100%;
+  }
+  .aboutus .container-outer .sidebar .aside_stores .store_card_outer .store_card p {
+    font-size: clamp(0.875rem, 0.7435rem + 0.2736vw, 1rem);
+  }
+  .aboutus .container-outer .main-content {
+    width: auto;
+    order: 1;
+  }
+  .aboutus .container-outer .main-content .about-section p {
+    font-size: clamp(1.0625rem, 0.9968rem + 0.1368vw, 1.125rem);
+  }
+  .aboutus .container-outer .teamInfo {
+    width: auto;
+    order: 2;
+  }
+  .aboutus .container-outer .teamInfo h2 {
+    font-size: clamp(1.75rem, 1.6185rem + 0.2736vw, 1.875rem);
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer {
+    display: flex;
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer .teamsDetails {
+    display: flex;
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer .teamsDetails .team_card {
+    width: 100%;
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer .teamsDetails .team_card .personalInfo h4 {
+    font-size: clamp(1rem, 0.8685rem + 0.2736vw, 1.125rem);
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer .teamsDetails .team_card .personalInfo p {
+    font-size: clamp(0.875rem, 0.7435rem + 0.2736vw, 1rem);
+  }
+}
+@media (max-width: 768px) {
+  .aboutus .container-outer .sidebar .aside_stores .store_card_outer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: auto;
+  }
+  .aboutus .container-outer .sidebar .aside_stores .store_card_outer .store_card {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer {
+    display: flex;
+    flex-direction: column;
+  }
+  .aboutus .container-outer .teamInfo .teamsDetails_outer .teamsDetails {
+    display: flex;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+  }
+}
+@media (max-width: 480px) {
+  .aboutus .container-outer {
+    margin-top: 65px;
+    gap: 0;
+  }
+  .aboutus .container-outer .main-content .about-section h2 {
+    margin-bottom: 10px;
+  }
+  .aboutus .container-outer .main-content .about-section p {
+    padding-top: 10px;
+  }
 }/*# sourceMappingURL=AboutUs.css.map */
