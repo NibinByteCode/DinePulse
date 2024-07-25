@@ -1,0 +1,95 @@
+.home {
+    background: url('../assets/customer-home-background.png') no-repeat center center;
+    background-size: cover;
+    color: #bb521f;
+    // padding: 40px 20px;
+    // margin-top: 80px;
+    font-family: "Roboto Slab", serif;
+    text-align: justify;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .intro-section {
+        background-color: rgba(252, 247, 244, 0.4);
+        padding: 20px;
+        border-radius: 10px;
+        width: 65%;
+
+        .intro-text {
+            h1 {
+                font-size: clamp(1.375rem, 1.1848rem + 0.8696vw, 2rem);
+                // margin-bottom: 20px;
+            }
+
+            p {
+                font-size: clamp(0.75rem, 0.6739rem + 0.3478vw, 1rem);
+                line-height: 1.5;
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+
+        button {
+            border: 2px solid #ff914d;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: clamp(0.8125rem, 0.7364rem + 0.3478vw, 1.0625rem);
+            color: #fff;
+            background-image: linear-gradient(144deg, #ff3131, #ff914d);
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            font-family: "Roboto Slab", serif;
+            padding: 4px 10px;
+
+            &:hover {
+                background-color: #e03d00;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .home {
+        background: url('../assets/plain_background.png') repeat center center;
+        padding: 20px;
+        margin-top: 65px;
+        display: block;
+
+        .intro-section {
+            // padding: 10px;
+            width: 100%;
+            background: none;
+            padding: 0;
+
+            .intro-text {
+                h1 {
+                    text-align: center;
+                }
+            }
+        }
+
+
+    }
+}
+
+@media (max-width: 480px) {
+    .home {
+        margin-top: 45px;
+        height: 100%;
+
+        .intro-section {
+            width: 100%;
+        }
+
+        .buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+}
