@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Menu.css";
+import { FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
 
   const [getCategoryList, setCategoryList] = useState([]);
   const [getMenuByCategoryList, setMenuByCategoryList] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const navigate = useNavigate();
 
   const fetchCategories = async () => {
     const API_URL = `${process.env.REACT_APP_API_URL}MenuCategory/GetAllMenuCategories`;
     try {
       const response = await axios.get(API_URL);
       setCategoryList(response.data);
+      if (response.data.length > 0) {
+        setSelectedCategoryId(response.data[0].categoryId);
+        fetchMenuByCategory(response.data[0].categoryId);
+      }
     } catch (error) {
       console.error(
         "Caught error while fetching GetAllMenuCategories :",
@@ -20,16 +28,8 @@ const Menu = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  //popup Filter functionality of menu using category
-  const handleCategoryChange = async (e) => {
-    const selectedCategoryId = e.target.value;
-    console.log(selectedCategoryId); 
-
-    const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${selectedCategoryId}`;
+  const fetchMenuByCategory = async (categoryId) => {
+    const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${categoryId}`;
     try {
       const response = await axios.get(API_URL);
       setMenuByCategoryList(response.data.data);
@@ -38,13 +38,19 @@ const Menu = () => {
     }
   };
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+    setSelectedCategoryId(selectedCategoryId);
+    fetchMenuByCategory(selectedCategoryId);
+  };
+
   const [cartItems, setCartItems] = useState([]);
 
   const handleAddToCart = (product) => {
-    /*const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cartItems.push(product);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    console.log("Product added to cart: ", product);*/
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const existingIndex = cartItems.findIndex(
       (item) => item.item_id === product.item_id
@@ -69,6 +75,9 @@ const Menu = () => {
     alert("Product added to cart!!!");
   };
 
+  const openCartScreen = () => {
+    navigate("/cart");
+  }
 
   return (
     <div className="menu">
@@ -79,7 +88,7 @@ const Menu = () => {
               <p>
                   DinePulse is a gourmet paradise that entices palates with a delectable blend of world cuisines. 
                   We have a wide selection of delectable foods on our menu that are expertly prepared to please
-                  every palate. Every mouthful at SavoryBites is an adventure through culinary perfection, from 
+                  every palate. Every mouthful at DinePulse is an adventure through culinary perfection, from 
                   savory appetizers that set the tone for an amazing meal to masterfully prepared main meals 
                   showcasing the best ingredients. Our chefs create a symphony of flavors with a dedication to 
                   quality and innovation that turns eating into a pleasurable and unforgettable celebration of 
@@ -92,25 +101,28 @@ const Menu = () => {
             <div className="food">
                 <h1>Explore Drinks and Food Options</h1>
                 <div className='filter-col'>
-                  <div className="divContents">                           
+                  <div className="menuContents">                           
                           <label className="label">Filter by Category:</label>
-                          <select name="category" id="category" className="textContent" onChange={handleCategoryChange}>
-                              <option key="all" value="all">All</option>
+                          <select name="category" id="category" className="textContent" onChange={handleCategoryChange} value={selectedCategoryId}>
                               {getCategoryList.map((category) => (
                                 <option key={category.categoryId} value={category.categoryId}>
                                   {category.categoryName}
                                 </option>
                               ))}
                           </select>
-                      </div>
                   </div>
+                  <div className="cart-icon">
+                    <FaShoppingCart size={24} onClick={() => openCartScreen()}/>
+                    {/*<span className="cart-count">{cartItems.length}</span>*/}
+                  </div>
+                </div>
                 <br/>
               
                 <main>
                     <div className="product-row">
                     {getMenuByCategoryList && getMenuByCategoryList.length > 0 ? (
                       getMenuByCategoryList.map((product) => (
-                        <div className="item">
+                        <div className="item" key={product.item_id}>
                             <div className="img-container">
                                 <img src={`${process.env.REACT_APP_IMAGE_URL}${product.item_image}`}
                                 alt={product.item_name}/>
@@ -128,26 +140,16 @@ const Menu = () => {
                         </div>
                       ))
                       ) : (
-                        <div
-                          style={{
-                            fontSize: "17px",
-                            color: "#bb521f",
-                            backgroundColor: "#ffe5d7",
-                            padding: "10px",
-                            textAlign: "center",
-                          }}
+                        <div className="emptymenulist"
+                          
                         >
-                        No items available!!!
+                        No items available for this category!!!
                       </div>
                     )}
                     </div>
                 </main>
             </div>
-        </section> 
-
-
-
-      
+        </section>   
     </div>
   );
 };
