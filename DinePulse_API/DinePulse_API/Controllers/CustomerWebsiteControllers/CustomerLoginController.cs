@@ -35,7 +35,7 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
                     new SqlParameter("@customer_name", SqlDbType.VarChar, 100) { Value = customerRegister.CustomerName },
                     new SqlParameter("@customer_email", SqlDbType.VarChar, 100) { Value = customerRegister.CustomerEmail },
                     new SqlParameter("@customer_phone", SqlDbType.VarChar, 20) { Value = customerRegister.CustomerPhone },
-                    new SqlParameter("@customer_password", SqlDbType.VarChar, 50) { Value = customerRegister.CustomerPassword },
+                    new SqlParameter("@customer_password", SqlDbType.VarChar, 300) { Value = customerRegister.CustomerPassword },
                     new SqlParameter("@Result", SqlDbType.Int) { Direction = ParameterDirection.Output },
                     new SqlParameter("@ErrorMessage", SqlDbType.NVarChar, 4000) { Direction = ParameterDirection.Output }
                 };
@@ -57,6 +57,41 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
             catch (Exception ex)
             {
                 new LogHelper().LogError("Error registering customer: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
+        [HttpPost]
+        [ActionName("LoginCustomer")]
+        public IActionResult Login([FromBody] LoginUserModel loginRequest)
+        {
+            try
+            {
+                List<SqlParameter> parameters = new List<SqlParameter>
+        {
+            new SqlParameter("@customer_username", SqlDbType.VarChar, 50) { Value = loginRequest.userName }
+        };
+                DataTable table = dataLayer.Getbulkfromdb("GetHashPassword_customer", parameters);
+                if (table.Rows.Count > 0)
+                {
+                    string storedHashedPassword = table.Rows[0]["customer_password"].ToString();
+                    if (BCrypt.Net.BCrypt.Verify(loginRequest.userPassword, storedHashedPassword))
+                    {
+                        return Ok("Login successful.");
+                    }
+                    else
+                    {
+                        return Unauthorized("Invalid username or password.");
+                    }
+                }
+                else
+                {
+                    return Unauthorized("Invalid username or password.");
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error validating user: " + ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }

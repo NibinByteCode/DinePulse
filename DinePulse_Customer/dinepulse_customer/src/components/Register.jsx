@@ -1,16 +1,14 @@
-import React, { useState }  from "react";
-import { Link } from "react-router-dom";
-import "../styles/Register.css";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import "../styles/Register.css";
 import registerImage from "../assets/register_image.png";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
 
 const Register = () => {
-
   const [regusername, setRegUsername] = useState("");
   const [regemailId, setRegEmailId] = useState("");
   const [regpassword, setRegPassword] = useState("");
@@ -72,35 +70,32 @@ const Register = () => {
     if (validateForm()) {
       // Form is valid, proceed with submission (e.g., API call)
       bcrypt.hash(regpassword, 10, (err, encryptPassword) => {
-        console.log("encrypted data : " + encryptPassword);
-        /*let data = JSON.stringify({
-          userName: regusername,
-          userPassword: encryptPassword,
-        });
+        if (err) {
+          console.error("Error encrypting password:", err);
+          return;
+        }
 
-        const API_URL = process.env.REACT_APP_API_URL + "Login/AddUser";
-
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: API_URL,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data,
+        const data = {
+          CustomerName: regusername,
+          CustomerEmail: regemailId,
+          CustomerPhone: regphone,
+          CustomerPassword: encryptPassword,
         };
 
+        const API_URL =
+          process.env.REACT_APP_API_URL + "CustomerLogin/RegisterCustomer";
+
         axios
-          .request(config)
+          .post(API_URL, data)
           .then((response) => {
-            console.log(JSON.stringify(response.data));
+            console.log("Response data:", response.data);
             alert("Registered successfully!!!");
             navigate("/");
           })
           .catch((error) => {
             alert("Caught error while registering user");
-            console.log(error);
-          });*/
+            console.log("Error:", error);
+          });
       });
     }
   };
@@ -112,48 +107,64 @@ const Register = () => {
       </div>
       <div className="right-section">
         <h2>LET'S GET STARTED...</h2>
-        <br/><br/>
+        <br />
+        <br />
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <input type="text" placeholder="Customer Name" value={regusername}
-                  onChange={(e) => setRegUsername(e.target.value)} />
-            {/*<i className="icon-user"></i>*/}
+            <input
+              type="text"
+              placeholder="Customer Name"
+              value={regusername}
+              onChange={(e) => setRegUsername(e.target.value)}
+            />
             <FaUserAlt className="icons" />
           </div>
           {regerrors.regusername && (
-                <span className="error">{regerrors.regusername}</span>
-              )}
+            <span className="error">{regerrors.regusername}</span>
+          )}
           <div className="input-group">
-            <input type="email" placeholder="Email id" value={regemailId}
-                  onChange={(e) => setRegEmailId(e.target.value)} />
-            {/*<i className="icon-email"></i>*/}
+            <input
+              type="email"
+              placeholder="Email id"
+              value={regemailId}
+              onChange={(e) => setRegEmailId(e.target.value)}
+            />
             <MdEmail className="icons" />
           </div>
           {regerrors.regemailId && (
-                <span className="error">{regerrors.regemailId}</span>
-              )}
+            <span className="error">{regerrors.regemailId}</span>
+          )}
           <div className="input-group">
-            <input type="password" placeholder="New password" value={regpassword}
-                  onChange={(e) => setRegPassword(e.target.value)}  />
-            {/*<i className="icon-password"></i>*/}
+            <input
+              type="password"
+              placeholder="New password"
+              value={regpassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+            />
             <FaLock className="icons" />
           </div>
           {regerrors.regpassword && (
-                <span className="error">{regerrors.regpassword}</span>
+            <span className="error">{regerrors.regpassword}</span>
           )}
           <div className="input-group">
-            <input type="password" placeholder="Confirm password" value={confirmpass}
-                  onChange={(e) => setConfirmPass(e.target.value)}/>
-            {/*<i className="icon-password"></i>*/}
+            <input
+              type="password"
+              placeholder="Confirm password"
+              value={confirmpass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+            />
             <FaLock className="icons" />
           </div>
           {regerrors.confirmpass && (
-                <span className="error">{regerrors.confirmpass}</span>
+            <span className="error">{regerrors.confirmpass}</span>
           )}
           <div className="input-group">
-            <input type="tel" placeholder="Contact Number" value={regphone}
-                  onChange={(e) => setRegphone(e.target.value)} />
-            {/*<i className="icon-phone"></i>*/}
+            <input
+              type="tel"
+              placeholder="Contact Number"
+              value={regphone}
+              onChange={(e) => setRegphone(e.target.value)}
+            />
             <FaPhoneVolume className="icons" />
           </div>
           {regerrors.regphone && (
