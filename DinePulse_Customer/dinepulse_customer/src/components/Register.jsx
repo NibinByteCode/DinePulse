@@ -44,7 +44,8 @@ const Register = () => {
       errors.regemailId = "Invalid email format!!!";
     }
 
-    const regpasswordRegex = /^[A-Za-z\d]{8,}$/;
+    const regpasswordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=])[A-Za-z\d@#$%^&+=]{8,}$/;
     if (!regpassword.match(regpasswordRegex)) {
       formIsValid = false;
       errors.regpassword = "Password must be at least 8 characters long!!";
@@ -90,10 +91,10 @@ const Register = () => {
           .then((response) => {
             console.log("Response data:", response.data);
             alert("Registered successfully!!!");
-            navigate("/");
+            navigate("/login");
           })
           .catch((error) => {
-            alert("Caught error while registering user");
+            alert(error.response.data);
             console.log("Error:", error);
           });
       });
