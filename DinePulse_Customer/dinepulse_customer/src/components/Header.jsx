@@ -53,7 +53,7 @@ const Header = () => {
             <img src={restaurantLogo} alt="Dine Pulse" />
             <span>DINE PULSE</span>
           </Link>
-          <FaTimes onClick={toggleMobileMenu} />
+          <FaTimes onClick={toggleMobileMenu} className="closeicon"/>
         </div>
         <ul>
           <li>
