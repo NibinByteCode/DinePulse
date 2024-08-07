@@ -2,11 +2,9 @@
     background: url('../assets/customer-home-background.png') no-repeat center center;
     background-size: cover;
     color: #bb521f;
-    // padding: 40px 20px;
-    // margin-top: 80px;
     font-family: "Roboto Slab", serif;
     text-align: justify;
-    height: 100vh;
+    height: 170vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +18,6 @@
         .intro-text {
             h1 {
                 font-size: clamp(1.375rem, 1.1848rem + 0.8696vw, 2rem);
-                // margin-bottom: 20px;
             }
 
             p {
@@ -33,7 +30,8 @@
 
     .buttons {
         display: flex;
-        justify-content: flex-end;
+        //justify-content: flex-end;
+        justify-content: center;
         gap: 20px;
 
         button {
@@ -52,6 +50,93 @@
             }
         }
     }
+
+    /* promotional contents */
+    .promotional-dishes {
+        background-color: orange;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 30px;
+        width: 65%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #fff;
+        }
+    
+        .promotional-dishes-subheading {
+            text-align: center;
+            line-height: 1.5;
+            font-size: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+    
+        .promotional-container {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+    
+        .promotional-dish {
+            text-align: center;
+            position: relative;
+            border: 1px solid #ffd700;
+            padding: 20px 10px;
+            border-radius: 10px;
+            width: 300px;
+            height: 480px;
+            margin: 10px;
+            background-color: #fff;
+    
+            img {
+                width: 80%;
+                height: 60%;
+                border-radius: 10px;
+                box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
+            }
+    
+            h2 {
+                color: #333;
+                font-size: 1.5rem;
+                margin-top: 10px;
+            }
+    
+            p {
+                color: #555;
+                font-size: 1rem;
+                margin-top: 10px;
+            }
+    
+            .promotion {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #ffffff;
+                width: 7.5rem;
+                height: 2.25rem;
+                background: #ff5e00;
+                border-radius: 10px;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                transform: rotate(15deg);
+                transition: transform 0.25s;
+            }
+
+            .promotion span {
+                color: white;
+            }
+    
+            &:hover .promotion {
+                transform: rotate(0deg);
+            }
+        }
+    }
 }
 
 @media (max-width: 768px) {
@@ -62,7 +147,6 @@
         display: block;
 
         .intro-section {
-            // padding: 10px;
             width: 100%;
             background: none;
             padding: 0;
@@ -74,7 +158,19 @@
             }
         }
 
+        .promotional-dishes {
+            width: 90%;
+            margin: 20px auto;
+        }
 
+        .promotional-container {
+            justify-content: center;
+        }
+
+        .promotional-dish {
+            width: 90%;
+            margin: 10px auto;
+        }
     }
 }
 
@@ -90,6 +186,21 @@
         .buttons {
             flex-direction: column;
             gap: 10px;
+        }
+
+        .promotional-dishes {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .promotional-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .promotional-dish {
+            width: 100%;
+            height: auto;
         }
     }
 }

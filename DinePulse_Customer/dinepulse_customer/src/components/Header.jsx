@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "../styles/Header.css";
 import restaurantLogo from "../assets/restaurant_logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+
+  const navigate = useNavigate();
+
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -39,6 +43,11 @@ const Header = () => {
           </li>
           <li>
             <Link to="/aboutus">ABOUT US</Link>
+          </li>
+          <li>
+            <button onClick={() => navigate("/login")} aria-label="Login">
+              LOGIN
+            </button>
           </li>
         </ul>
       </nav>
@@ -75,6 +84,11 @@ const Header = () => {
             <Link to="/aboutus" onClick={toggleMobileMenu}>
               About Us
             </Link>
+          </li>
+          <li>
+            <button onClick={() => navigate("/login")} aria-label="Login">
+              LOGIN
+            </button>
           </li>
         </ul>
       </div>
