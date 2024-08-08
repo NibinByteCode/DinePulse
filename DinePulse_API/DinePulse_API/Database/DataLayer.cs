@@ -234,5 +234,78 @@ namespace DinePulse_API.Database
                 return;
             }
         }
+
+        public async Task<(int Result, string ErrorMessage)> ExecuteInsertAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+        {
+            try
+            {
+                await con.OpenAsync();
+                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+                {
+                    cmdProc.CommandType = CommandType.StoredProcedure;
+                    SqlTransaction transaction = con.BeginTransaction("InsertTransaction");
+                    cmdProc.Transaction = transaction;
+
+                    // Add output parameters
+                    SqlParameter resultParameter = new SqlParameter()
+                    {
+                        ParameterName = "@Result",
+                        SqlDbType = SqlDbType.Int,
+                        Direction = ParameterDirection.Output
+                    };
+                    SqlParameter errorMessageParameter = new SqlParameter()
+                    {
+                        ParameterName = "@ErrorMessage",
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 4000,
+                        Direction = ParameterDirection.Output
+                    };
+                    cmdProc.Parameters.Add(resultParameter);
+                    cmdProc.Parameters.Add(errorMessageParameter);
+
+                    if (parameters != null)
+                    {
+                        cmdProc.Parameters.AddRange(parameters.ToArray());
+                    }
+
+                    try
+                    {
+                        await cmdProc.ExecuteNonQueryAsync();
+                        transaction.Commit();
+
+                        // Get the values of the output parameters
+                        int result = (int)cmdProc.Parameters["@Result"].Value;
+                        string errorMessage = cmdProc.Parameters["@ErrorMessage"].Value as string;
+
+                        return (result, errorMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        new LogHelper().LogError("Commit Exception Type: " + ex.GetType());
+                        try
+                        {
+                            transaction.Rollback();
+                        }
+                        catch (Exception ex2)
+                        {
+                            new LogHelper().LogError("Rollback Exception Type: " + ex2.GetType());
+                            new LogHelper().LogError(ex.Message);
+                        }
+                        return (0, ex.Message);
+                    }
+                    finally
+                    {
+                        await con.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError(ex.Message);
+                return (0, ex.Message);
+            }
+        }
+
+
     }
 }
