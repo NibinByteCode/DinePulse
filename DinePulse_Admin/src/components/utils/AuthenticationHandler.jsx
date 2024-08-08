@@ -1,8 +1,10 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthenticationContext = createContext();
 
 export const AuthenticationProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
@@ -12,6 +14,8 @@ export const AuthenticationProvider = ({ children }) => {
       if (user) {
         setIsLoggedIn(true);
         setUserName(user.name);
+      } else {
+        navigate("/");
       }
     };
 
@@ -28,6 +32,7 @@ export const AuthenticationProvider = ({ children }) => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
     setUserName("");
+    navigate("/", { replace: true });
   };
 
   return (

@@ -14,7 +14,8 @@ import { DashboardKitchen } from "./components/pages/DashboardKitchen";
 import { DashboardReceipts } from "./components/pages/DashboardReceipts";
 import { DashboardReports } from "./components/pages/DashboardReports";
 import { DashboardSettings } from "./components/pages/DashboardSettings";
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
+
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -35,7 +36,6 @@ const Layout = ({ children }) => {
 
 function App() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<AdminHome />} />
         <Route path="/adminregister" element={<AdminRegister />} />
@@ -51,7 +51,6 @@ function App() {
         <Route path="/reports" element={<Layout><DashboardReports /></Layout>} />
         <Route path="/settings" element={<Layout><DashboardSettings /></Layout>} />
       </Routes>
-    </Router>
   );
 }
 
