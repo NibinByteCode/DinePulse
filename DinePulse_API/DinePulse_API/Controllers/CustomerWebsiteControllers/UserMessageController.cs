@@ -22,7 +22,7 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
             dataLayer = new DataLayer(_iconfiguration);
             _hubContext = hubContext;
         }
-
+        
         [HttpPost]
         [ActionName("AddMessage")]
         public async Task<IActionResult> AddMessageAsync([FromBody] UserMessageModel message)
@@ -48,26 +48,8 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
             }
         }
 
-        [HttpDelete]
-        [ActionName("DeleteMessage")]
-        public async Task<IActionResult> DeleteMessageAsync(int id)
-        {
-            try
-            {
-                List<SqlParameter> sp = new List<SqlParameter>()
-        {
-            new SqlParameter() { ParameterName = "@Id", SqlDbType = SqlDbType.Int, Value = id }
-        };
 
-               await dataLayer.ExecuteInsertAsync("UserMessage_Delete", sp);
-               return Ok("Message deleted successfully");
-            }
-            catch (Exception ex)
-            {
-                new LogHelper().LogError("Error deleting message..." + ex.Message);
-                return BadRequest("Error deleting message. Please try again later.");
-            }
-        }
+
 
     }
 }
