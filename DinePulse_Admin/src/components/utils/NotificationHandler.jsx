@@ -26,7 +26,9 @@ const NotificationProvider = ({ children }) => {
     newConnection.on("OrderReceived", (order) => {
       Notify("New Order Received!!!");
     });
-
+    newConnection.on("UserMessageReceived", (message) => {
+      Notify("New User Message Received!!!");
+    });
     newConnection
       .start()
       .then(() => {
