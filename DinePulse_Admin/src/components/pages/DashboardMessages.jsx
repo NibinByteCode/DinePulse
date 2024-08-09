@@ -41,7 +41,7 @@ export const DashboardMessages = () => {
 
     newConnection.on("UserMessageReceived", (message) => {
       fetchMessages();
-      Notify("New User Message Received!");
+      //Notify("New User Message Received!");
     });
 
     newConnection
@@ -62,8 +62,8 @@ export const DashboardMessages = () => {
       <br />
 
       <div id="messages" className="messages">
-        <div className="display_messages">
-          <div className="message_table">
+        <div className="display_reservations">
+          <div className="reservation_table">
             <table>
               <thead>
                 <tr>
