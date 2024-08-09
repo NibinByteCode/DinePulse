@@ -14,9 +14,9 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
     public class CustomerTableReservationController : Controller
     {
         DataLayer dataLayer;
-        private readonly IHubContext<CustomerTableReservationHub> _hubContext;
+        private readonly IHubContext<AdminNotificationHub> _hubContext;
         readonly IConfiguration _iconfiguration;
-        public CustomerTableReservationController(IConfiguration iconfiguration, IHubContext<CustomerTableReservationHub> hubContext)
+        public CustomerTableReservationController(IConfiguration iconfiguration, IHubContext<AdminNotificationHub> hubContext)
         {
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);

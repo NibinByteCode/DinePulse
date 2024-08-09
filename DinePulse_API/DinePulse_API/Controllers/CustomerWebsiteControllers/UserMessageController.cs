@@ -14,9 +14,9 @@ namespace DinePulse_API.Controllers.CustomerWebsiteControllers
     public class UserMessageController : Controller
     {
         DataLayer dataLayer;
-        private readonly IHubContext<CustomerMessageHub> _hubContext;
+        private readonly IHubContext<AdminNotificationHub> _hubContext;
         readonly IConfiguration _iconfiguration;
-        public UserMessageController(IConfiguration iconfiguration, IHubContext<CustomerMessageHub> hubContext)
+        public UserMessageController(IConfiguration iconfiguration, IHubContext<AdminNotificationHub> hubContext)
         {
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);

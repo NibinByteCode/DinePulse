@@ -44,9 +44,7 @@ app.UseRouting();
 app.UseStaticFiles();
 
 app.MapControllers();
-app.MapHub<OrderHub>("/orderHub");
-app.MapHub<CustomerTableReservationHub>("/CustomerTableReservationHub");
-app.MapHub<CustomerMessageHub>("/CustomerMessageHub");
-app.MapHub<KitchenOrderHub>("/KitchenOrderHub");
+app.MapHub<AdminNotificationHub>("/AdminNotificationHub");
+
 
 app.Run();
