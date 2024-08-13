@@ -7,6 +7,8 @@ using DinePulse_API.Models;
 using System.Text.Json;
 using DinePulse_API.Utils;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.SignalR;
+using DinePulse_API.Hubs;
 
 namespace DinePulse_API.Controllers.MobileControllers
 {
@@ -16,11 +18,12 @@ namespace DinePulse_API.Controllers.MobileControllers
     {
         DataLayer dataLayer;
         readonly IConfiguration _iconfiguration;
-
-        public MobileOrderController(IConfiguration iconfiguration)
+        private readonly IHubContext<AdminNotificationHub> _hubContext;
+        public MobileOrderController(IConfiguration iconfiguration, IHubContext<AdminNotificationHub> hubContext)
         {
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -41,6 +44,7 @@ namespace DinePulse_API.Controllers.MobileControllers
 
                 if (result.Result == 1)
                 {
+                    await _hubContext.Clients.All.SendAsync("CustomerOrderPlaced", orderRequest);
                     return Ok("Order added successfully");
                 }
                 else

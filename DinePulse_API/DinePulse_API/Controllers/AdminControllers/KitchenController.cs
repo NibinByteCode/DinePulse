@@ -1,8 +1,11 @@
 ﻿using DinePulse_API.Database;
+using DinePulse_API.Hubs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Stripe.Climate;
+using System.Data.SqlClient;
 
 namespace DinePulse_API.Controllers.AdminControllers
 {
@@ -12,10 +15,12 @@ namespace DinePulse_API.Controllers.AdminControllers
     {
         DataLayer dataLayer;
         readonly IConfiguration _iconfiguration;
-        public KitchenController(IConfiguration iconfiguration)
+        private readonly IHubContext<AdminNotificationHub> _hubContext;
+        public KitchenController(IConfiguration iconfiguration, IHubContext<AdminNotificationHub> hubContext)
         {
             _iconfiguration = iconfiguration;
             dataLayer = new DataLayer(_iconfiguration);
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -31,6 +36,28 @@ namespace DinePulse_API.Controllers.AdminControllers
             else
             {
                 return NotFound("No orders found for today.");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrderStatus(int orderId, string status)
+        {
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@OrderId", orderId),
+                new SqlParameter("@Status", status)
+            };
+
+            var result = await dataLayer.ExecuteNonQueryAsync("Kitchen_UpdateOrderStatus", parameters);
+
+            if (result > 0)
+            {
+                return Ok("Order status updated successfully.");
+            }
+            else
+            {
+                return BadRequest("Failed to update order status.");
             }
         }
     }
