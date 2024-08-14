@@ -1,5 +1,6 @@
 ﻿using DinePulse_API.Database;
 using DinePulse_API.Hubs;
+using DinePulse_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -41,18 +42,19 @@ namespace DinePulse_API.Controllers.AdminControllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UpdateOrderStatus(int orderId, string status)
+        public async Task<IActionResult> UpdateOrderStatus([FromBody] OrderUpdateModel orderUpdate)
         {
             var parameters = new List<SqlParameter>
             {
-                new SqlParameter("@OrderId", orderId),
-                new SqlParameter("@Status", status)
+                new SqlParameter("@OrderId", orderUpdate.orderId),
+                new SqlParameter("@Status", orderUpdate.status)
             };
 
-            var result = await dataLayer.ExecuteNonQueryAsync("Kitchen_UpdateOrderStatus", parameters);
+            var result = await dataLayer.ExecuteNonQueryWithResultAsync("Kitchen_UpdateOrderStatus", parameters);
 
             if (result > 0)
             {
+                await _hubContext.Clients.All.SendAsync("CustomerOrderPlaced", orderUpdate);
                 return Ok("Order status updated successfully.");
             }
             else

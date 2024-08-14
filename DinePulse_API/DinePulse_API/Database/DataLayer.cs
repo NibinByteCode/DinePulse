@@ -178,7 +178,7 @@ namespace DinePulse_API.Database
 
                     try
                     {
-                        int result = await cmdProc.ExecuteNonQueryAsync();
+                        var result = await cmdProc.ExecuteNonQueryAsync();
                         transaction.Commit();
                         return result;
                     }
@@ -330,7 +330,77 @@ namespace DinePulse_API.Database
             }
         }
 
+        public async Task<int> ExecuteNonQueryWithResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+        {
+            int rowsAffected = -1; 
 
+            try
+            {
+                if (con.State != ConnectionState.Open)
+                {
+                    await con.OpenAsync();
+                }
+
+                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+                {
+                    cmdProc.CommandType = CommandType.StoredProcedure;
+
+                    if (parameters != null)
+                    {
+                        cmdProc.Parameters.AddRange(parameters.ToArray());
+                    }
+
+                    using (SqlTransaction transaction = con.BeginTransaction("UpdateTransaction"))
+                    {
+                        cmdProc.Transaction = transaction;
+
+                        try
+                        {
+                            using (SqlDataReader reader = await cmdProc.ExecuteReaderAsync())
+                            {
+                                if (await reader.ReadAsync())
+                                {
+                                   
+                                    rowsAffected = reader.GetInt32(0);
+                                }
+                            }
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            new LogHelper().LogError("Commit Exception Type: " + ex.GetType());
+                            new LogHelper().LogError(ex.Message);
+
+                            try
+                            {
+                                transaction.Rollback();
+                            }
+                            catch (Exception ex2)
+                            {
+                                new LogHelper().LogError("Rollback Exception Type: " + ex2.GetType());
+                                new LogHelper().LogError(ex2.Message);
+                            }
+                            rowsAffected = 0; 
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Connection Exception Type: " + ex.GetType());
+                new LogHelper().LogError(ex.Message);
+                rowsAffected = 0; 
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    await con.CloseAsync();
+                }
+            }
+
+            return rowsAffected;
+        }
 
 
     }
