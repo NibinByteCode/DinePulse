@@ -15,7 +15,7 @@ const NotificationProvider = ({ children }) => {
     if (!isLoggedIn) return;
     const newConnection = new signalR.HubConnectionBuilder()
       .withUrl(
-        `${process.env.REACT_APP_API_ROOT_URL}CustomerTableReservationHub`
+        `${process.env.REACT_APP_API_ROOT_URL}AdminNotificationHub`
       )
       .build();
 
@@ -23,7 +23,7 @@ const NotificationProvider = ({ children }) => {
       Notify("New Table Reservation Request Received!!!");
     });
 
-    newConnection.on("OrderReceived", (order) => {
+    newConnection.on("CustomerOrderPlaced", (order) => {
       Notify("New Order Received!!!");
     });
 
