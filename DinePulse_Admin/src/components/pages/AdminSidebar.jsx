@@ -1,13 +1,18 @@
 import React from "react";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { MdSpaceDashboard, MdTableRestaurant } from "react-icons/md";
-import { IoFastFood, IoRestaurant, IoReceipt, IoSettings } from "react-icons/io5";
+import {
+  IoFastFood,
+  IoRestaurant,
+  IoReceipt,
+  IoSettings,
+} from "react-icons/io5";
 import { RiReservedFill } from "react-icons/ri";
-import { FaShoppingCart, FaChartBar } from "react-icons/fa";
+import { FaShoppingCart, FaChartBar, FaMailchimp } from "react-icons/fa";
 import { GrRestaurant } from "react-icons/gr";
 import { BsPeopleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
+import { FaRegMessage } from "react-icons/fa6";
 export const AdminSidebar = () => {
   return (
     <aside id="sidebar">
@@ -69,6 +74,12 @@ export const AdminSidebar = () => {
         <Link to="/reports">
           <li className="sidebar-list-item">
             <FaChartBar className="dashboardicons" /> &nbsp;&nbsp;Reports
+          </li>
+        </Link>
+        <Link to="/usermessages">
+          <li className="sidebar-list-item">
+            <FaRegMessage className="dashboardicons" /> &nbsp;&nbsp;User
+            Messages
           </li>
         </Link>
         <Link to="/settings">

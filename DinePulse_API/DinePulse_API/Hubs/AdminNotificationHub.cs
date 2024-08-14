@@ -2,7 +2,7 @@
 
 namespace DinePulse_API.Hubs
 {
-    public class KitchenOrderHub :Hub
+    public class AdminNotificationHub : Hub
     {
     }
 }

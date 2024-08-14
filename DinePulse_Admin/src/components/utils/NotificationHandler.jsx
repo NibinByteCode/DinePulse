@@ -14,9 +14,7 @@ const NotificationProvider = ({ children }) => {
   useEffect(() => {
     if (!isLoggedIn) return;
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(
-        `${process.env.REACT_APP_API_ROOT_URL}AdminNotificationHub`
-      )
+      .withUrl(`${process.env.REACT_APP_API_ROOT_URL}AdminNotificationHub`)
       .build();
 
     newConnection.on("CustomerTableReserved", (reservation) => {
@@ -26,7 +24,9 @@ const NotificationProvider = ({ children }) => {
     newConnection.on("CustomerOrderPlaced", (order) => {
       Notify("New Order Received!!!");
     });
-
+    newConnection.on("UserMessageReceived", (message) => {
+      Notify("New User Message Received!!!");
+    });
     newConnection
       .start()
       .then(() => {
