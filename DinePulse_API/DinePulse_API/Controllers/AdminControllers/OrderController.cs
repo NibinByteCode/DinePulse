@@ -3,6 +3,7 @@ using DinePulse_API.Models;
 using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DinePulse_API.Controllers.AdminControllers
 {
@@ -54,5 +55,47 @@ namespace DinePulse_API.Controllers.AdminControllers
                 return BadRequest("No Data Fetched...Please Try Later");
             }
         }
+
+        [HttpGet]
+        [ActionName("GetRecentOrdersByFilter")]
+        public IActionResult Dash_GetRecentOrder(int statusid)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+        {
+            new SqlParameter() { ParameterName = "@statusid", SqlDbType = SqlDbType.Int, Value = statusid }
+        };
+
+                DataTable table = new DataTable();
+                table = dataLayer.Getbulkfromdb("Dash_GetRecentOrderByFilter", sp);
+
+                if (table.Rows.Count > 0)
+                {
+                    string JSONresult;
+                    JSONresult = JsonHelper.DataTableToJsonObj(table);
+
+                    if (!string.IsNullOrEmpty(JSONresult))
+                    {
+                        return Ok(new { data = JSONresult });
+                    }
+                    else
+                    {
+                        return NotFound(); // No data found
+                    }
+                }
+                else
+                {
+                    return NotFound(); // No data found
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error getting data..." + ex.Message);
+                return BadRequest("No Data Fetched...Please Try Later");
+            }
+        }
+
+
     }
 }
