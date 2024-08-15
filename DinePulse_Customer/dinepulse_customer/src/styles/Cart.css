@@ -23,7 +23,7 @@
 .cart .cart-container .order-container table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px;
+  overflow: 600px;
 }
 .cart .cart-container .order-container table th,
 .cart .cart-container .order-container table td {
@@ -72,12 +72,11 @@
 .cart .cart-container .paymentInfo .team_payment .checkout-button {
   font-family: "Roboto Slab", serif;
   background-image: linear-gradient(135deg, #ff3131 40%, #ff914d);
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 16px;
   border-radius: 5px;
   border: 2px solid transparent;
-  box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px,
-    rgba(179, 132, 201, 0.4) 0 8px 12px;
+  box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px, rgba(179, 132, 201, 0.4) 0 8px 12px;
   padding: 5px;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -128,4 +127,4 @@
   .cart .cart-container .paymentInfo {
     width: 100%;
   }
-} /*# sourceMappingURL=Cart.css.map */
+}/*# sourceMappingURL=Cart.css.map */

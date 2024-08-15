@@ -29,6 +29,7 @@ class CartService {
     final index = _items.indexOf(item);
     if (index != -1) {
       _items[index] = CartItem(
+        id: _items[index].id,
         name: _items[index].name,
         price: _items[index].price,
         imagePath: _items[index].imagePath,

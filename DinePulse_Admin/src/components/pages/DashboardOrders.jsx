@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import axios from 'axios';
+import Modal from 'react-modal';
 
 export const DashboardOrders = () => {
 
@@ -9,7 +10,14 @@ export const DashboardOrders = () => {
   const [selectedStatusId, setSelectedOrderId] = useState("");
   const [getOrdersByStatus, setOrdersByStatus] = useState([]);
 
-  const [getCategoryList, setCategoryList] = useState([]);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [orderToEdit, setOrderToEdit] = useState(null);
+
+  const handleEditClick = (order) => {
+    setOrderToEdit(order);  
+    setIsEditModalOpen(true);  //Open the modal
+  };
 
   useEffect(() => {
     fetchOrderStatus();
@@ -21,10 +29,6 @@ export const DashboardOrders = () => {
     try {
       const response = await axios.get(API_URL);
       setOrderStatus(response.data.data);
-      /*if (response.data.length > 0) {
-        setSelectedOrderId(response.data[0].orderId);
-        fetchMenuByOrderStatus(response.data[0].orderId);
-      }*/
     } catch (error) {
       console.error(
         "Caught error while fetching GetAll Order Status :",
@@ -50,7 +54,21 @@ export const DashboardOrders = () => {
     setSelectedOrderId(selectedOrderId);
     fetchMenuByOrderStatus(selectedOrderId);
   };
-      
+
+  const handleCompleteOrder = async (orderId) => {
+    const API_URL = `${process.env.REACT_APP_API_URL}Kitchen/UpdateOrderStatus`;
+    const ordersload = { orderId: orderId, status: 2 };
+
+    try {
+      const response = await axios.post(API_URL, ordersload);
+      fetchOrderStatus();
+      fetchMenuByOrderStatus(0);
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Caught error while fetching UpdateOrderStatus:", error);
+    }
+  };
+    
   return (
     <main className="main-container">
       <div className="main-title">
@@ -60,13 +78,6 @@ export const DashboardOrders = () => {
       <br />
       <div className="inputbox">
         <label>Sort by order status : &nbsp;&nbsp;&nbsp;</label>
-        {/*<select id="staff_type" required>
-          <option value="All">All</option>
-          <option value="pending">pending</option>
-          <option value="delivered">delivered</option>
-        </select>*/}
-
-
         <select name="orderstatus" id="orderstatus" className="textContent" onChange={handleOrderChange} value={selectedStatusId}>
         <option value="0">All</option>
           {getOrderStatus.map((order) => (
@@ -74,9 +85,7 @@ export const DashboardOrders = () => {
               {order.status_name}
             </option>
           ))}
-        </select>
-
-        
+        </select>  
       </div>
       <br /> <br /> <br />
       <div className="display_orders">
@@ -108,10 +117,10 @@ export const DashboardOrders = () => {
                       <td>{orderlist.orderStatus}</td>
                       <td>{orderlist.orderType}</td>
                       <td>
-                            <FaEdit className='edit_icon'/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <RiDeleteBin5Fill className='delete_icon'/>
-                        </td>
+                        {orderlist.orderStatus === "Processed" && (
+                              <FaEdit className='edit_icon' onClick={() => handleEditClick(orderlist.orderId)} />
+                        )}
+                      </td>
                   </tr>
               ))
               ) : (
@@ -124,6 +133,21 @@ export const DashboardOrders = () => {
           </table>
         </div>
       </div>
+
+      <Modal
+          isOpen={isEditModalOpen}
+          onRequestClose={() => setIsEditModalOpen(false)}
+          contentLabel="Complete Order Confirmation" className="modal" overlayClassName="modal-overlay"
+        >
+          <div className="modal-header">
+            <h3 style={{fontSize: "20px", color: "#bb521f"}}>Do you want to complete this order?</h3>
+            <div>
+              <button className="add-btn" onClick={() => handleCompleteOrder(orderToEdit)}>Update</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button className="cancel-btn" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+            </div>
+          </div>
+        </Modal>
     </main>
   );
 };

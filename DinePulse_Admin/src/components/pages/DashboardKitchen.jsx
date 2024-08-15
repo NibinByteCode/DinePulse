@@ -7,7 +7,7 @@ export const DashboardKitchen = () => {
   const [getOrderList, setOrderList] = useState([]);
   const [connection, setConnection] = useState(null);
 
-  // Fetch Order details from the API
+  //Fetch Order details from the API
   const fetchIncomingOrders = async () => {
     const API_URL = process.env.REACT_APP_API_URL + "Kitchen/GetTodayOrders";
     let config = {
@@ -33,20 +33,22 @@ export const DashboardKitchen = () => {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(
-        `${process.env.REACT_APP_API_ROOT_URL}AdminNotificationHub`
-      )
+      .withUrl(`${process.env.REACT_APP_API_ROOT_URL}AdminNotificationHub`)
       .build();
 
     setConnection(newConnection);
 
-    newConnection.on("CustomerOrderPlaced", (reservation) => {
+    newConnection.on("CustomerOrderProcessed", () => {
       fetchIncomingOrders();
-      //Notify("New Table Reservation Request Received!!!");
+    });
+
+    newConnection.on("CustomerOrderPlaced", () => {
+      fetchIncomingOrders();
     });
 
     newConnection
       .start()
+      .then(() => console.log("SignalR Connected"))
       .catch((err) => console.error("SignalR Connection Error: ", err));
 
     return () => {
@@ -59,14 +61,12 @@ export const DashboardKitchen = () => {
     const ordersload = { orderId: orderId, status: 3 };
 
     try {
-      const response = await axios.post(API_URL, ordersload);
+      await axios.post(API_URL, ordersload);
       fetchIncomingOrders();
-      //setMenuByCategoryList(response.data.data);
     } catch (error) {
-      console.error("Caught error while fetching GetMenuByCategoryId:", error);
+      console.error("Caught error while fetching UpdateOrderStatus:", error);
     }
   };
-  
 
   return (
     <main className="main-container">

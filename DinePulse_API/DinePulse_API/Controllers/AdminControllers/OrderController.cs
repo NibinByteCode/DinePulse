@@ -1,4 +1,4 @@
-﻿using DinePulse_API.Database;
+using DinePulse_API.Database;
 using DinePulse_API.Models;
 using DinePulse_API.Utils;
 using Microsoft.AspNetCore.Mvc;

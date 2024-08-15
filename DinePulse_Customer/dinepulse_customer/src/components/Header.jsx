@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "../styles/Header.css";
 import restaurantLogo from "../assets/restaurant_logo.png";
+import { useNavigate } from "react-router-dom";
+import { BsPersonCircle } from "react-icons/bs";
+import { FaSignOutAlt } from "react-icons/fa";
+import { useAuth } from "./AuthenticationHandler";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { logout,isLoggedIn } = useAuth();
+
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userID, setUserID] = useState(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -40,6 +53,23 @@ const Header = () => {
           <li>
             <Link to="/aboutus">ABOUT US</Link>
           </li>
+          {isLoggedIn ?
+          (
+          <li>
+            <BsPersonCircle className="profile_icon" />
+            <b>
+              <span className="profile_text">STAFF NAME</span>
+            </b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <FaSignOutAlt className="icon_logout" onClick={handleLogout} />
+          </li>
+        ) : (
+          <li>
+            <button onClick={() => navigate("/login")} aria-label="Login">
+              LOGIN
+            </button>
+          </li>
+          )}
         </ul>
       </nav>
       <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
@@ -76,6 +106,23 @@ const Header = () => {
               About Us
             </Link>
           </li>
+          {isLoggedIn ?
+          (
+            <li>
+            <BsPersonCircle className="profile_icon" />
+            <b>
+              <span className="profile_text">STAFF NAME</span>
+            </b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <FaSignOutAlt className="icon_logout" onClick={handleLogout} />
+          </li>
+         ) : (
+          <li>
+            <button onClick={() => navigate("/login")} aria-label="Login">
+              LOGIN
+            </button>
+          </li>
+          )}    
         </ul>
       </div>
     </header>

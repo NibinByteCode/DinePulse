@@ -1,5 +1,6 @@
 import 'package:dinepulse_mobileapp/screens/popups/empty_cart_popup.dart';
 import 'package:dinepulse_mobileapp/screens/popups/item_remove_popup.dart';
+import 'package:dinepulse_mobileapp/services/submit_order.dart';
 import 'package:flutter/material.dart';
 import '../models/cart_item.dart';
 import '../services/cart_service.dart';
@@ -31,11 +32,46 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-  void _confirmOrder() {
+  // void _confirmOrder() {
+  //   if (cartService.itemCount == 0) {
+  //     showEmptyCartDialog(context);
+  //   } else {
+  //     Navigator.pushNamed(context, '/checkout');
+  //   }
+  // }
+  void _confirmOrder() async {
     if (cartService.itemCount == 0) {
       showEmptyCartDialog(context);
     } else {
-      Navigator.pushNamed(context, '/checkout');
+      // Call the _submitOrder method and await its result
+      final orderDetails = cartService.items.map((item) {
+        return {
+          "itemId": item.id,
+          "quantity": item.quantity,
+        };
+      }).toList();
+
+      final body = json.encode({
+        "customerId": 4,
+        "tableId": 15,
+        "orderTypeId": 1,
+        "statusId": 1,
+        "orderDetails": orderDetails,
+      });
+      final result = await submitOrder(body);
+
+      // Check the result and navigate accordingly
+      if (result == "Order added successfully") {
+        cartService.clearCart();
+        // Navigate to the order confirmation page and clear the navigation stack
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/checkout', (route) => false);
+      } else {
+        // Display an error message if the order was not successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result)),
+        );
+      }
     }
   }
 

@@ -4,10 +4,11 @@
   color: #bb521f;
   font-family: "Roboto Slab", serif;
   text-align: justify;
-  height: 100vh;
+  height: 170vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* promotional contents */
 }
 .home .intro-section {
   background-color: rgba(252, 247, 244, 0.4);
@@ -25,7 +26,7 @@
 }
 .home .buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 20px;
 }
 .home .buttons button {
@@ -41,6 +42,81 @@
 }
 .home .buttons button:hover {
   background-color: #e03d00;
+}
+.home .promotional-dishes {
+  background-color: orange;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 30px;
+  width: 65%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.home .promotional-dishes h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+}
+.home .promotional-dishes .promotional-dishes-subheading {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+.home .promotional-dishes .promotional-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.home .promotional-dishes .promotional-dish {
+  text-align: center;
+  position: relative;
+  border: 1px solid #ffd700;
+  padding: 20px 10px;
+  border-radius: 10px;
+  width: 300px;
+  height: 480px;
+  margin: 10px;
+  background-color: #fff;
+}
+.home .promotional-dishes .promotional-dish img {
+  width: 80%;
+  height: 60%;
+  border-radius: 10px;
+  box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
+}
+.home .promotional-dishes .promotional-dish h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+.home .promotional-dishes .promotional-dish p {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+.home .promotional-dishes .promotional-dish .promotion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ffffff;
+  width: 7.5rem;
+  height: 2.25rem;
+  background: #ff5e00;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transform: rotate(15deg);
+  transition: transform 0.25s;
+}
+.home .promotional-dishes .promotional-dish .promotion span {
+  color: white;
+}
+.home .promotional-dishes .promotional-dish:hover .promotion {
+  transform: rotate(0deg);
 }
 
 @media (max-width: 768px) {
@@ -58,6 +134,17 @@
   .home .intro-section .intro-text h1 {
     text-align: center;
   }
+  .home .promotional-dishes {
+    width: 90%;
+    margin: 20px auto;
+  }
+  .home .promotional-container {
+    justify-content: center;
+  }
+  .home .promotional-dish {
+    width: 90%;
+    margin: 10px auto;
+  }
 }
 @media (max-width: 480px) {
   .home {
@@ -70,5 +157,17 @@
   .home .buttons {
     flex-direction: column;
     gap: 10px;
+  }
+  .home .promotional-dishes {
+    width: 100%;
+    padding: 10px;
+  }
+  .home .promotional-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .home .promotional-dish {
+    width: 100%;
+    height: auto;
   }
 }/*# sourceMappingURL=Home.css.map */

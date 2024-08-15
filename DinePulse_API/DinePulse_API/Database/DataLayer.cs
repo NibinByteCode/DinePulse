@@ -296,19 +296,19 @@ namespace DinePulse_API.Database
             }
         }
 
-        public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
-        {
-            try
-            {
-                await con.OpenAsync();
-                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
-                {
-                    cmdProc.CommandType = CommandType.StoredProcedure;
+         public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+ {
+     try
+     {
+         await con.OpenAsync();
+         using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+         {
+             cmdProc.CommandType = CommandType.StoredProcedure;
 
-                    if (parameters != null)
-                    {
-                        cmdProc.Parameters.AddRange(parameters.ToArray());
-                    }
+             if (parameters != null)
+             {
+                 cmdProc.Parameters.AddRange(parameters.ToArray());
+             }
 
                     StringBuilder jsonResult = new StringBuilder();
 
@@ -332,6 +332,7 @@ namespace DinePulse_API.Database
                 await con.CloseAsync();
             }
         }
+
 
         public async Task<int> ExecuteNonQueryWithResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
         {

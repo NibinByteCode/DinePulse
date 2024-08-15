@@ -143,6 +143,7 @@ export const DashboardTakeOrders = () => {
         { ...product, count: 1, total: product.item_price },
       ]);
     }
+    alert("Product added to cart!!!")
   };
 
   const removeFromCart = (productId) => {
@@ -168,7 +169,7 @@ export const DashboardTakeOrders = () => {
 
   const [message, setMessage] = useState("");
 
-  const receiptRef = useRef(); // Reference for the receipt component
+  const receiptRef = useRef(); //Reference for the receipt component
   const staffName = "Aimy Shaju";
   // Print handler
   const handlePrint = useReactToPrint({
@@ -176,35 +177,55 @@ export const DashboardTakeOrders = () => {
   });
 
   const handleInsertOrders = async () => {
-    handlePrint(); // Print the receipt after placing the order
-    /*const formData = new FormData();
-    formData.append("menuModel.itemName", "aaaaaaa");
-    formData.append("menuModel.itemDescription", "bbbbbbb");
-    formData.append("menuModel.itemCategory", "ccccccccc");
-    formData.append("menuModel.itemPrice", "dddddd");
 
+    let orderType = 0;
+    if (location.state && location.state.action === "Take-Away") {
+      orderType = 2;
+    } else if (location.state && location.state.action === "Dine-In") {
+      orderType = 1;
+    }
+  
     try {
-      const url = process.env.REACT_APP_API_URL + "Orders/InsertOrders";
+      // Prepare the order data from cartItems
+      const orderItems = cartItems.map((item) => ({
+        itemId: item.item_id,
+        quantity: item.count,
+      }));
+  
+      //create the dataload for the order
+      const orderDetailsload = {
+        tableId: selectedTableName? selectedTableName:15,
+        customerId: 1,
+        orderDetails: orderItems,
+        orderTypeId: orderType,
+        statusId: 1,
+      };
+  
+      const url = process.env.REACT_APP_API_URL + "MobileOrder/CreateOrder";
       const method = "post";
-
+  
+      //make the API call to insert the order
       const response = await axios({
         method,
         url,
-        data: formData,
+        data: orderDetailsload,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json", 
         },
       });
-
+  
       if (response.status === 200) {
         setMessage("Orders inserted successfully.");
+        setCartItems([]);
+        //handlePrint();
       } else {
         setMessage("Failed to save orders.");
       }
     } catch (error) {
       console.error("Error saving orders", error);
       setMessage("An error occurred while processing your request.");
-    }*/
+    }
+    //handlePrint(); // Print the receipt after placing the order
   };
 
   const toggleModalMenu = () => {
