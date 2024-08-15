@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/NibinByteCode/DinePulse/dinepulseadmin/static/css/main.52d7680c.css",
-    "main.js": "/NibinByteCode/DinePulse/dinepulseadmin/static/js/main.13e680b3.js",
-    "static/media/admin_background.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/admin_background.71c69ff2b98cf8baa284.png",
-    "static/media/plain_background.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/plain_background.f9269a8af2b43f4243f0.png",
-    "static/media/restaurant_logo.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/restaurant_logo.f94312964b8a4d35ad89.png",
-    "static/media/orderdelivered_icon.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/orderdelivered_icon.adf9ff74d01a3b8511ca.png",
-    "static/media/orderpending_icon.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/orderpending_icon.2ae0e7c9f63da36d131e.png",
-    "static/media/orderrecieved_icon.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/orderrecieved_icon.4b200ba988d2f7955fd2.png",
-    "static/media/reserved_table.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/reserved_table.7dd94e791ceedb61e887.png",
-    "static/media/free_table.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/free_table.c9b579ff8c708b55c7b6.png",
-    "static/media/netrevenue_icon.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/netrevenue_icon.d10db32af964e98bbdce.png",
-    "static/media/upload_image.png": "/NibinByteCode/DinePulse/dinepulseadmin/static/media/upload_image.3873b4703ffa129b6544.png",
-    "index.html": "/NibinByteCode/DinePulse/dinepulseadmin/index.html",
-    "main.52d7680c.css.map": "/NibinByteCode/DinePulse/dinepulseadmin/static/css/main.52d7680c.css.map",
-    "main.13e680b3.js.map": "/NibinByteCode/DinePulse/dinepulseadmin/static/js/main.13e680b3.js.map"
+    "main.css": "/DinePulse/dinepulseadmin/static/css/main.39951449.css",
+    "main.js": "/DinePulse/dinepulseadmin/static/js/main.bd097a26.js",
+    "static/media/admin_background.png": "/DinePulse/dinepulseadmin/static/media/admin_background.71c69ff2b98cf8baa284.png",
+    "static/media/plain_background.png": "/DinePulse/dinepulseadmin/static/media/plain_background.f9269a8af2b43f4243f0.png",
+    "static/media/restaurant_logo.png": "/DinePulse/dinepulseadmin/static/media/restaurant_logo.f94312964b8a4d35ad89.png",
+    "static/media/orderdelivered_icon.png": "/DinePulse/dinepulseadmin/static/media/orderdelivered_icon.adf9ff74d01a3b8511ca.png",
+    "static/media/orderpending_icon.png": "/DinePulse/dinepulseadmin/static/media/orderpending_icon.2ae0e7c9f63da36d131e.png",
+    "static/media/orderrecieved_icon.png": "/DinePulse/dinepulseadmin/static/media/orderrecieved_icon.4b200ba988d2f7955fd2.png",
+    "static/media/reserved_table.png": "/DinePulse/dinepulseadmin/static/media/reserved_table.7dd94e791ceedb61e887.png",
+    "static/media/free_table.png": "/DinePulse/dinepulseadmin/static/media/free_table.c9b579ff8c708b55c7b6.png",
+    "static/media/netrevenue_icon.png": "/DinePulse/dinepulseadmin/static/media/netrevenue_icon.d10db32af964e98bbdce.png",
+    "static/media/upload_image.png": "/DinePulse/dinepulseadmin/static/media/upload_image.3873b4703ffa129b6544.png",
+    "index.html": "/DinePulse/dinepulseadmin/index.html",
+    "main.39951449.css.map": "/DinePulse/dinepulseadmin/static/css/main.39951449.css.map",
+    "main.bd097a26.js.map": "/DinePulse/dinepulseadmin/static/js/main.bd097a26.js.map"
   },
   "entrypoints": [
-    "static/css/main.52d7680c.css",
-    "static/js/main.13e680b3.js"
+    "static/css/main.39951449.css",
+    "static/js/main.bd097a26.js"
   ]
 }
