@@ -295,40 +295,43 @@ namespace DinePulse_API.Database
             }
         }
 
-        public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
-        {
-            try
-            {
-                await con.OpenAsync();
-                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
-                {
-                    cmdProc.CommandType = CommandType.StoredProcedure;
+         public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+ {
+     try
+     {
+         await con.OpenAsync();
+         using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+         {
+             cmdProc.CommandType = CommandType.StoredProcedure;
 
-                    if (parameters != null)
-                    {
-                        cmdProc.Parameters.AddRange(parameters.ToArray());
-                    }
+             if (parameters != null)
+             {
+                 cmdProc.Parameters.AddRange(parameters.ToArray());
+             }
 
-                    using (var reader = await cmdProc.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            return reader.GetString(0); // Assuming the JSON result is in the first column
-                        }
-                        return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                new LogHelper().LogError(ex.Message);
-                return null;
-            }
-            finally
-            {
-                await con.CloseAsync();
-            }
-        }
+             StringBuilder jsonResult = new StringBuilder();
+
+             using (var reader = await cmdProc.ExecuteReaderAsync())
+             {
+                 while (await reader.ReadAsync())
+                 {
+                     jsonResult.Append(reader.GetString(0));
+                 }
+             }
+             return jsonResult.Length > 0 ? jsonResult.ToString() : null;
+         }
+     }
+     catch (Exception ex)
+     {
+         new LogHelper().LogError(ex.Message);
+         return null;
+     }
+     finally
+     {
+         await con.CloseAsync();
+     }
+ }
+
 
         public async Task<int> ExecuteNonQueryWithResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
         {
