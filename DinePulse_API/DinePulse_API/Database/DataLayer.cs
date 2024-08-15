@@ -1,6 +1,7 @@
 ﻿using DinePulse_API.Utils;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using System.Transactions;
 
 namespace DinePulse_API.Database
@@ -20,7 +21,7 @@ namespace DinePulse_API.Database
         private SqlDataAdapter da;
 
         IConfiguration _iconfiguration;
-       
+
 
 
         private void Connection()
@@ -73,8 +74,8 @@ namespace DinePulse_API.Database
             catch (SqlException ex)
             {
                 new LogHelper().LogError(" Commit Exception Type: " + ex.GetType());
-                
-               
+
+
                 if (ex.Number == 50000)
                 {
                     throw new InvalidOperationException(ex.Message);
@@ -106,14 +107,14 @@ namespace DinePulse_API.Database
         {
             try
             {
-               
+
                 con.Open();
                 SqlCommand cmdProc = new SqlCommand(StoredProcedureName, con)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
                 SqlTransaction transaction;
-                transaction = con.BeginTransaction("InsertTransaction"); 
+                transaction = con.BeginTransaction("InsertTransaction");
                 cmdProc.Transaction = transaction;
                 if (sp != null)
                     cmdProc.Parameters.AddRange(sp.ToArray());
@@ -155,7 +156,7 @@ namespace DinePulse_API.Database
             {
                 new LogHelper().LogError(ex.Message);
                 throw new InvalidOperationException(ex.Message);
-             
+
             }
 
 
@@ -230,7 +231,7 @@ namespace DinePulse_API.Database
             }
             catch (Exception ex)
             {
-                new LogHelper().LogError(ex.Message); 
+                new LogHelper().LogError(ex.Message);
                 return;
             }
         }
@@ -295,28 +296,30 @@ namespace DinePulse_API.Database
             }
         }
 
-        public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
-        {
-            try
-            {
-                await con.OpenAsync();
-                using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
-                {
-                    cmdProc.CommandType = CommandType.StoredProcedure;
+         public async Task<string> ExecuteJsonResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
+ {
+     try
+     {
+         await con.OpenAsync();
+         using (SqlCommand cmdProc = new SqlCommand(storedProcedureName, con))
+         {
+             cmdProc.CommandType = CommandType.StoredProcedure;
 
-                    if (parameters != null)
-                    {
-                        cmdProc.Parameters.AddRange(parameters.ToArray());
-                    }
+             if (parameters != null)
+             {
+                 cmdProc.Parameters.AddRange(parameters.ToArray());
+             }
+
+                    StringBuilder jsonResult = new StringBuilder();
 
                     using (var reader = await cmdProc.ExecuteReaderAsync())
                     {
-                        if (await reader.ReadAsync())
+                        while (await reader.ReadAsync())
                         {
-                            return reader.GetString(0); // Assuming the JSON result is in the first column
+                            jsonResult.Append(reader.GetString(0));
                         }
-                        return null;
                     }
+                    return jsonResult.Length > 0 ? jsonResult.ToString() : null;
                 }
             }
             catch (Exception ex)
@@ -330,9 +333,10 @@ namespace DinePulse_API.Database
             }
         }
 
+
         public async Task<int> ExecuteNonQueryWithResultAsync(string storedProcedureName, List<SqlParameter> parameters = null)
         {
-            int rowsAffected = -1; 
+            int rowsAffected = -1;
 
             try
             {
@@ -360,7 +364,7 @@ namespace DinePulse_API.Database
                             {
                                 if (await reader.ReadAsync())
                                 {
-                                   
+
                                     rowsAffected = reader.GetInt32(0);
                                 }
                             }
@@ -380,7 +384,7 @@ namespace DinePulse_API.Database
                                 new LogHelper().LogError("Rollback Exception Type: " + ex2.GetType());
                                 new LogHelper().LogError(ex2.Message);
                             }
-                            rowsAffected = 0; 
+                            rowsAffected = 0;
                         }
                     }
                 }
@@ -389,7 +393,7 @@ namespace DinePulse_API.Database
             {
                 new LogHelper().LogError("Connection Exception Type: " + ex.GetType());
                 new LogHelper().LogError(ex.Message);
-                rowsAffected = 0; 
+                rowsAffected = 0;
             }
             finally
             {

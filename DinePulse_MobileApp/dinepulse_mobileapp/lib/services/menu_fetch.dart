@@ -13,6 +13,7 @@ Future<List<CartItem>> fetchMenu() async {
 
     return parsed
         .map<CartItem>((json) => CartItem(
+              id: json['item_id'] as String,
               name: json['item_name'] as String,
               price: double.parse(json['item_price']),
               imagePath: '${dotenv.env['APP_IMAGE']}/${json['item_image']}',

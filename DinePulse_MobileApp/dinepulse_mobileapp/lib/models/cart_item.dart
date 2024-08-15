@@ -1,4 +1,5 @@
 class CartItem {
+  final String id;
   final String name;
   final double price;
   final String imagePath;
@@ -6,6 +7,7 @@ class CartItem {
   String cookingInstructions;
 
   CartItem({
+    required this.id,
     required this.name,
     required this.price,
     required this.imagePath,
