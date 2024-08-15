@@ -112,7 +112,6 @@ const Menu = () => {
             </div>
             <div className="cart-icon">
               <FaShoppingCart size={24} onClick={() => openCartScreen()} />
-              {/*<span className="cart-count">{cartItems.length}</span>*/}
             </div>
           </div>
           <main>
@@ -137,9 +136,7 @@ const Menu = () => {
                   </div>
                 ))
               ) : (
-                <div className="emptymenulist"
-
-                >
+                <div className="emptymenulist">
                   No items available for this category!!!
                 </div>
               )}

@@ -57,16 +57,8 @@ const Reserve = () => {
     formData.append("reservationTime", reservationTime);
     formData.append("customerSuggestion", reservationSuggestions);
 
-    /*console.log("reservation noofGuests ==> "+noofGuests);
-    console.log("reservation reservationEmail ==> "+reservationEmail);
-    console.log("reservation reservationPhone ==> "+reservationPhone);
-    console.log("reservation reservationDate ==> "+reservationDate);
-    console.log("reservation reservationTime ==> "+reservationTime);
-    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);*/
-
     try {
       const url = `${process.env.REACT_APP_API_URL}CustomerTableReservation/AddReservation`;
-
       const method = "post";
 
       const response = await axios({

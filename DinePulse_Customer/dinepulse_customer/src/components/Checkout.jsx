@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Checkout.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Checkout = () => {
     const [formData, setFormData] = useState({
@@ -22,8 +23,9 @@ const Checkout = () => {
 
     const [errors, setErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [showCardDetails, setShowCardDetails] = useState(false);
 
-    const validate = () => {
+    const validatePersonalInfo = () => {
         const newErrors = {};
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phonePattern = /^[0-9]{10}$/; 
@@ -39,6 +41,14 @@ const Checkout = () => {
         if (!formData.custProvince.trim()) newErrors.custProvince = "Province is required";
         if (!formData.custCountry.trim()) newErrors.custCountry = "Country is required";
         if (!formData.custPincode.trim()) newErrors.custPincode = "Pincode is required";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const validateCardInfo = () => {
+        const newErrors = {};
+        
         if (!formData.cardName.trim()) newErrors.cardName = "Name on Card is required";
         if (!formData.issuingBank.trim()) newErrors.issuingBank = "Issuing Bank is required";
         if (!formData.cardNumber.trim()) newErrors.cardNumber = "Card Number is required";
@@ -61,14 +71,129 @@ const Checkout = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmitPersonal = async(e) => {
         e.preventDefault();
         setFormSubmitted(true);
-        if (validate()) {
+        if (validatePersonalInfo()) {
+            //setShowCardDetails(true);
+            const totalAmountToPay = localStorage.getItem('totalPayable');
+            const orderslist = localStorage.getItem('cartItems');
+            const customerID = localStorage.getItem('customerID');
+
+            try {
+                // Prepare the order data from cartItems
+                const orderslistString = JSON.parse(orderslist);
+
+                const orderItems = orderslistString.map((item) => ({
+                  itemId: item.item_id,
+                  quantity: item.count,
+                }));
+            
+                //create the dataload for the order
+                const orderDetailsload = {
+                  tableId: 15,  //or need another no
+                  customerId:customerID,
+                  orderDetails: orderItems,
+                  orderTypeId: 3,
+                  statusId: 1,
+                };
+            
+                const url = process.env.REACT_APP_API_URL + "MobileOrder/CreateOrder";
+                const method = "post";
+            
+                //make the API call to insert the order
+                const response = await axios({
+                  method,
+                  url,
+                  data: orderDetailsload,
+                  headers: {
+                    "Content-Type": "application/json", 
+                  },
+                });
+            
+                if (response.status === 200) {
+                    alert("Order placed successfully.");
+                    navigate('/ordersuccess');
+                  //setCartItems([]);
+                  //handlePrint();
+                } else {
+                  alert("Failed to save orders.");
+                }
+              } catch (error) {
+                console.error("Error saving orders", error);
+                alert("An error occurred while processing your request.");
+              }
+        }
+    };
+
+    const handleSubmitCard = (e) => {
+        e.preventDefault();
+        setFormSubmitted(true);
+        if (validatePersonalInfo() && validateCardInfo()) {
             // Handle form submission
-            alert('Form submitted successfully!');
-            navigate('/ordersuccess');
-            // sending the data to a server
+            //alert('Form submitted successfully!');
+            //navigate('/ordersuccess');
+            //alert('payment info submitted successfully!!!');
+            /*
+            let data = JSON.stringify({
+                userName: username,
+                userPassword: password,
+            });
+            const API_URL =
+                process.env.REACT_APP_API_URL + "CustomerLogin/LoginCustomer";
+            let config = {
+                method: "post",
+                maxBodyLength: Infinity,
+                url: API_URL,
+                headers: {
+                "Content-Type": "application/json",
+                },
+                data: data,
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                //console.log(JSON.stringify(response.data));
+                //navigate("/ordersuccess");
+                })
+                .catch((error) => {
+                alert("Invalid Login Credentials!!!");
+                console.log(error);
+                });
+            }              
+            */
+           //localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+           //const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+           /*insert data to orders table 
+            const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            console.log("cart items : " , storedCartItems);
+
+            const data = {
+                customerId: regusername,
+                tableId: 0,
+                orderTypeId: 3,
+                statusId: 1,
+                orderDetails: regphone,
+                itemId: encryptPassword,
+                quantity: regphone,
+            };
+    
+            const API_URL =
+                process.env.REACT_APP_API_URL + "MobileOrder/CreateOrder";
+    
+            axios
+                .post(API_URL, data)
+                .then((response) => {
+                console.log("Response data:", response.data);
+                alert("inserted successfully!!!");
+                //navigate("/login");
+                })
+                .catch((error) => {
+                alert("error:", error.response.data);
+                console.log("Error:", error);
+                });
+            insert ends*/
         }
     };
 
@@ -76,7 +201,7 @@ const Checkout = () => {
         <div className="checkout">
             <h1>Checkout</h1>
             <main className="checkout-container">
-                <form onSubmit={handleSubmit} id="order_form">
+                <form id="order_form">
                     <div className="form-sections">
                         <section className="personal-details">
                             <div className="personal-section">
@@ -199,80 +324,83 @@ const Checkout = () => {
                                     {errors.custPincode && <span className="error">{errors.custPincode}</span>}
                                 </div>
                             </div>
+
+                            <button type="button" onClick={handleSubmitPersonal}>PROCEED TO PAY</button>
                         </section>
-                        <section className="personal-details">
-                            <div className="personal-section">
-                                <h2>Cardholder Information</h2>
-                                <div className="divContents">
-                                    <label htmlFor="cardName" className="label">Name on Card:</label>
-                                    <input
-                                        type="text"
-                                        id="cardName"
-                                        name="cardName"
-                                        className="textContent"
-                                        value={formData.cardName}
-                                        onChange={handleChange}
-                                    />
-                                    <span>*</span>
-                                    {errors.cardName && <span className="error">{errors.cardName}</span>}
+
+                        {showCardDetails && (
+                            <section className="card-details">
+                                <div className="card-section">
+                                    <h2>Cardholder Information</h2>
+                                    <div className="divContents">
+                                        <label htmlFor="cardName" className="label">Name on Card:</label>
+                                        <input
+                                            type="text"
+                                            id="cardName"
+                                            name="cardName"
+                                            className="textContent"
+                                            value={formData.cardName}
+                                            onChange={handleChange}
+                                        />
+                                        <span>*</span>
+                                        {errors.cardName && <span className="error">{errors.cardName}</span>}
+                                    </div>
+                                    <div className="divContents">
+                                        <label htmlFor="issuingBank" className="label">Issuing Bank:</label>
+                                        <input
+                                            type="text"
+                                            id="issuingBank"
+                                            name="issuingBank"
+                                            className="textContent"
+                                            value={formData.issuingBank}
+                                            onChange={handleChange}
+                                        />
+                                        <span>*</span>
+                                        {errors.issuingBank && <span className="error">{errors.issuingBank}</span>}
+                                    </div>
+                                    <div className="divContents">
+                                        <label htmlFor="cardNumber" className="label">Card Number:</label>
+                                        <input
+                                            type="number"
+                                            id="cardNumber"
+                                            name="cardNumber"
+                                            className="textContent"
+                                            value={formData.cardNumber}
+                                            onChange={handleChange}
+                                        />
+                                        <span>*</span>
+                                        {errors.cardNumber && <span className="error">{errors.cardNumber}</span>}
+                                    </div>
+                                    <div className="divContents">
+                                        <label htmlFor="expiryDate" className="label">Expiry Date:</label>
+                                        <input
+                                            type="month"
+                                            id="expiryDate"
+                                            name="expiryDate"
+                                            className="textContent"
+                                            value={formData.expiryDate}
+                                            onChange={handleChange}
+                                        />
+                                        <span>*</span>
+                                        {errors.expiryDate && <span className="error">{errors.expiryDate}</span>}
+                                    </div>
+                                    <div className="divContents">
+                                        <label htmlFor="cardcvv" className="label">CVV:</label>
+                                        <input
+                                            type="password"
+                                            id="cardcvv"
+                                            name="cardcvv"
+                                            className="textContent"
+                                            value={formData.cardcvv}
+                                            onChange={handleChange}
+                                        />
+                                        <span>*</span>
+                                        {errors.cardcvv && <span className="error">{errors.cardcvv}</span>}
+                                    </div>
+                                    <button type="button" onClick={handleSubmitCard}>CONFIRM ORDER</button>
                                 </div>
-                                <div className="divContents">
-                                    <label htmlFor="issuingBank" className="label">Issuing Bank:</label>
-                                    <input
-                                        type="text"
-                                        id="issuingBank"
-                                        name="issuingBank"
-                                        className="textContent"
-                                        value={formData.issuingBank}
-                                        onChange={handleChange}
-                                    />
-                                    <span>*</span>
-                                    {errors.issuingBank && <span className="error">{errors.issuingBank}</span>}
-                                </div>
-                                <div className="divContents">
-                                    <label htmlFor="cardNumber" className="label">Card Number:</label>
-                                    <input
-                                        type="number"
-                                        id="cardNumber"
-                                        name="cardNumber"
-                                        className="textContent"
-                                        value={formData.cardNumber}
-                                        onChange={handleChange}
-                                    />
-                                    <span>*</span>
-                                    {errors.cardNumber && <span className="error">{errors.cardNumber}</span>}
-                                </div>
-                                <div className="divContents">
-                                    <label htmlFor="expiryDate" className="label">Expiry Date:</label>
-                                    <input
-                                        type="month"
-                                        id="expiryDate"
-                                        name="expiryDate"
-                                        className="textContent"
-                                        value={formData.expiryDate}
-                                        onChange={handleChange}
-                                    />
-                                    <span>*</span>
-                                    {errors.expiryDate && <span className="error">{errors.expiryDate}</span>}
-                                </div>
-                                <div className="divContents">
-                                    <label htmlFor="cardcvv" className="label">CVV:</label>
-                                    <input
-                                        type="password"
-                                        id="cardcvv"
-                                        name="cardcvv"
-                                        className="textContent"
-                                        value={formData.cardcvv}
-                                        onChange={handleChange}
-                                    />
-                                    <span>*</span>
-                                    {errors.cardcvv && <span className="error">{errors.cardcvv}</span>}
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div className="buttonClick">
-                        <input type="submit" name="submit" id="submit" value="PROCEED TO PAY" />
+                            </section>
+                        )}
                     </div>
                 </form>
             </main>

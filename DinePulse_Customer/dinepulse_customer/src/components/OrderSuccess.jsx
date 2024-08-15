@@ -10,9 +10,11 @@ import Receipt from "./InvoiceDownload"; //
 const OrderSuccess = () => {
 
   const receiptRef = useRef(); // Reference for the receipt component
-  const staffName = "Aimy Shaju";
-  const cartItems = "Aimy Shaju";
-  const calculateTotalAmount = "Aimy Shaju";
+  const customerID = localStorage.getItem('customerID');
+  const cartItems = localStorage.getItem('cartItems');
+  const cartItemsString = JSON.parse(cartItems);
+  const totalAmountToPay = localStorage.getItem('totalPayable');
+
   // Print handler
   const handlePrint = useReactToPrint({
     content: () => receiptRef.current,
@@ -42,12 +44,11 @@ const OrderSuccess = () => {
         <div style={{ display: "none" }}>
           <Receipt
             ref={receiptRef}
-            cartItems={cartItems}
-            calculateTotalAmount={calculateTotalAmount}
-            staffName={staffName}
+            cartItems={cartItemsString}
+            calculateTotalAmount={totalAmountToPay}
+            customerName={customerID}
           />
-        </div>
-        
+        </div>    
       </div>
   );
 };

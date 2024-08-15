@@ -9,6 +9,7 @@ import registerImage from "../assets/register_image.png";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"; 
 
 const Register = () => {
   const [regusername, setRegUsername] = useState("");
@@ -23,6 +24,7 @@ const Register = () => {
     confirmpass: "",
     regphone: "",
   });
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -50,7 +52,7 @@ const Register = () => {
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=])[A-Za-z\d@#$%^&+=]{8,}$/;
     if (!regpassword.match(regpasswordRegex)) {
       formIsValid = false;
-      errors.regpassword = "Password must be at least 8 characters long!!";
+      errors.regpassword = "Password must be at least 8 characters long!!!";
     }
 
     if (regpassword !== confirmpass) {
@@ -71,7 +73,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Form is valid, proceed with submission (e.g., API call)
       bcrypt.hash(regpassword, 10, (err, encryptPassword) => {
         if (err) {
           console.error("Error encrypting password:", err);
@@ -114,7 +115,6 @@ const Register = () => {
           <div className="input-group">
             <input type="text" placeholder="Customer Name" value={regusername}
               onChange={(e) => setRegUsername(e.target.value)} />
-            {/*<i className="icon-user"></i>*/}
             <FaUserAlt className="icons" />
           </div>
           {regerrors.regusername && (
@@ -123,26 +123,52 @@ const Register = () => {
           <div className="input-group">
             <input type="email" placeholder="Email id" value={regemailId}
               onChange={(e) => setRegEmailId(e.target.value)} />
-            {/*<i className="icon-email"></i>*/}
             <MdEmail className="icons" />
           </div>
           {regerrors.regemailId && (
             <span className="error">{regerrors.regemailId}</span>
           )}
           <div className="input-group">
-            <input type="password" placeholder="New password" value={regpassword}
-              onChange={(e) => setRegPassword(e.target.value)} />
-            {/*<i className="icon-password"></i>*/}
-            <FaLock className="icons" />
+            <input
+              type={showPassword ? "text" : "password"} 
+              placeholder="Password"
+              value={regpassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+            />
+            {showPassword ? (
+              <BsFillEyeFill
+                className="icons"
+                onClick={() => setShowPassword(false)} 
+              />
+            ) : (
+              <BsFillEyeSlashFill
+                className="icons"
+                onClick={() => setShowPassword(true)} 
+              />
+            )}
+
           </div>
           {regerrors.regpassword && (
             <span className="error">{regerrors.regpassword}</span>
           )}
-          <div className="input-group">
-            <input type="password" placeholder="Confirm password" value={confirmpass}
-              onChange={(e) => setConfirmPass(e.target.value)} />
-            {/*<i className="icon-password"></i>*/}
-            <FaLock className="icons" />
+          <div className="input-group">          
+            <input
+              type={showPassword ? "text" : "password"} 
+              placeholder="Confirm password"
+              value={confirmpass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+            />
+            {showPassword ? (
+              <BsFillEyeFill
+                className="icons"
+                onClick={() => setShowPassword(false)} 
+              />
+            ) : (
+              <BsFillEyeSlashFill
+                className="icons"
+                onClick={() => setShowPassword(true)} 
+              />
+            )}
           </div>
           {regerrors.confirmpass && (
             <span className="error">{regerrors.confirmpass}</span>
@@ -150,7 +176,6 @@ const Register = () => {
           <div className="input-group">
             <input type="tel" placeholder="Contact Number" value={regphone}
               onChange={(e) => setRegphone(e.target.value)} />
-            {/*<i className="icon-phone"></i>*/}
             <FaPhoneVolume className="icons" />
           </div>
           {regerrors.regphone && (

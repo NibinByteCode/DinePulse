@@ -2,9 +2,8 @@ import React from "react";
 import restaurant_logo from "../assets/restaurant_logo.png";
 import "../styles/InvoiceDownload.css";
 
-
 const Receipt = React.forwardRef((props, ref) => {
-  const { cartItems, calculateTotalAmount, staffName } =
+  const { cartItems, calculateTotalAmount, customerName } =
     props;
 
   const currentDate = new Date().toLocaleDateString();
@@ -25,7 +24,7 @@ const Receipt = React.forwardRef((props, ref) => {
       </div>
       <hr />
       <div className="receipt-details">
-        <p>Staff: {staffName}</p>
+        <p>CustomerID: {customerName}</p>
         <p>Date: {currentDate}</p>
         <p>Time: {currentTime}</p>
       </div>
@@ -41,25 +40,19 @@ const Receipt = React.forwardRef((props, ref) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{cartItems}</td>
-          </tr>
-          {/*{cartItems.map((item) => (
+          {cartItems.map((item) => (
             <tr key={item.item_id}>
               <td>{item.item_name}</td>
               <td>${item.item_price}</td>
               <td>{item.count}</td>
               <td>${item.total}</td>
             </tr>
-          ))}*/}
+          ))}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan="3">Total Amount</td>
             <td>${calculateTotalAmount}</td>
-            <td>${calculateTotalAmount}</td>
-            <td>${calculateTotalAmount}</td>
-
           </tr>
         </tfoot>
       </table>

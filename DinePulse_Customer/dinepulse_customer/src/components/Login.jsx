@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import registerImage from "../assets/register_image.png";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useAuth } from "./AuthenticationHandler";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io"; 
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"; 
 
 //set the app element for accessibility
 Modal.setAppElement("#root");
@@ -15,7 +18,9 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ username: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const validateForm = () => {
     let formIsValid = true;
@@ -40,7 +45,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Form is valid, proceed with submission (e.g., API call)
       let data = JSON.stringify({
         userName: username,
         userPassword: password,
@@ -60,7 +64,9 @@ const Login = () => {
       axios
         .request(config)
         .then((response) => {
-          //console.log(JSON.stringify(response.data));
+          const user = response.data;
+          login(user);
+          localStorage.setItem('customerID', response.data.userID);
           navigate("/menu");
         })
         .catch((error) => {
@@ -74,72 +80,37 @@ const Login = () => {
     useState(false);
   const [userName, setUserName] = useState("");
   const [userType, setUserType] = useState("");
-  //state for username validation error
-  const [resetPassworderrors, setResetPasswordErrors] = useState({});
+  const [resetPasswordErrors, setResetPasswordErrors] = useState({});
 
   const toggleModalResetPassword = () => {
     if (isModalOpenResetPassword) {
       setUserName("");
-      setResetPasswordErrors({}); //clear errors when closing the modal
+      setResetPasswordErrors({});
     } else {
-      setResetPasswordErrors({}); //clear errors when opening the modal
+      setResetPasswordErrors({});
     }
     setIsModalOpenResetPassword(!isModalOpenResetPassword);
   };
 
   const validateResetPasswordForm = () => {
-    const resetPassworderrors = {};
+    const resetPasswordErrors = {};
     if (!userName.trim()) {
-      resetPassworderrors.userName = "UserName is required.";
+      resetPasswordErrors.userName = "UserName is required.";
     }
-    return resetPassworderrors;
+    return resetPasswordErrors;
   };
 
-  //popup insert and update functionality of ResetPassword
   const handleSubmitResetPassword = async (e) => {
     e.preventDefault();
 
-    const resetPassworderrors = validateResetPasswordForm();
-    if (Object.keys(resetPassworderrors).length > 0) {
-      setResetPasswordErrors(resetPassworderrors);
+    const resetPasswordErrors = validateResetPasswordForm();
+    if (Object.keys(resetPasswordErrors).length > 0) {
+      setResetPasswordErrors(resetPasswordErrors);
       return;
     }
 
     const formData = new FormData();
     formData.append("userName", userName);
-
-    /*try {
-      const url = process.env.REACT_APP_API_URL + "Login/GetUserType";
-      const method = "post";
-
-      const response = await axios({
-        method,
-        url,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (response.status === 200) {
-        alert("success");
-        alert(response.data.Response);
-        //setUserType(response.data.data);
-      } else {
-        alert("error.");
-      }
-    } catch (error) {
-      alert("Error getting usertype"+ error.message);
-      //alert("An error occurred while processing your request.");
-    }*/
-
-    /*const API_URL = `${process.env.REACT_APP_API_URL}Menu/GetMenuByCategoryId?itemId=${userName}`;
-    try {
-      const response = await axios.get(API_URL);
-      setUserType(response.data.data);
-    } catch (error) {
-      console.error("Caught error while fetching GetMenuByCategoryId:", error);
-    }*/
   };
 
   return (
@@ -157,14 +128,27 @@ const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            {/*<i className="icon-email"></i>*/}
             <FaUserAlt className="icons" />
           </div>
           {errors.username && <span className="error">{errors.username}</span>}
           <div className="input-group">
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {/*<i className="icon-password"></i>*/}
-            <FaLock className="icons" />
+            <input
+              type={showPassword ? "text" : "password"} 
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {showPassword ? (
+              <BsFillEyeFill
+                className="icons"
+                onClick={() => setShowPassword(false)} 
+              />
+            ) : (
+              <BsFillEyeSlashFill
+                className="icons"
+                onClick={() => setShowPassword(true)} 
+              />
+            )}
           </div>
           {errors.password && <span className="error">{errors.password}</span>}
           <div className="remember_forgot">
@@ -184,23 +168,37 @@ const Login = () => {
           NEW USER? REGISTER HERE
         </Link>
       </div>
-      <Modal isOpen={isModalOpenResetPassword} onRequestClose={toggleModalResetPassword} contentLabel="Reset Password"
-        className="modal" overlayClassName="modal-overlay">
+      <Modal
+        isOpen={isModalOpenResetPassword}
+        onRequestClose={toggleModalResetPassword}
+        contentLabel="Reset Password"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <div className="modal-header">
-          <h2 className='modal-title'>Reset Password</h2>
-          <div className="modal-close-button" onClick={toggleModalResetPassword}><IoClose /></div>
+          <h2 className="modal-title">Reset Password</h2>
+          <div className="modal-close-button" onClick={toggleModalResetPassword}>
+            <IoClose />
+          </div>
         </div>
-        <div className='add'>
-          <form className='flex-col' onSubmit={handleSubmitResetPassword}>
-            <div className='add-employee-password flex-col'>
+        <div className="add">
+          <form className="flex-col" onSubmit={handleSubmitResetPassword}>
+            <div className="add-employee-password flex-col">
               <label>Enter Username</label>
-              <input type='text' name='name' placeholder='Enter Username here'
-                onChange={(e) => setUserName(e.target.value)} />
-              {resetPassworderrors.userName && <p className="error">{resetPassworderrors.userName}</p>}
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter Username here"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              {resetPasswordErrors.userName && (
+                <p className="error">{resetPasswordErrors.userName}</p>
+              )}
             </div>
-
-            <div className='employee-buttons'>
-              <button type="submit" className="password-btn">Search</button>
+            <div className="employee-buttons">
+              <button type="submit" className="password-btn">
+                Search
+              </button>
             </div>
           </form>
         </div>

@@ -40,7 +40,7 @@ const Cart = () => {
     const orderPrice = cartItems.reduce((total, item) => total + (item.count * parseFloat(item.item_price)), 0);
     const shippingCharges = 5.49;
     const totalPayable = orderPrice + shippingCharges;
-
+    localStorage.setItem('totalPayable', totalPayable);
     const navigate = useNavigate();
 
     return (
