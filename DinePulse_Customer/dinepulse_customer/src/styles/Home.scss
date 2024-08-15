@@ -4,7 +4,7 @@
     color: #bb521f;
     font-family: "Roboto Slab", serif;
     text-align: justify;
-    height: 170vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,13 +59,14 @@
         margin: 20px 30px;
         width: 65%;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    
+
         h1 {
             text-align: center;
             font-size: 2rem;
             color: #fff;
+            margin: 0;
         }
-    
+
         .promotional-dishes-subheading {
             text-align: center;
             line-height: 1.5;
@@ -73,43 +74,43 @@
             color: #fff;
             text-transform: uppercase;
         }
-    
+
         .promotional-container {
             display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            // flex-wrap: wrap;
+            gap: 10px;
         }
-    
+
         .promotional-dish {
             text-align: center;
             position: relative;
             border: 1px solid #ffd700;
             padding: 20px 10px;
             border-radius: 10px;
-            width: 300px;
-            height: 480px;
-            margin: 10px;
+            width: calc(33.33% - 10px);
             background-color: #fff;
-    
+
             img {
-                width: 80%;
-                height: 60%;
+                object-fit: cover;
+                max-height: 180px;
+                width: 100%;
                 border-radius: 10px;
                 box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
             }
-    
+
             h2 {
                 color: #333;
                 font-size: 1.5rem;
                 margin-top: 10px;
             }
-    
+
             p {
                 color: #555;
                 font-size: 1rem;
                 margin-top: 10px;
             }
-    
+
             .promotion {
                 display: flex;
                 justify-content: center;
@@ -131,7 +132,7 @@
             .promotion span {
                 color: white;
             }
-    
+
             &:hover .promotion {
                 transform: rotate(0deg);
             }

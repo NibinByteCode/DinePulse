@@ -4,7 +4,7 @@
   color: #bb521f;
   font-family: "Roboto Slab", serif;
   text-align: justify;
-  height: 170vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,6 +55,7 @@
   text-align: center;
   font-size: 2rem;
   color: #fff;
+  margin: 0;
 }
 .home .promotional-dishes .promotional-dishes-subheading {
   text-align: center;
@@ -65,8 +66,8 @@
 }
 .home .promotional-dishes .promotional-container {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
 }
 .home .promotional-dishes .promotional-dish {
   text-align: center;
@@ -74,14 +75,14 @@
   border: 1px solid #ffd700;
   padding: 20px 10px;
   border-radius: 10px;
-  width: 300px;
-  height: 480px;
-  margin: 10px;
+  width: calc(33.33% - 10px);
   background-color: #fff;
 }
 .home .promotional-dishes .promotional-dish img {
-  width: 80%;
-  height: 60%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  max-height: 180px;
+  width: 100%;
   border-radius: 10px;
   box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
 }
