@@ -96,6 +96,45 @@ namespace DinePulse_API.Controllers.AdminControllers
             }
         }
 
+        [HttpGet]
+        [ActionName("GetOrderById")]
+        public IActionResult GetOrderById(int orderid)
+        {
+            try
+            {
+                List<SqlParameter> sp = new List<SqlParameter>()
+                {
+                 new SqlParameter() { ParameterName = "@orderid", SqlDbType = SqlDbType.Int, Value = orderid }
+                };
+
+                DataTable table = dataLayer.Getbulkfromdb("Order_GetOrderById", sp);
+
+                if (table.Rows.Count > 0)
+                {
+                    
+                    string jsonResult = table.Rows[0][0].ToString();
+
+                    if (!string.IsNullOrEmpty(jsonResult))
+                    {
+                        return Content(jsonResult, "application/json");
+                    }
+                    else
+                    {
+                        return NotFound(); // No data found
+                    }
+                }
+                else
+                {
+                    return NotFound(); // No data found
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogHelper().LogError("Error getting data..." + ex.Message);
+                return BadRequest("No Data Fetched...Please Try Later");
+            }
+        }
+
 
     }
 }
