@@ -9,7 +9,7 @@ const Receipt = React.forwardRef((props, ref) => {
   const currentTime = new Date().toLocaleTimeString();
 
   return (
-    <div ref={ref} style={{padding:20}}>
+    <div className="receipt-invoice" ref={ref} style={{padding:20}}>
       <div className="receipt-header">
         <img
           src={restaurant_logo}
