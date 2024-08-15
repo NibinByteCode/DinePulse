@@ -21,7 +21,6 @@ const OrderSuccess = () => {
   });
 
   const showReceipt = () => {
-    alert("show receipt");
     handlePrint();
   };
 
