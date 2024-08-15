@@ -54,7 +54,7 @@ namespace DinePulse_API.Controllers.AdminControllers
 
             if (result > 0)
             {
-                await _hubContext.Clients.All.SendAsync("CustomerOrderPlaced", orderUpdate);
+                await _hubContext.Clients.All.SendAsync("CustomerOrderProcessed", orderUpdate);
                 return Ok("Order status updated successfully.");
             }
             else
