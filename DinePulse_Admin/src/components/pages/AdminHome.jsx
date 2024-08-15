@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "../css/AdminDashboardStyles.css";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Notify from "../utils/ToastNotifications";
 import { useAuth } from "../utils/AuthenticationHandler";
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"; 
+
 export const AdminHome = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ username: "", password: "" });
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -104,13 +107,24 @@ export const AdminHome = () => {
                 )}
                 <div className="inputitems">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Password"
-                    id="user_password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <FaLock className="icons" />
+                  {showPassword ? (
+                    <BsFillEyeFill
+                      className="icons"
+                      onClick={() => setShowPassword(false)} 
+                    />
+                  ) : (
+                    <BsFillEyeSlashFill
+                      className="icons"
+                      onClick={() => setShowPassword(true)} 
+                    />
+                  )}
+
+                  
                 </div>
                 {errors.password && (
                   <span className="error">{errors.password}</span>

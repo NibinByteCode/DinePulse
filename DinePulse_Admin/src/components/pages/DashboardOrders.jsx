@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin5Fill } from "react-icons/ri";
 import axios from 'axios';
 import Modal from 'react-modal';
 
@@ -9,7 +8,6 @@ export const DashboardOrders = () => {
   const [getOrderStatus, setOrderStatus] = useState([]);
   const [selectedStatusId, setSelectedOrderId] = useState("");
   const [getOrdersByStatus, setOrdersByStatus] = useState([]);
-
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [orderToEdit, setOrderToEdit] = useState(null);
@@ -44,7 +42,7 @@ export const DashboardOrders = () => {
       const parsedData = JSON.parse(response.data.data);
       setOrdersByStatus(parsedData);
     } catch (error) {
-      console.error("Caught error while fetching GetMenuByCategoryId:", error);
+      console.error("Caught error while fetching GetRecentOrdersByFilter:", error);
       setOrdersByStatus([]);
     }
   };

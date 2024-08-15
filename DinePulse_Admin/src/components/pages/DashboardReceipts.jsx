@@ -1,8 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 import { IoPrintSharp } from "react-icons/io5";
+import axios from 'axios';
+
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import Receipt from "./OrderReceipt"; //Import the Receipt component
 
 export const DashboardReceipts = () => {
+
+  const [cartItems, setCartItems] = useState([]);
+  const [selectedTotalAmount, setTotalAmount] = useState("");
+  const [selectedOrderType, setOrderType] = useState("");
+  const [selectedCustomerName, setCustomerName] = useState("");
+  const [getOrderDetailsByStatus, setOrderDetailsByStatus] = useState([]);
+  const [getSingleOrderDetailsByStatus, setSingleOrderDetailsByStatus] = useState([]);
+
+  useEffect(() => {
+    fetchDetailsByOrderStatus();
+  }, []);
+
+  const fetchDetailsByOrderStatus = async () => {
+    const API_URL = `${process.env.REACT_APP_API_URL}Order/GetRecentOrdersByFilter?statusid=1`;
+    try {
+      const response = await axios.get(API_URL);
+      const parsedData = JSON.parse(response.data.data);
+      setOrderDetailsByStatus(parsedData);
+    } catch (error) {
+      console.error("Caught error while fetching GetRecentOrdersByFilter:", error);
+      setOrderDetailsByStatus([]);
+    }
+  };
+
+  const receiptRef = useRef(); //Reference for the receipt component
+  const staffName = "Aimy Shaju";
+  // Print handler
+  const handlePrint = useReactToPrint({
+    content: () => receiptRef.current,
+  });
+
+  const handlePrintReceipt = async(orderId) => {
+    alert("orderId : "+orderId)
+
+    const API_URL = `${process.env.REACT_APP_API_URL}Order/GetOrderById?orderid=${orderId}`;
+    try {
+      const response = await axios.get(API_URL);
+      const parsedData = response.data.Orders;
+      
+
+      const orderData = response.data.Orders[0]; // Extract the first order from the Orders array
+      console.log(parsedData);
+      console.log(JSON.stringify(orderData.Items));
+      
+      // Set the data to pass to the Receipt component
+      setCartItems(orderData.Items);
+      setTotalAmount(orderData.TotalPrice);
+      setOrderType(orderData.orderType); 
+      setCustomerName(orderData.customerName);
+    } catch (error) {
+      console.error("Caught error while fetching GetRecentOrdersByFilter:", error);
+      setSingleOrderDetailsByStatus([]);
+    }
+  };
+
+  //Trigger print when the state changes
+  useEffect(() => {
+    if (cartItems.length > 0 && selectedTotalAmount && selectedOrderType && selectedCustomerName) {
+      handlePrint();
+    }
+  }, [cartItems, selectedTotalAmount, selectedOrderType, selectedCustomerName]);
+
   return (
     <main className="main-container">
       <div className="main-title">
@@ -11,13 +78,13 @@ export const DashboardReceipts = () => {
       <br />
       <br />
       <div className="billsradio">
-        <input type="radio" id="aaa" name="category" value="aaa" />
+        <input type="radio" name="category" value="0" />
         <label htmlFor="aaa">ALL</label>
-        <input type="radio" id="bbbb" name="category" value="bbbb" />
+        <input type="radio" name="category" value="2" />
         <label htmlFor="bbbb">TAKE AWAY</label>
-        <input type="radio" id="ccc" name="category" value="ccc" />
+        <input type="radio" name="category" value="1" />
         <label htmlFor="ccc">DINE-IN</label>
-        <input type="radio" id="ddd" name="category" value="ddd" />
+        <input type="radio" name="category" value="3" />
         <label htmlFor="ddd">DELIVERY</label>
       </div>
       <div id="categories" className="aaaaaa">
@@ -28,55 +95,50 @@ export const DashboardReceipts = () => {
               <thead>
                 <tr>
                   <th>Order ID</th>
-                  <th>Category</th>
-                  <th>Email</th>
+                  <th>Customer</th>
                   <th>Orders</th>
-                  <th>Status</th>
+                  <th>Order Date</th>
+                  <th>Total</th>
+                  <th>Order Type</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <IoPrintSharp className="delete_icon" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <IoPrintSharp className="delete_icon" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>aaaaaaa</td>
-                  <td>bbbbbb</td>
-                  <td>cccccc</td>
-                  <td>dddddd</td>
-                  <td>eeeeee</td>
-                  <td>
-                    <FaEdit className="edit_icon" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <IoPrintSharp className="delete_icon" />
-                  </td>
-                </tr>
+              <tbody>               
+                  {getOrderDetailsByStatus.length > 0 ? (
+                  getOrderDetailsByStatus.map((orderlist) => (
+                      <tr key={orderlist.orderId}>
+                          <td>{orderlist.orderId}</td>
+                          <td>{orderlist.customerName}</td>
+                          <td>{orderlist.orderItems}</td>
+                          <td>{orderlist.orderDate}</td>
+                          <td>${orderlist.totalPrice}</td>
+                          <td>{orderlist.orderType}</td>
+                          <td>
+                            <IoPrintSharp className="delete_icon" onClick={() => handlePrintReceipt(orderlist.orderId)} />
+                          </td>
+                      </tr>
+                  ))
+                  ) : (
+                    <tr>
+                      <td colSpan="9" style={{ fontSize: "17px", color: "#bb521f", backgroundColor: "#ffe5d7", textAlign: "center" }}>No completed orders to retrieve for this day!!!</td>
+                    </tr>
+                  )
+                }
               </tbody>
             </table>
           </div>
         </div>
       </div>
+
+      <div style={{ display: "none" }}>
+        <Receipt
+          ref={receiptRef}
+          cartItems={cartItems}
+          selectedTotalAmount={selectedTotalAmount}
+          selectedOrderType={selectedOrderType}  
+          customerName={selectedCustomerName}
+        />
+      </div>      
     </main>
   );
 };

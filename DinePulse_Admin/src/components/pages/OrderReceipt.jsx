@@ -1,17 +1,15 @@
-// Receipt.js
-
 import React from "react";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 
 const Receipt = React.forwardRef((props, ref) => {
-  const { cartItems, calculateTotalAmount, selectedTableName, staffName } =
+  const { cartItems, selectedTotalAmount, selectedOrderType, customerName } =
     props;
 
   const currentDate = new Date().toLocaleDateString();
   const currentTime = new Date().toLocaleTimeString();
 
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{padding:20}}>
       <div className="receipt-header">
         <img
           src={restaurant_logo}
@@ -25,10 +23,10 @@ const Receipt = React.forwardRef((props, ref) => {
       </div>
       <hr />
       <div className="receipt-details">
-        <p>Staff: {staffName}</p>
+        <p>Customer: {customerName}</p>
         <p>Date: {currentDate}</p>
         <p>Time: {currentTime}</p>
-        {selectedTableName && <p>Table: {selectedTableName}</p>}
+        <p>Order Type: {selectedOrderType}</p>
       </div>
       <hr />
       <h3>Order Summary</h3>
@@ -43,18 +41,18 @@ const Receipt = React.forwardRef((props, ref) => {
         </thead>
         <tbody>
           {cartItems.map((item) => (
-            <tr key={item.item_id}>
-              <td>{item.item_name}</td>
-              <td>${item.item_price}</td>
-              <td>{item.count}</td>
-              <td>${item.total}</td>
+            <tr key={item.itemId}>
+              <td>{item.itemName}</td>
+              <td>${item.itemPrice}</td>
+              <td>{item.quantity}</td>
+              <td>${item.itemTotalPrice}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan="3">Total Amount</td>
-            <td>${calculateTotalAmount()}</td>
+            <td>${selectedTotalAmount}</td>
           </tr>
         </tfoot>
       </table>

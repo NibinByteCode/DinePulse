@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import "../css/AdminDashboardStyles.css";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
 import restaurant_logo from "../Assets/restaurant_logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs"; 
 
 export const AdminRegister = () => {
   const [regusername, setRegUsername] = useState("");
   const [regpassword, setRegPassword] = useState("");
   const [confirmpass, setConfirmPass] = useState("");
   const [regstafftype, setStaffType] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const [regerrors, setRegErrors] = useState({
     regusername: "",
     regpassword: "",
@@ -111,27 +114,43 @@ export const AdminRegister = () => {
                 <span className="error">{regerrors.regusername}</span>
               )}
               <div className="inputitems">
-                <input
-                  type="password"
+                <input type={showPassword ? "text" : "password"} 
                   placeholder="New Password"
-                  id="staffnew_password"
                   value={regpassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                 />
-                <FaLock className="icons" />
+                {showPassword ? (
+                  <BsFillEyeFill
+                    className="icons"
+                    onClick={() => setShowPassword(false)} 
+                  />
+                ) : (
+                  <BsFillEyeSlashFill
+                    className="icons"
+                    onClick={() => setShowPassword(true)} 
+                  />
+                )}
               </div>
               {regerrors.regpassword && (
                 <span className="error">{regerrors.regpassword}</span>
               )}
               <div className="inputitems">
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  id="staffconfirm_password"
+                <input type={showPassword ? "text" : "password"} 
+                  placeholder="Confirm password"
                   value={confirmpass}
                   onChange={(e) => setConfirmPass(e.target.value)}
                 />
-                <FaLock className="icons" />
+                {showPassword ? (
+                  <BsFillEyeFill
+                    className="icons"
+                    onClick={() => setShowPassword(false)} 
+                  />
+                ) : (
+                  <BsFillEyeSlashFill
+                    className="icons"
+                    onClick={() => setShowPassword(true)} 
+                  />
+                )}               
               </div>
               {regerrors.confirmpass && (
                 <span className="error">{regerrors.confirmpass}</span>
