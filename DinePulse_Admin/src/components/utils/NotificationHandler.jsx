@@ -21,7 +21,7 @@ const NotificationProvider = ({ children }) => {
       Notify("New Table Reservation Request Received!!!");
     });
 
-    newConnection.on("OrderReceived", (order) => {
+    newConnection.on("CustomerOrderPlaced", (order) => {
       Notify("New Order Received!!!");
     });
     newConnection.on("UserMessageReceived", (message) => {
