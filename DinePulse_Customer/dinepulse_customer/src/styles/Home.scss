@@ -18,6 +18,7 @@
         .intro-text {
             h1 {
                 font-size: clamp(1.375rem, 1.1848rem + 0.8696vw, 2rem);
+                text-align: left;
             }
 
             p {
@@ -30,7 +31,6 @@
 
     .buttons {
         display: flex;
-        //justify-content: flex-end;
         justify-content: center;
         gap: 20px;
 
@@ -51,7 +51,6 @@
         }
     }
 
-    /* promotional contents */
     .promotional-dishes {
         background-color: orange;
         padding: 20px;
@@ -75,40 +74,46 @@
             text-transform: uppercase;
         }
 
-        .promotional-container {
-            display: flex;
-            justify-content: space-between;
-            // flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .promotional-dish {
-            text-align: center;
+        .slider {
+            overflow: hidden;
+            width: 100%;
+            margin: 0 auto;
             position: relative;
-            border: 1px solid #ffd700;
-            padding: 20px 10px;
-            border-radius: 10px;
-            width: calc(33.33% - 10px);
-            background-color: #fff;
 
-            img {
-                object-fit: cover;
-                max-height: 180px;
-                width: 100%;
+            .slider-track {
+                display: flex;
+                animation: scroll 20s linear infinite;
+                gap: 15px;
+            }
+
+            .promotional-dish {
+                flex: 0 0 40%;
+                box-sizing: border-box;
+                padding: 10px;
+                transition: transform 0.5s;
+                background-color: #fff;
                 border-radius: 10px;
-                box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
-            }
 
-            h2 {
-                color: #333;
-                font-size: 1.5rem;
-                margin-top: 10px;
-            }
+                img {
+                    object-fit: cover;
+                    max-height: 180px;
+                    width: 100%;
+                    border-radius: 10px;
+                    box-shadow: rgba(153, 177, 59, 0.24) 0 2px 2px, rgba(234, 245, 11, 0.4) 0 8px 12px;
+                }
 
-            p {
-                color: #555;
-                font-size: 1rem;
-                margin-top: 10px;
+                h2 {
+                    color: #333;
+                    font-size: 1.5rem;
+                    margin: 10px;
+                }
+
+                p {
+                    color: #555;
+                    font-size: 1rem;
+                    margin: 10px;
+                    text-align: center;
+                }
             }
 
             .promotion {
@@ -120,7 +125,7 @@
                 color: #ffffff;
                 width: 7.5rem;
                 height: 2.25rem;
-                background: #ff5e00;
+                background: #ff3131;
                 border-radius: 10px;
                 position: absolute;
                 right: 10px;
@@ -137,6 +142,16 @@
                 transform: rotate(0deg);
             }
         }
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
     }
 }
 
@@ -194,14 +209,10 @@
             padding: 10px;
         }
 
-        .promotional-container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .promotional-dish {
-            width: 100%;
-            height: auto;
+        .slider {
+            .promotional-dish {
+                flex: 0 0 100%;
+            }
         }
     }
 }

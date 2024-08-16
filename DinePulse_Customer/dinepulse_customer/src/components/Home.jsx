@@ -10,29 +10,29 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="intro-section">
+      <header className="intro-section">
         <div className="intro-text">
-          <h1>WELCOME TO DINEPULSE</h1>
+          <h1>Welcome to DinePulse</h1>
           <p>
-            WHERE EXCEPTIONAL CUISINE MEETS A DELIGHTFUL ATMOSPHERE. SITUATED IN
-            THE HEART OF KITCHENER, DINEPULSE IS NOT JUST A RESTAURANT; IT'S AN
-            EXPERIENCE DESIGNED TO EXCITE YOUR TASTE BUDS AND RELAX YOUR SOUL.
-            OUR DEDICATION TO FOOD GOES BEYOND THE KITCHEN, WITH EACH DISH
-            METICULOUSLY PREPARED USING FRESH, LOCALLY-SOURCED INGREDIENTS.
+            Where exceptional cuisine meets a delightful atmosphere. Situated in
+            the heart of Kitchener, DinePulse is not just a restaurant; it's an
+            experience designed to excite your taste buds and relax your soul.
+            Our dedication to food goes beyond the kitchen, with each dish
+            meticulously prepared using fresh, locally-sourced ingredients.
           </p>
           <p>
-            AT DINEPULSE, WE BELIEVE IN THE POWER OF FLAVORS TO CREATE LASTING
-            MEMORIES. FROM OUR SIGNATURE DISHES INSPIRED BY INTERNATIONAL
-            CUISINES TO OUR CHEF'S SPECIALS CRAFTED WITH CREATIVITY AND PASSION,
-            EVERY BITE OFFERS A JOURNEY OF CULINARY DELIGHT. WHETHER YOU’RE A
-            FOOD ENTHUSIAST SEEKING NEW ADVENTURES OR A CASUAL DINER LOOKING FOR
-            A COMFORTING MEAL, OUR DIVERSE MENU HAS SOMETHING TO PLEASE EVERY
-            PALATE.
+            At DinePulse, we believe in the power of flavors to create lasting
+            memories. From our signature dishes inspired by international
+            cuisines to our chef's specials crafted with creativity and passion,
+            every bite offers a journey of culinary delight. Whether you’re a
+            food enthusiast seeking new adventures or a casual diner looking for
+            a comforting meal, our diverse menu has something to please every
+            palate.
           </p>
           <p>
-            JOIN US AT DINEPULSE AND EMBARK ON A UNIQUE GASTRONOMIC JOURNEY. LET
-            US PROVIDE YOU WITH AN UNFORGETTABLE DINING EXPERIENCE THAT WILL
-            HAVE YOU COMING BACK FOR MORE.
+            Join us at DinePulse and embark on a unique gastronomic journey. Let
+            us provide you with an unforgettable dining experience that will
+            have you coming back for more.
           </p>
         </div>
         <div className="buttons">
@@ -40,51 +40,98 @@ const Home = () => {
             onClick={() => navigate("/reserve")}
             aria-label="Reserve a table"
           >
-            RESERVE A TABLE TODAY!!!
+            Reserve a Table Today
           </button>
         </div>
-      </div>
-      <br/>
+      </header>
+      <br />
 
-      {/*promotional contents*/}
+      {/* Promotional Content */}
       <div className="promotional-dishes">
-          <h1>Our Special Dishes</h1>
-          <p className="promotional-dishes-subheading">
-              Savor the artistry of flavors with our curated selection of culinary masterpieces...
-          </p>
-          <br />
-          <div className="promotional-container">
-              <div className="promotional-dish">
-                  <div className="promotion">
-                      <span>Special</span>
-                  </div>
-                  <img src={promoimage1} alt="Karari Roomali" /><br />
-                  <h2>Karari Roomali</h2>
-                  <p>Karari Roomali is a popular Indian appetizer. Thin, crispy bread served folded, stuffed, or plain, 
-                      often accompanied by chutneys. Delightfully satisfying street food with diverse fillings and 
-                      flavors.
-                  </p>
+        <h1>Our Special Dishes</h1>
+        <p className="promotional-dishes-subheading">
+          Savor the artistry of flavors with our curated selection of culinary
+          masterpieces...
+        </p>
+        <br />
+        <div className="slider">
+          <div className="slider-track">
+            <div className="promotional-dish">
+              <div className="promotion">
+                <span>Special</span>
               </div>
-              <div className="promotional-dish">
-                  <div className="promotion">
-                      <span>Exclusive</span>
-                  </div> 
-                  <img src={promoimage2} alt="Rainbow Smoothie" /><br />
-                  <h2>Rainbow Smoothie</h2>
-                  <p>Indulge in a vibrant rainbow smoothie with layers of antioxidant-rich fruits and creamy Greek yogurt, 
-                      each adding a burst of color and flavor to this delightful treat!
-                  </p>
+              <img src={promoimage1} alt="Karari Roomali" />
+              <h2>Karari Roomali</h2>
+              <p>
+                Karari Roomali is a popular Indian appetizer. Thin, crispy bread
+                served folded, stuffed, or plain, often accompanied by
+                chutneys. Delightfully satisfying street food with diverse
+                fillings and flavors.
+              </p>
+            </div>
+            <div className="promotional-dish">
+              <div className="promotion">
+                <span>Exclusive</span>
               </div>
+              <img src={promoimage2} alt="Rainbow Smoothie" />
+              <h2>Rainbow Smoothie</h2>
+              <p>
+                Indulge in a vibrant rainbow smoothie with layers of
+                antioxidant-rich fruits and creamy Greek yogurt, each adding a
+                burst of color and flavor to this delightful treat!
+              </p>
+            </div>
 
-              <div className="promotional-dish">
-                  <img src={promoimage3} alt="Shrimp Linguini" /><br />
-                  <h2>Shrimp Linguini</h2>
-                  <p>Plump, succulent shrimp intertwine with al dente pasta, enveloped in a vibrant garlic cream sauce, 
-                    creating a satisfying and effortlessly elegant dinner experience reminiscent of classic Italian culinary traditions.
-                  </p>
+            <div className="promotional-dish">
+              <img src={promoimage3} alt="Shrimp Linguini" />
+              <h2>Shrimp Linguini</h2>
+              <p>
+                Plump, succulent shrimp intertwine with al dente pasta,
+                enveloped in a vibrant garlic cream sauce, creating a satisfying
+                and effortlessly elegant dinner experience reminiscent of
+                classic Italian culinary traditions.
+              </p>
+            </div>
+
+            <div className="promotional-dish">
+              <div className="promotion">
+                <span>Special</span>
               </div>
+              <img src={promoimage1} alt="Karari Roomali" />
+              <h2>Karari Roomali</h2>
+              <p>
+                Karari Roomali is a popular Indian appetizer. Thin, crispy bread
+                served folded, stuffed, or plain, often accompanied by
+                chutneys. Delightfully satisfying street food with diverse
+                fillings and flavors.
+              </p>
+            </div>
+            <div className="promotional-dish">
+              <div className="promotion">
+                <span>Exclusive</span>
+              </div>
+              <img src={promoimage2} alt="Rainbow Smoothie" />
+              <h2>Rainbow Smoothie</h2>
+              <p>
+                Indulge in a vibrant rainbow smoothie with layers of
+                antioxidant-rich fruits and creamy Greek yogurt, each adding a
+                burst of color and flavor to this delightful treat!
+              </p>
+            </div>
+
+            <div className="promotional-dish">
+              <img src={promoimage3} alt="Shrimp Linguini" />
+              <h2>Shrimp Linguini</h2>
+              <p>
+                Plump, succulent shrimp intertwine with al dente pasta,
+                enveloped in a vibrant garlic cream sauce, creating a satisfying
+                and effortlessly elegant dinner experience reminiscent of
+                classic Italian culinary traditions.
+              </p>
+            </div>
           </div>
-      </div> 
+        </div>
+      </div>
     </div>
   );
 };
