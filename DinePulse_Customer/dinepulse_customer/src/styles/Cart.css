@@ -33,6 +33,10 @@
   color: #555555;
   font-size: 14px;
 }
+.cart .cart-container .order-container table th span,
+.cart .cart-container .order-container table td span {
+  margin: 0 5px;
+}
 .cart .cart-container .order-container table th {
   color: #bb521f;
   font-weight: bolder;
@@ -103,6 +107,7 @@
   background-color: #bb521f;
   color: #eee;
   font-weight: bolder;
+  padding: 8px;
 }
 
 .emptycart h4 {

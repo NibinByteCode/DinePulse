@@ -66,6 +66,7 @@ const Login = () => {
         .then((response) => {
           const user = response.data;
           login(user);
+          localStorage.setItem('customerName', response.data.displayName);
           localStorage.setItem('customerID', response.data.userID);
           navigate("/menu");
         })

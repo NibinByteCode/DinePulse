@@ -32,8 +32,9 @@
                     text-align: left;
                     color: #555555;
                     font-size: 14px;
-
-
+                    span{
+                        margin: 0 5px;
+                    }
                 }
 
                 th {
@@ -119,6 +120,7 @@
     background-color: #bb521f;
     color: #eee;
     font-weight: bolder;
+    padding: 8px;
 }
 
 .emptycart h4 {

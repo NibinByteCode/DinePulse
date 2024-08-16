@@ -985,6 +985,7 @@ body {
   overflow: hidden;
   margin-bottom: 20px;
   display: flex;
+  justify-content: center;
   gap: 100px;
 }
 
@@ -1431,12 +1432,25 @@ body {
   display: flex;
 }
 
+.setinputbox input{
+width: 100%;
+    max-width: 600px;
+    padding: 5px;
+    border: 2px solid #bb521f;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #bb521f;
+    font-family: "Roboto Slab", serif;
+}
+
 .setting_button {
-  border: 1px solid #bb521f;
-  background-color: #bb521f;
-  border-radius: 4px;
+  border: none;
+  /* background-color: #bb521f; */
+  background-image: linear-gradient(144deg, #ff3131, #ff914d);
+  border-radius: 10px;
   padding: 10px 15px;
   color: #fff;
+  margin-top: 20px;
 }
 
 .label_name {
@@ -1449,10 +1463,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1001;
+      background: white;
+    padding: 20px;
+    border: 5px solid brown;
+    border-radius: 8px;
+    width: 50%;
+
 }
 
 .settings-popup-content {
@@ -1496,6 +1513,8 @@ body {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
+  translate: none;
+  margin: 0 auto;
 }
 
 .setting-close {
@@ -1505,6 +1524,9 @@ body {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #bb521f;
 }
 
 .overlay {
@@ -1590,11 +1612,6 @@ body {
 }
 
 .product {
-  /*margin-right: 20px;
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 200px;
-  box-sizing: border-box;*/
   padding: 10px;
   width: calc(25% - 10px);
   box-sizing: border-box;
@@ -1624,16 +1641,13 @@ body {
 .cartButton {
   font-family: "Roboto Slab", serif;
   font-size: 14px;
-  /*margin-top: 0px;*/
   margin-top: 15px;
   background-color: #bb521f;
-  /*padding: 4px 10px;*/
   padding: 5px 15px;
   border: none;
   color: white;
   border-radius: 5px;
   border: 1px solid transparent;
-  /*height: 26px;*/
 }
 
 .cartButton:hover {
@@ -1655,53 +1669,10 @@ body {
 }
 
 .img-container img {
-  /*width: 150px;
-  height: 150px;
-  border: 1px solid #000;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 40px;*/
   width: 100%;
   height: 100%;
   transition: transform 0.3s ease;
 }
-
-/* overlay description  */
-/*.img-container .overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0px;
-  right: 0;
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  background-color: #ffd700;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-  border: 1px solid #000;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 40px;
-}
-
-.img-container .overlay p {
-  color: #bb521f;
-  text-shadow: 2px 2px 5px #eee;
-  font-weight: bolder;
-  padding: 0 10px;
-  font-size: 18px;
-  word-spacing: 2px;
-}
-
-.img-container:hover .overlay {
-  opacity: 1;
-  cursor: pointer;
-}
-*/
 
 .item:hover .img-container img {
   transform: scale(1.1);
@@ -1710,11 +1681,8 @@ body {
 
 /* Cart */
 .cart {
-  /*width: 200px;*/
   padding: 20px;
   background-color: #f4f4f4;
-  /*border: 2px solid green;
-  border-radius: 10px;*/
   color: #000;
 }
 
@@ -1859,17 +1827,6 @@ table {
 /* Take orders contents css ends === */
 
 /* TAKEORDERS onhold popup starts*/
-
-/*
-.onhold-close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}*/
 .onHoldmodal {
   background: white;
   padding: 20px;
@@ -1913,7 +1870,6 @@ table {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   background-image: linear-gradient(144deg, #ff3131, #ff914d);
-  /*width: calc(33.33% - 20px);*/
   width: 200px;
 }
 
@@ -1932,3 +1888,103 @@ table {
 }
 
 /* TAKEORDERS Dine-In popup ends*/
+
+/* Reports Screen CSS Starts */
+#monthDate, #dayDate {
+  max-width: 200px;
+  padding: 5px;
+  border: 2px solid #bb521f;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #bb521f;
+  font-family: "Roboto Slab", serif;
+}
+
+.daywise-grand-total, .monthwise-grand-total {
+  color: #bb521f;
+}
+/* Reports Screen CSS ends */
+/* Invoice Screen css starts */
+.receipt-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.receipt-header .restaurant-logo {
+  width: 150px; 
+  height: auto;
+}
+
+.receipt-header h2 {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.receipt-header p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.receipt-invoice hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+.receipt-details {
+  margin-bottom: 20px;
+}
+
+.receipt-details p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.receipt-invoice table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.receipt-invoice table th,
+.receipt-invoice table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.receipt-invoice table th {
+  background-color: #f4f4f4;
+}
+
+.receipt-invoice table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.receipt-invoice table tfoot tr {
+  font-weight: bold;
+}
+
+.receipt-invoice tfoot td {
+  padding-top: 10px;
+  text-align: right;
+}
+
+.receipt-invoice tfoot td[colSpan="3"] {
+  text-align: left;
+}
+
+.receipt-invoice h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.receipt-invoice p {
+  margin: 0;
+}
+
+.receipt-invoice div {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+/* Invoice Screen css ends */

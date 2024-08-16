@@ -11,7 +11,7 @@ export const AuthenticationProvider = ({ children }) => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         setIsLoggedIn(true);
-        setUserName(user.name);
+        setUserName(user.displayName);
       }
     };
 

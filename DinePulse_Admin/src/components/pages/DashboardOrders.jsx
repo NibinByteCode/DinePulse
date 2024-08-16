@@ -94,7 +94,7 @@ export const DashboardOrders = () => {
                 <th>Order ID</th>
                 <th>Name</th>
                 <th>Orders</th>
-                <th>QuantityOrder Date</th>
+                <th>Quantity</th>
                 <th>Order Date</th>
                 <th>Total</th>
                 <th>Status</th>

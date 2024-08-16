@@ -101,7 +101,7 @@ const Menu = () => {
           <h1>Explore Drinks and Food Options</h1>
           <div className='filter-col'>
             <div className="menuContents">
-              <label className="label">Filter by Category:</label>
+              <label className="label">Filter by Category:</label>&nbsp;&nbsp;&nbsp;
               <select name="category" id="category" className="textContent" onChange={handleCategoryChange} value={selectedCategoryId}>
                 {getCategoryList.map((category) => (
                   <option key={category.categoryId} value={category.categoryId}>
@@ -109,9 +109,6 @@ const Menu = () => {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="cart-icon">
-              <FaShoppingCart size={24} onClick={() => openCartScreen()} />
             </div>
           </div>
           <main>

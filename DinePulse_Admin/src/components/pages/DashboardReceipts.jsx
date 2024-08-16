@@ -21,7 +21,7 @@ export const DashboardReceipts = () => {
   }, []);
 
   const fetchDetailsByOrderStatus = async () => {
-    const API_URL = `${process.env.REACT_APP_API_URL}Order/GetRecentOrdersByFilter?statusid=1`;
+    const API_URL = `${process.env.REACT_APP_API_URL}Order/GetRecentOrdersByFilter?statusid=2`;
     try {
       const response = await axios.get(API_URL);
       const parsedData = JSON.parse(response.data.data);
@@ -40,8 +40,6 @@ export const DashboardReceipts = () => {
   });
 
   const handlePrintReceipt = async(orderId) => {
-    alert("orderId : "+orderId)
-
     const API_URL = `${process.env.REACT_APP_API_URL}Order/GetOrderById?orderid=${orderId}`;
     try {
       const response = await axios.get(API_URL);

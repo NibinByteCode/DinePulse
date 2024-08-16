@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthenticationHandler";
 export const AdminHeader = ({ showHeaderLeft }) => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout,userName  } = useAuth();
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -46,7 +46,7 @@ export const AdminHeader = ({ showHeaderLeft }) => {
       <div className="header-right">
         <BsPersonCircle className="profile_icon" />
         <b>
-          <span className="profile_text">STAFF NAME</span>
+          <span className="profile_text">{userName}</span>
         </b>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <FaSignOutAlt className="icon_logout" onClick={handleLogout} />

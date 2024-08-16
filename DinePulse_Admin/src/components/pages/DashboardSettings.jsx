@@ -79,9 +79,6 @@ export const DashboardSettings = () => {
         <h3>SETTINGS</h3>
       </div>
       <div className="section_settings">
-        <button className="setting_button" onClick={handleEditClick}>
-          UPDATE
-        </button>
         <div className="formbox settings">
           <form action="">
             <br />
@@ -91,81 +88,34 @@ export const DashboardSettings = () => {
             </div>
             <div className="setinputbox">
               <label className="label_name">Shop Name: </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="shopName"
-                  value={tempDetails.shopName}
-                  onChange={handleChange}
-                />
-              ) : (
-                <label>{shopDetails.shopName}</label>
-              )}
+              <label>{shopDetails.shopName}</label>
             </div>
             <div className="setinputbox">
               <label className="label_name">Email: </label>
-              {isEditing ? (
-                <input
-                  type="email"
-                  name="shopEmail"
-                  value={tempDetails.shopEmail}
-                  onChange={handleChange}
-                />
-              ) : (
-                <label>{shopDetails.shopEmail}</label>
-              )}
+              <label>{shopDetails.shopEmail}</label>
             </div>
             <div className="setinputbox">
               <label className="label_name">Phone Number: </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="shopPhoneNumber"
-                  value={tempDetails.shopPhoneNumber}
-                  onChange={handleChange}
-                />
-              ) : (
-                <label>{shopDetails.shopPhoneNumber}</label>
-              )}
+              <label>{shopDetails.shopPhoneNumber}</label>
             </div>
             <div className="setinputbox">
               <label className="label_name">Address: </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="shopAddress"
-                  value={tempDetails.shopAddress}
-                  onChange={handleChange}
-                />
-              ) : (
-                <label>{shopDetails.shopAddress}</label>
-              )}
+              <label>{shopDetails.shopAddress}</label>
             </div>
             <div className="setinputbox">
               <label className="label_name">Tax Rate: </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="taxRate"
-                  value={tempDetails.taxRate}
-                  onChange={handleChange}
-                />
-              ) : (
-                <label>{shopDetails.taxRate}</label>
-              )}
+              <label>{shopDetails.taxRate}</label>
             </div>
-            {isEditing && (
-              <button type="button" onClick={handleSaveClick}>
-                Save
-              </button>
-            )}
           </form>
         </div>
+        <button className="setting_button" onClick={handleEditClick}>
+          UPDATE
+        </button>
       </div>
 
       {isEditing && (
         <>
-          <div className="overlay" onClick={handleOverlayClick}></div>
+          <div className="overlay dark-overlay" onClick={handleOverlayClick}></div>
           <div className="edit-popup">
             <div className="setting-close" onClick={handleClosePopup}>
               ✖

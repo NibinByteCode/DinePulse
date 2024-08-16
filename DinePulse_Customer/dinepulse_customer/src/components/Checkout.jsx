@@ -75,8 +75,8 @@ const Checkout = () => {
         e.preventDefault();
         setFormSubmitted(true);
         if (validatePersonalInfo()) {
-            //setShowCardDetails(true);
-            const totalAmountToPay = localStorage.getItem('totalPayable');
+            setShowCardDetails(true);
+            {/*const totalAmountToPay = localStorage.getItem('totalPayable');
             const orderslist = localStorage.getItem('cartItems');
             const customerID = localStorage.getItem('customerID');
 
@@ -114,15 +114,14 @@ const Checkout = () => {
                 if (response.status === 200) {
                     alert("Order placed successfully.");
                     navigate('/ordersuccess');
-                  //setCartItems([]);
-                  //handlePrint();
+                    setCartItems([]);
                 } else {
                   alert("Failed to save orders.");
                 }
               } catch (error) {
                 console.error("Error saving orders", error);
                 alert("An error occurred while processing your request.");
-              }
+              }*/}
         }
     };
 
@@ -132,7 +131,7 @@ const Checkout = () => {
         if (validatePersonalInfo() && validateCardInfo()) {
             // Handle form submission
             //alert('Form submitted successfully!');
-            //navigate('/ordersuccess');
+            navigate('/ordersuccess');
             //alert('payment info submitted successfully!!!');
             /*
             let data = JSON.stringify({

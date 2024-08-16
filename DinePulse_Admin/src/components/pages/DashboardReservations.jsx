@@ -144,14 +144,6 @@ export const DashboardReservations = () => {
       formData.append("userId", selectedReservation.user_id);
     }
 
-    /*console.log("reservation noofGuests ==> "+noofGuests);
-    console.log("reservation reservationEmail ==> "+reservationEmail);
-    console.log("reservation reservationPhone ==> "+reservationPhone);
-    console.log("reservation reservationDate ==> "+reservationDate);
-    console.log("reservation reservationTime ==> "+reservationTime);
-    console.log("reservation reservationSuggestions ==> "+reservationSuggestions);*/
-    //console.log("reservation userId ==> "+selectedReservation.user_id);
-
     try {
       const url = selectedReservation
         ? `${process.env.REACT_APP_API_URL}Login/EditUser`

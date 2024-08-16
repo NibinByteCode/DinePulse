@@ -10,7 +10,7 @@ import { useAuth } from "./AuthenticationHandler";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { logout,isLoggedIn } = useAuth();
+  const { logout,isLoggedIn,userName } = useAuth();
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userID, setUserID] = useState(null);
@@ -23,6 +23,8 @@ const Header = () => {
     logout();
     navigate("/");
   };
+
+  const loginname = localStorage.getItem('customerName');
 
   return (
     <header className="header">
@@ -58,7 +60,7 @@ const Header = () => {
           <li>
             <BsPersonCircle className="profile_icon" />
             <b>
-              <span className="profile_text">STAFF NAME</span>
+              <span className="profile_text">{userName}</span>
             </b>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <FaSignOutAlt className="icon_logout" onClick={handleLogout} />
@@ -111,7 +113,7 @@ const Header = () => {
             <li>
             <BsPersonCircle className="profile_icon" />
             <b>
-              <span className="profile_text">STAFF NAME</span>
+              <span className="profile_text">{userName}</span>
             </b>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <FaSignOutAlt className="icon_logout" onClick={handleLogout} />
