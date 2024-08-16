@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/cart_item.dart';
 import '../services/cart_service.dart';
 import '../widgets/custom_app_bar.dart';
+import '../models/global_state.dart' as global_state;
 
 class CartPage extends StatefulWidget {
   @override
@@ -44,13 +45,12 @@ class _CartPageState extends State<CartPage> {
       }).toList();
 
       final body = {
-        "customerId": 4,
-        "tableId": 15,
-        "orderTypeId": 1,
+        "customerId": global_state.selectedTable != null ? 4 : 3,
+        "tableId": global_state.selectedTable != null ? 15 : 16,
+        "orderTypeId": global_state.selectedTable != null ? 1 : 2,
         "statusId": 1,
         "orderDetails": orderDetails,
       };
-
       final result = await submitOrder(body);
 
       if (result == "Order added successfully") {

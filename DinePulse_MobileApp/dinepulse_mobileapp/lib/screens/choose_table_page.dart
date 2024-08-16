@@ -2,6 +2,7 @@ import 'package:dinepulse_mobileapp/models/global_state.dart';
 import 'package:dinepulse_mobileapp/screens/popups/customer_count_popup.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
+import '../models/global_state.dart' as global_state;
 
 class ChooseTablePage extends StatelessWidget {
   @override
@@ -28,6 +29,7 @@ class ChooseTablePage extends StatelessWidget {
           itemCount: 12,
           itemBuilder: (context, index) {
             bool isSelectedTable = selectedTable == index + 1;
+            global_state.selectedTable = index + 1;
             return GestureDetector(
               onTap: () {
                 if (isSelectedTable) {
