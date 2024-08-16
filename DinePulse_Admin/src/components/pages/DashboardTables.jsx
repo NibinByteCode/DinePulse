@@ -185,9 +185,6 @@ export const DashboardTables = () => {
     if (!deviceUserID.trim()) {
       deviceerrors.deviceUserID = "User ID is required.";
     }
-    /*if (!deviceStatus.trim()) {
-      deviceerrors.deviceStatus = "Device Status is required.";
-    }*/
     return deviceerrors;
   };
 
@@ -205,10 +202,6 @@ export const DashboardTables = () => {
     formData.append("tableNumber", parseInt(tableNumber));
     formData.append("tableCapacity", parseInt(tableCapacity));
     formData.append("tableStatus", tableStatus);
-    
-    console.log("TABLE number ==> "+tableNumber);
-    console.log("TABLE capacity ==> "+tableCapacity);
-    console.log("TABLE status ==> "+tableStatus);
 
     if (selectedTable) {
       formData.append("tableId", selectedTable.table_id);
@@ -220,8 +213,6 @@ export const DashboardTables = () => {
         : `${process.env.REACT_APP_API_URL}Table/AddTable`;
 
       const method = selectedTable ? "put" : "post";
-
-      console.log("formdata : " + JSON.stringify(formData));
 
       const response = await axios({
         method,
@@ -269,17 +260,6 @@ export const DashboardTables = () => {
     formData.append("devicePassword", devicePassword);
     formData.append("deviceToken", deviceToken);
     formData.append("userId", deviceUserID);
-    /*formData.append("device.userId", deviceStatus);*/
-
-    console.log("device id ==> "+deviceImei);
-    console.log("device name ==> "+deviceUserName);
-    console.log("device pass ==> "+devicePassword);
-    console.log("device token ==> "+deviceToken);
-    console.log("device user id ==> "+deviceUserID);
-
-    /*if (selectedDevice) {
-      formData.append("deviceId", selectedDevice.device_id);
-    }*/
 
     try {
       const url = selectedDevice
@@ -322,7 +302,6 @@ export const DashboardTables = () => {
 
   //function to handle editing a table item
   const handleEditTableItem = (tableItem) => {
-    alert("edit table : "+tableItem.table_id)
     setSelectedTable(tableItem);
     setTableNumber(tableItem.table_number);
     setTableCapacity(tableItem.table_capacity);
@@ -333,7 +312,6 @@ export const DashboardTables = () => {
 
   //function to handle editing a device item
   const handleEditDevice = (deviceItem) => {
-    alert("edit device : "+deviceItem.device_id)
     setSelectedDevice(deviceItem);
     setDeviceImei(deviceItem.device_id);
     setDeviceUserName(deviceItem.device_username);
@@ -394,7 +372,6 @@ export const DashboardTables = () => {
         `${process.env.REACT_APP_API_URL}Table/DeleteTable/${tableId}`
       );
       if (response.status === 200) {
-        //setMessage("Table deleted successfully.");
         alert("Table deleted successfully.");
         setTableList(
           getTableList.filter(
@@ -402,6 +379,7 @@ export const DashboardTables = () => {
           )
         );
         setIsDeleteTableModalOpen(false);
+        fetchTables();
       } else {
         setMessage("Failed to delete Table.");
       }
