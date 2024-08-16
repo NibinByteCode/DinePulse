@@ -222,7 +222,7 @@ export const DashboardEmployees = () => {
     console.log("delete id : " + employeeId);
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}Login/DeleteUser/${employeeId}`
+        `${process.env.REACT_APP_API_URL}Login/DeleteUser?userId=${employeeId}`
       );
       if (response.status === 200) {
         setMessage("Employee deleted successfully.");
