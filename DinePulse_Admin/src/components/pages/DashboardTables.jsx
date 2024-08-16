@@ -504,7 +504,7 @@ export const DashboardTables = () => {
                       <td>
                         <FaEdit className="editdevice_icon" onClick={() => handleEditDevice(devicelist)}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <RiDeleteBin5Fill className="deletedevice_icon" onClick={() => handleDeleteDevice(devicelist.item_id)}/>
+                        <RiDeleteBin5Fill className="deletedevice_icon" onClick={() => handleDeleteDevice(devicelist.device_id)}/>
                       </td>
                     </tr>
                   ))
