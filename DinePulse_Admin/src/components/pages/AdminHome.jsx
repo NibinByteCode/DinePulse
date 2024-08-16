@@ -26,7 +26,7 @@ export const AdminHome = () => {
       errors.username = "Username cannot be empty!!!";
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=])[A-Za-z\d@#$%^&+=]{8,}$/;
+    const passwordRegex = /^[A-Za-z\d]{8,}$/;
     if (!password.match(passwordRegex)) {
       formIsValid = false;
       errors.password = "Password must be at least 8 characters long!!";

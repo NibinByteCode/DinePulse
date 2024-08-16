@@ -40,8 +40,6 @@ export const DashboardReceipts = () => {
   });
 
   const handlePrintReceipt = async(orderId) => {
-    alert("orderId : "+orderId)
-
     const API_URL = `${process.env.REACT_APP_API_URL}Order/GetOrderById?orderid=${orderId}`;
     try {
       const response = await axios.get(API_URL);
