@@ -32,18 +32,10 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
-  // void _confirmOrder() {
-  //   if (cartService.itemCount == 0) {
-  //     showEmptyCartDialog(context);
-  //   } else {
-  //     Navigator.pushNamed(context, '/checkout');
-  //   }
-  // }
   void _confirmOrder() async {
     if (cartService.itemCount == 0) {
       showEmptyCartDialog(context);
     } else {
-      // Call the _submitOrder method and await its result
       final orderDetails = cartService.items.map((item) {
         return {
           "itemId": item.id,
@@ -51,23 +43,23 @@ class _CartPageState extends State<CartPage> {
         };
       }).toList();
 
-      final body = json.encode({
+      final body = {
         "customerId": 4,
         "tableId": 15,
         "orderTypeId": 1,
         "statusId": 1,
         "orderDetails": orderDetails,
-      });
+      };
+
       final result = await submitOrder(body);
 
-      // Check the result and navigate accordingly
       if (result == "Order added successfully") {
-        cartService.clearCart();
-        // Navigate to the order confirmation page and clear the navigation stack
+        setState(() {
+          cartService.clearCart();
+        });
         Navigator.of(context)
             .pushNamedAndRemoveUntil('/checkout', (route) => false);
       } else {
-        // Display an error message if the order was not successful
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result)),
         );

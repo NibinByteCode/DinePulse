@@ -1,29 +1,30 @@
-import 'dart:convert';
-import 'package:dinepulse_mobileapp/services/cart_service.dart';
+import 'dart:convert'; // Import for JSON encoding
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-Future<String> submitOrder(body) async {
+Future<String> submitOrder(Map<String, dynamic> body) async {
   final url = Uri.parse('${dotenv.env['APP_API']}/MobileOrder/CreateOrder');
   final headers = {"Content-Type": "application/json"};
 
-  // Prepare order details based on cart items
-
   try {
-    final response = await http.post(url, headers: headers, body: body);
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(body),
+    );
 
     if (response.statusCode == 200) {
-      final responseMessage =
-          response.body; // This is your plain string response
+      final responseMessage = response.body;
+
       if (responseMessage == "Order added successfully") {
-        return responseMessage; // Return success message
+        return responseMessage;
       } else {
-        return "Unexpected response: $responseMessage"; // Handle unexpected responses
+        return "Unexpected response: $responseMessage";
       }
     } else {
-      return "Failed to place order: ${response.statusCode}"; // Handle non-200 responses
+      return "Failed to place order: ${response.statusCode}";
     }
   } catch (e) {
-    return "An error occurred: $e"; // Handle exceptions
+    return "An error occurred: $e";
   }
 }

@@ -30,7 +30,7 @@ class CheckoutPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   cartService.clearCart();
-                  Navigator.pushNamed(context, '/choose_table');
+                  Navigator.pushNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
