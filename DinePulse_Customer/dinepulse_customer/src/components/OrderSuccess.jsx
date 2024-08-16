@@ -22,6 +22,7 @@ const OrderSuccess = () => {
 
   const showReceipt = () => {
     handlePrint();
+    localStorage.setItem('cartItems', JSON.stringify([]));
   };
 
   return (

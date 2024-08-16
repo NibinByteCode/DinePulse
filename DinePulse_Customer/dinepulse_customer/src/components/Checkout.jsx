@@ -76,12 +76,20 @@ const Checkout = () => {
         setFormSubmitted(true);
         if (validatePersonalInfo()) {
             setShowCardDetails(true);
-            {/*const totalAmountToPay = localStorage.getItem('totalPayable');
+        }
+    };
+
+    const handleSubmitCard = async(e) => {
+        e.preventDefault();
+        setFormSubmitted(true);
+        if (validatePersonalInfo() && validateCardInfo()) {
+            //insert order details to database
+            const totalAmountToPay = localStorage.getItem('totalPayable');
             const orderslist = localStorage.getItem('cartItems');
             const customerID = localStorage.getItem('customerID');
 
             try {
-                // Prepare the order data from cartItems
+                //prepare the order data from cartItems
                 const orderslistString = JSON.parse(orderslist);
 
                 const orderItems = orderslistString.map((item) => ({
@@ -91,7 +99,7 @@ const Checkout = () => {
             
                 //create the dataload for the order
                 const orderDetailsload = {
-                  tableId: 15,  //or need another no
+                  tableId: 15,  
                   customerId:customerID,
                   orderDetails: orderItems,
                   orderTypeId: 3,
@@ -113,86 +121,15 @@ const Checkout = () => {
             
                 if (response.status === 200) {
                     alert("Order placed successfully.");
+                    
                     navigate('/ordersuccess');
-                    setCartItems([]);
                 } else {
                   alert("Failed to save orders.");
                 }
               } catch (error) {
                 console.error("Error saving orders", error);
                 alert("An error occurred while processing your request.");
-              }*/}
-        }
-    };
-
-    const handleSubmitCard = (e) => {
-        e.preventDefault();
-        setFormSubmitted(true);
-        if (validatePersonalInfo() && validateCardInfo()) {
-            // Handle form submission
-            //alert('Form submitted successfully!');
-            navigate('/ordersuccess');
-            //alert('payment info submitted successfully!!!');
-            /*
-            let data = JSON.stringify({
-                userName: username,
-                userPassword: password,
-            });
-            const API_URL =
-                process.env.REACT_APP_API_URL + "CustomerLogin/LoginCustomer";
-            let config = {
-                method: "post",
-                maxBodyLength: Infinity,
-                url: API_URL,
-                headers: {
-                "Content-Type": "application/json",
-                },
-                data: data,
-            };
-
-            axios
-                .request(config)
-                .then((response) => {
-                //console.log(JSON.stringify(response.data));
-                //navigate("/ordersuccess");
-                })
-                .catch((error) => {
-                alert("Invalid Login Credentials!!!");
-                console.log(error);
-                });
-            }              
-            */
-           //localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-           //const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-           /*insert data to orders table 
-            const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            console.log("cart items : " , storedCartItems);
-
-            const data = {
-                customerId: regusername,
-                tableId: 0,
-                orderTypeId: 3,
-                statusId: 1,
-                orderDetails: regphone,
-                itemId: encryptPassword,
-                quantity: regphone,
-            };
-    
-            const API_URL =
-                process.env.REACT_APP_API_URL + "MobileOrder/CreateOrder";
-    
-            axios
-                .post(API_URL, data)
-                .then((response) => {
-                console.log("Response data:", response.data);
-                alert("inserted successfully!!!");
-                //navigate("/login");
-                })
-                .catch((error) => {
-                alert("error:", error.response.data);
-                console.log("Error:", error);
-                });
-            insert ends*/
+              }
         }
     };
 

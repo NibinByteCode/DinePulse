@@ -12,6 +12,7 @@
 }
 .checkout .checkout-container .form-sections .personal-details, .checkout .checkout-container .form-sections .card-details {
   width: 50%;
+  margin: 0 auto;
 }
 .checkout .checkout-container .form-sections .personal-details .personal-section, .checkout .checkout-container .form-sections .personal-details .card-section, .checkout .checkout-container .form-sections .card-details .personal-section, .checkout .checkout-container .form-sections .card-details .card-section {
   padding: 15px;
